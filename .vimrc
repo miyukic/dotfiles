@@ -21,8 +21,8 @@
 "filetype plugin indent on
 "syntax enable
 
+
 " vimplugin
-"
 call plug#begin()
 Plug 'tpope/vim-sensible'
 Plug 'prabirshrestha/vim-lsp'
@@ -32,6 +32,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim' "コード補完
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " 既にターミナルを開いているときの処理
