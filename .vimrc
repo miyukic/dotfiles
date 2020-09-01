@@ -117,6 +117,12 @@ set scrolloff=8
 " ファイル名表示
 set statusline=%F 
 
+" 行、列番号
+"set statusline=%f%m%=%3l,%3c
+
+" ステータスラインカスタマイズ
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+
 " 変更のチェック表示
 set statusline+=%m
 
