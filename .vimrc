@@ -25,10 +25,13 @@
 " vimplugin
 call plug#begin()
 Plug 'tpope/vim-sensible'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'Shougo/deoplete.nvim'
+Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim' "コード補完
@@ -91,17 +94,17 @@ nnoremap x "_x
 vnoremap x "_x
 
 "インサートモードで bash 風キーマップ
-inoremap <C-a> <C-o>^
-inoremap <C-e> <C-o>$<Right>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
-inoremap <C-h> <BS>
-inoremap <C-d> <Del>
-inoremap <C-k> <C-o>D<Right>
-inoremap <C-u> <C-o>d^
-inoremap <C-w> <C-o>db
+"inoremap <C-a> <C-o>^
+"inoremap <C-e> <C-o>$<Right>
+"inoremap <C-b> <Left>
+"inoremap <C-f> <Right>
+"inoremap <C-n> <Down>
+"inoremap <C-p> <Up>
+"inoremap <C-h> <BS>
+"inoremap <C-d> <Del>
+"inoremap <C-k> <C-o>D<Right>
+"inoremap <C-u> <C-o>d^
+"inoremap <C-w> <C-o>db
 
 "バッファの切り替えを<C-j> <C-k>で行う
 nnoremap <silent> <C-j> :bprev<CR>
@@ -126,7 +129,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%0
 " 変更のチェック表示
 set statusline+=%m
 
-" ステータスラインの表示 0:表示しない1:2つ以上ウィンドウがあるときのみ 2:常に表示
+" ステータスラインの表示 0:表示しない 1:2つ以上ウィンドウがあるときのみ 2:常に表示
 set laststatus=1
 
 " 内容が変更されたら自動リロード
@@ -175,7 +178,6 @@ colorscheme industry
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
-
 
 
 " コマンドラインの補完
