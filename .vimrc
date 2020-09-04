@@ -32,9 +32,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'Shougo/deoplete.nvim'
 Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim' "コード補完
+"Plug 'roxma/nvim-yarp'
+"Plug 'roxma/vim-hug-neovim-rpc'
+"Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'tpope/vim-surround'
 call plug#end()
 
@@ -92,6 +92,10 @@ set clipboard^=unnamedplus
 "x キー削除でデフォルトレジスタに入れない
 nnoremap x "_x
 vnoremap x "_x
+
+"折り返した行内を移動
+noremap j gj
+noremap k gk
 
 "インサートモードで bash 風キーマップ
 "inoremap <C-a> <C-o>^
