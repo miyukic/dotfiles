@@ -21,9 +21,11 @@
 "filetype plugin indent on
 "syntax enable
 
-
 " vimplugin
 call plug#begin()
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'tpope/vim-sensible'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -32,11 +34,11 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'Shougo/deoplete.nvim'
 Plug 'lighttiger2505/deoplete-vim-lsp'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-"Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'tpope/vim-surround'
 call plug#end()
+
+" 補完表示時のEnterで改行をしない
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 
 " 既にターミナルを開いているときの処理
 "function! TermOpen()
@@ -74,7 +76,7 @@ autocmd FileType python setlocal tabstop=4
 set t_Co=256~
 
 " True Color(24bit Color) サポート
-set termguicolors
+"set termguicolors
 
 " clipboardを有効にする
 set clipboard&
@@ -172,13 +174,13 @@ syntax on
 set cursorline
 
 " 256Color のときのカレント行の色設定
-"autocmd ColorScheme * hi CursorLine term=NONE ctermfg=NONE ctermbg=0
+autocmd ColorScheme * hi CursorLine term=NONE ctermfg=NONE "ctermbg=NONE
 "
 "24bitColorのときのカレント行の色設定
 autocmd ColorScheme * hi CursorLine term=NONE guifg=NONE guibg=NONE
 
 " カラースキーマ
-colorscheme industry
+colorscheme molokai
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
