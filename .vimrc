@@ -35,6 +35,9 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'Shougo/deoplete.nvim'
 Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'tpope/vim-surround'
+" ColorScheme
+Plug 'nanotech/jellybeans.vim'
+Plug 'tomasr/molokai'
 call plug#end()
 
 " 補完表示時のEnterで改行をしない
