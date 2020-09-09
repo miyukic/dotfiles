@@ -27,9 +27,8 @@ Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim'
 call plug#end()
 
-if has('nvim')
-""    let $VIMRUNTIME = "~/scoop/apps/neovim/current/bin"
-endif
+" vim の矩形選択で文字が無くても右へ進める
+set virtualedit=block
 
 " 補完表示時のEnterで改行をしない
 inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
@@ -120,7 +119,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " スクロール時に表示を指定行確保
-set scrolloff=8
+set scrolloff=6
 
 " ファイル名表示
 set statusline=%F 
@@ -129,7 +128,7 @@ set statusline=%F
 set statusline=%f%m%=%3l,%3c
 
 " ステータスラインカスタマイズ
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [LEN=%L]
 
 " 変更のチェック表示
 "set statusline+=%m
@@ -172,22 +171,36 @@ syntax on
 " 現在の行を強調表示
 set cursorline
 
-" 256Color のときのカレント行の色設定
-autocmd ColorScheme * hi CursorLine term=underline ctermfg=NONE "ctermbg=NONE
-
-"24bitColorのときのカレント行の色設定
-autocmd ColorScheme * hi CursorLine gui=underline guifg=NONE guibg=NONE
-
 " ayu color
 "yucolor="light"  " for light version of theme
 "let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
-"colorscheme ayu " カラースキーマ
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu " カラースキーマ
 
-colorscheme molokai " カラースキーマ
+" カラースキーマ
+"colorscheme molokai
 
-"文字コードをUFT-8に設定
-set fenc=utf-8
+if has('nvim')
+    " 256Color のときのカレント行の色設定
+    "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+    " 24bitColorのときのカレント行の色設定
+    autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
+elseif has('vim')
+    " 256Color のときのカレント行の色設定
+    "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+    " 24bitColorのときのカレント行の色設定
+    autocmd ColorScheme * hi CursorLine cterm=underline guifg=NONE guibg=NONE
+endif
+
+" ダーク系のカラースキームを使う
+set background=dark
+
+" 背景色設定
+hi Normal guibg=NONE
+hi LineNr guibg=NONE
+hi VertSplit guibg=NONE
+hi Special guibg=NONE
+hi Identifier guibg=NONE
 
 " コマンドラインの補完
 set wildmode=list:longest
@@ -198,8 +211,6 @@ set wildmode=list:longest
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
 
-" ダーク系のカラースキームを使う
-set background=dark
 
 " 検索時に最後まで行ったら最初に戻る
 set wrapscan
