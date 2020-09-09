@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 " ColorScheme
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasr/molokai'
+Plug 'ayu-theme/ayu-vim'
 call plug#end()
 
 if has('nvim')
@@ -71,7 +72,7 @@ autocmd FileType python setlocal tabstop=4
 set t_Co=256~
 
 " True Color(24bit Color) サポート
-"set termguicolors
+set termguicolors
 
 " clipboardを有効にする
 set clipboard&
@@ -174,8 +175,13 @@ autocmd ColorScheme * hi CursorLine term=NONE ctermfg=NONE "ctermbg=NONE
 "24bitColorのときのカレント行の色設定
 autocmd ColorScheme * hi CursorLine term=NONE guifg=NONE guibg=NONE
 
-" カラースキーマ
-colorscheme molokai
+" ayu color
+"yucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu " カラースキーマ
+
+colorscheme jellybeans " カラースキーマ
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
