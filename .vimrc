@@ -51,7 +51,7 @@ set hidden
 " 水平分割時に下に追加されるようになる
 set splitbelow
 
-if has('nvim') || version >= 801
+if version >= 801
     " ターミナルの高さx幅
     set termwinsize=7x0
 endif
