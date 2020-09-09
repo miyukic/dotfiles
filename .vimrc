@@ -50,8 +50,10 @@ set hidden
 " 水平分割時に下に追加されるようになる
 set splitbelow
 
-" ターミナルの高さx幅
-"set termwinsize=7x0
+if has('nvim') || version >= 801
+    " ターミナルの高さx幅
+    set termwinsize=7x0
+endif
 
 "コード自動判定
 "fileformats=unix,dos,mac
@@ -177,7 +179,6 @@ colorscheme molokai
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
-
 
 " コマンドラインの補完
 set wildmode=list:longest
