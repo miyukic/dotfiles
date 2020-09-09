@@ -1,11 +1,10 @@
 " vimplugin
 if has('nvim')
-    let local = '~/AppData/Local/nvim/plugged'
+    let g:local = '~/AppData/Local/nvim/plugged'
 else
-    let local = '~/.vim/plugged'
+    let g:local = '~/.vim/plugged'
 endif
 call plug#begin(local)
-
 if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
