@@ -126,16 +126,16 @@ set scrolloff=8
 set statusline=%F 
 
 " 行、列番号
-"set statusline=%f%m%=%3l,%3c
+set statusline=%f%m%=%3l,%3c
 
 " ステータスラインカスタマイズ
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " 変更のチェック表示
-set statusline+=%m
+"set statusline+=%m
 
 " ステータスラインの表示 0:表示しない 1:2つ以上ウィンドウがあるときのみ 2:常に表示
-set laststatus=1
+set laststatus=2
 
 " 内容が変更されたら自動リロード
 set autoread
@@ -173,10 +173,10 @@ syntax on
 set cursorline
 
 " 256Color のときのカレント行の色設定
-autocmd ColorScheme * hi CursorLine term=NONE ctermfg=NONE "ctermbg=NONE
-"
+autocmd ColorScheme * hi CursorLine term=underline ctermfg=NONE "ctermbg=NONE
+
 "24bitColorのときのカレント行の色設定
-autocmd ColorScheme * hi CursorLine term=NONE guifg=NONE guibg=NONE
+autocmd ColorScheme * hi CursorLine gui=underline guifg=NONE guibg=NONE
 
 " ayu color
 "yucolor="light"  " for light version of theme
@@ -184,7 +184,7 @@ autocmd ColorScheme * hi CursorLine term=NONE guifg=NONE guibg=NONE
 "let ayucolor="dark"   " for dark version of theme
 "colorscheme ayu " カラースキーマ
 
-colorscheme jellybeans " カラースキーマ
+colorscheme molokai " カラースキーマ
 
 "文字コードをUFT-8に設定
 set fenc=utf-8
