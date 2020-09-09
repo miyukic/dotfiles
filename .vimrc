@@ -1,32 +1,18 @@
-"if &compatible
-"  set nocompatible
-"endif
-"" Add the dein installation directory into runtimepath
-"set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-"
-"if dein#load_state('~/.cache/dein')
-"  call dein#begin('~/.cache/dein')
-"
-"  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-"  call dein#add('Shougo/deoplete.nvim')
-"  if !has('nvim')
-"    call dein#add('roxma/nvim-yarp')
-"    call dein#add('roxma/vim-hug-neovim-rpc')
-"  endif
-"
-"  call dein#end()
-"  call dein#save_state()
-"endif
-"
-"filetype plugin indent on
-"syntax enable
-
 " vimplugin
-call plug#begin()
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim' "コード補完
-Plug 'tpope/vim-sensible'
+if has('nvim')
+    let local = '~/AppData/Local/nvim/plugged'
+else
+    let local = '~/.vim/plugged'
+endif
+call plug#begin(local)
+
+if !has('nvim')
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Shougo/deoplete.nvim' "コード補完
+    Plug 'tpope/vim-sensible'
+endif
+Plug 'mg979/vim-visual-multi' " マルチカーソル
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -39,6 +25,10 @@ Plug 'tpope/vim-surround'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasr/molokai'
 call plug#end()
+
+if has('nvim')
+""    let $VIMRUNTIME = "~/scoop/apps/neovim/current/bin"
+endif
 
 " 補完表示時のEnterで改行をしない
 inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
