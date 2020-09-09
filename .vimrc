@@ -57,7 +57,10 @@ if version >= 801
 endif
 
 "コード自動判定
-"fileformats=unix,dos,mac
+set fileformats=unix,dos,mac
+
+"ファイルエンコーディング自動判定
+set fileencodings=utf-8,cp932,sjis,iso-2022-jp,euc-jp
 
 " タブの幅設定
 "set noexpandtab
