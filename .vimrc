@@ -1,16 +1,16 @@
 " vimplugin
-if has('nvim')
+if has('nvim') && has('win32')
     let g:local = '~/AppData/Local/nvim/plugged'
 else
     let g:local = '~/.vim/plugged'
 endif
 call plug#begin(local)
-if has('vim')
+if has('nvim')
+else
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
-    Plug 'tpope/vim-sensible'
-elseif has('nvim')
 endif
+Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'mg979/vim-visual-multi' " マルチカーソル
 Plug 'prabirshrestha/async.vim'
@@ -38,15 +38,15 @@ set completeopt=menuone,noinsert
 
 " 既にターミナルを開いているときの処理
 function! TermOpen()
-    if has('vim')
+    if has('nvim')
+        execute "sp|term"
+        startinsert
+    else
         if empty(term_list())
                 execute "terminal"
         else
             call win_gotoid(win_findbuf(term_list()[0])[0])
         endif
-    elseif has('nvim')
-        execute "sp|term"
-        startinsert
     endif
 endfunction
 
@@ -142,7 +142,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " スクロール時に表示を指定行確保
-set scrolloff=6
+set scrolloff=5
 
 " ファイル名表示
 "set statusline=%F 
@@ -216,7 +216,7 @@ if has('nvim')
     "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
     " 24bitColorのときのカレント行の色設定
     autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
-elseif has('vim')
+else
     " 256Color のときのカレント行の色設定
     "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
     " 24bitColorのときのカレント行の色設定
@@ -227,11 +227,19 @@ endif
 set background=dark
 
 " 背景色設定
-hi Normal guibg=NONE
-hi LineNr guibg=NONE
-hi VertSplit guibg=NONE
-hi Special guibg=NONE
-hi Identifier guibg=NONE
+if has('nvim') 
+    hi Normal guibg=NONE
+    hi LineNr guibg=NONE
+    hi VertSplit guibg=NONE
+    hi Special guibg=NONE
+    hi Identifier guibg=NONE
+else
+    hi Normal guibg=BLACK
+    hi LineNr guibg=BLACK
+    hi VertSplit guibg=BLACK
+    hi Special guibg=BLACK
+    hi Identifier guibg=BLACK
+endif
 
 " コマンドラインの補完
 set wildmode=list:longest
@@ -240,7 +248,7 @@ set wildmode=list:longest
 "set cursorcolumn
 
 " 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
+"set virtualedit=onemore
 
 " 検索時に最後まで行ったら最初に戻る
 set wrapscan

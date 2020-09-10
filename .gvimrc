@@ -29,3 +29,9 @@ nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <RightMouse> :call GuiShowContextMenu()<CR>gv
 
+" 個別設定
+if has('win32')
+    if filereadable(expand('~/AppData/local/nvim/indifile.vim'))
+        source ~/AppData/local/nvim/indifile.vim
+    endif
+endif
