@@ -5,12 +5,13 @@ else
     let g:local = '~/.vim/plugged'
 endif
 call plug#begin(local)
-if !has('nvim')
+if has('vim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
-    Plug 'Shougo/deoplete.nvim' "コード補完
     Plug 'tpope/vim-sensible'
+elseif has('nvim')
 endif
+Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'mg979/vim-visual-multi' " マルチカーソル
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -32,16 +33,34 @@ set virtualedit=block
 " 補完表示時のEnterで改行をしない
 inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 
-" 既にターミナルを開いているときの処理
-"function! TermOpen()
-"    if empty(term_list())
-"        execute "terminal"
-"    else
-"        call win_gotoid(win_findbuf(term_list()[0])[0])
-"    endif
-"endfunction
+" menuone補完が一個しかなくても常に補完を出すのと補完候補を挿入しない。
+set completeopt=menuone,noinsert
 
-"command Term :call TermOpen()<CR>
+" 既にターミナルを開いているときの処理
+function! TermOpen()
+    if has('vim')
+        if empty(term_list())
+                execute "terminal"
+        else
+            call win_gotoid(win_findbuf(term_list()[0])[0])
+        endif
+    elseif has('nvim')
+        execute "sp|term"
+        startinsert
+    endif
+endfunction
+
+noremap <silent> <Space>@ :call TermOpen()<CR>
+
+" シェルのパス
+"set shell=C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe\ -ExecutionPolicy\ Bypass
+
+"Terminal設定
+if has('nvim')
+    tnoremap <C-w> <C-\><C-n><C-w>
+    " ターミナルに切り替えたとき自動的にインサートモードにする
+    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+endif
 
 " バッファを閉じるときに保存しなくても良い
 set hidden
@@ -74,6 +93,11 @@ set t_Co=256~
 
 " True Color(24bit Color) サポート
 set termguicolors
+
+" 補完ウィンドウ等の透明度0~100
+if has('nvim') 
+    set pumblend=10 
+endif
 
 " clipboardを有効にする
 set clipboard&
@@ -121,19 +145,27 @@ vnoremap > >gv
 set scrolloff=6
 
 " ファイル名表示
-set statusline=%F 
+"set statusline=%F 
 
 " 行、列番号
-set statusline=%f%m%=%3l,%3c
+"set statusline=%f%m%=%3l,%3c
 
 " ステータスラインカスタマイズ
-set statusline=%F%m%r%h%w\ [POS=%04l,%04v][%p%%]\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [LEN=%L]
+set statusline=
+set statusline+=%F%m%r%h%w\ %<[ENC=%{&fenc!=''?&fenc:&enc}]\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%04.3b]\ [HEX=\%02.2B]\ [LEN=%L]%=(%02l,%02v)\ %p%%\ 
+"色の付け方"%#Visual#
+
+"ルーラーの表示
+set ruler
 
 " 変更のチェック表示
 "set statusline+=%m
 
 " ステータスラインの表示 0:表示しない 1:2つ以上ウィンドウがあるときのみ 2:常に表示
 set laststatus=2
+
+" ステータスラインの縦幅
+set cmdheight=1
 
 " 内容が変更されたら自動リロード
 set autoread
@@ -209,7 +241,6 @@ set wildmode=list:longest
 
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
-
 
 " 検索時に最後まで行ったら最初に戻る
 set wrapscan

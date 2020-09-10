@@ -1,6 +1,6 @@
 
 " マウスを有効にする
-set mouse=a
+"set mouse=a
 
 "行番号
 set number
