@@ -53,13 +53,15 @@ endfunction
 noremap <silent> <Space>@ :call TermOpen()<CR>
 
 " シェルのパス
-"set shell=C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe\ -ExecutionPolicy\ Bypass
+if has('win32') && has('nvim')
+    set shell=pwsh.exe
+    set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
+endif
 
 "Terminal設定
 if has('nvim')
     tnoremap <C-w> <C-\><C-n><C-w>
-    " ターミナルに切り替えたとき自動的にインサートモードにする
-    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif " ターミナルに切り替えたとき自動的にインサートモードにする
 endif
 
 " バッファを閉じるときに保存しなくても良い
@@ -87,6 +89,12 @@ set shiftwidth=4
 
 " Python設定
 autocmd FileType python setlocal tabstop=4
+
+"python3
+if has('win32') && ('nvim')
+    let g:python3_host_prog = '~\Anaconda3\python.EXE'
+elseif has('unix') && ('nvim')
+endif
 
 " 256色
 set t_Co=256~
@@ -234,11 +242,11 @@ if has('nvim')
     hi Special guibg=NONE
     hi Identifier guibg=NONE
 else
-    hi Normal guibg=BLACK
-    hi LineNr guibg=BLACK
-    hi VertSplit guibg=BLACK
-    hi Special guibg=BLACK
-    hi Identifier guibg=BLACK
+    hi Normal guibg=Gray4
+    hi LineNr guibg=Gray4
+    hi VertSplit guibg=Gray4
+    hi Special guibg=Gray4
+    hi Identifier guibg=Gray4
 endif
 
 " コマンドラインの補完
