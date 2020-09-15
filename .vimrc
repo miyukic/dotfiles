@@ -7,25 +7,43 @@ endif
 call plug#begin(local)
 if has('nvim')
 else
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 endif
+    "Plug 'hougo/neocomplcache.vim'
 Plug 'tpope/vim-sensible'
-Plug 'Shougo/deoplete.nvim' "コード補完
 Plug 'mg979/vim-visual-multi' " マルチカーソル
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'Shougo/deoplete.nvim'
-Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'mattn/vim-lsp-icons'
 Plug 'tpope/vim-surround'
+Plug 'OmniSharp/omnisharp-vim'
 " ColorScheme
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim'
 call plug#end()
+
+" lspの設定
+let g:lsp_diagnostics_enabled = 0 "リアルタイムのエラー表示を有効にする
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1 "実験的な機能,不具合があるときは0に
+nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
+
+"neocomplete
+"有効化する
+"let g:neocomplcache_enable_at_startup = 1
+"" 日本語を収集しない
+"if !exists('g:neocomplcache_keyword_patterns')
+"        let g:neocomplcache_keyword_patterns = {}
+"    endif
+"    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+"" 区切り補完を有効にする
+"let g:neocomplcache_enable_underbar_completion = 1
 
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
@@ -54,8 +72,8 @@ noremap <silent> <Space>@ :call TermOpen()<CR>
 
 " シェルのパス
 if has('win32') && has('nvim')
-    set shell=pwsh.exe
-    set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
+   " set shell=pwsh.exe
+   " set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
 endif
 
 "Terminal設定
@@ -90,9 +108,10 @@ set shiftwidth=4
 " Python設定
 autocmd FileType python setlocal tabstop=4
 
-"python3
+"python3とRuby
 if has('win32') && ('nvim')
     let g:python3_host_prog = '~\Anaconda3\python.EXE'
+    let g:ruby_host_prog = '~\scoop\apps\ruby\current\gems\bin\neovim-ruby-host.bat'
 elseif has('unix') && ('nvim')
 endif
 

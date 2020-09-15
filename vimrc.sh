@@ -32,3 +32,9 @@ do
     fi
 done
 
+# vim-plugのインストール
+VIMPLUG=~/.vim/autoload/plug.vim
+if [ ! -e $VIMPLUG ]; then
+curl -fLo $VIMPLUG --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi

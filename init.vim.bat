@@ -42,5 +42,22 @@ if not exist %target%%gvimrc_name% (
     echo すでに %gvimrc_name% が存在するので、
     echo 新たにシンボリックリンクを作成する必要はありません。
 )
+
+rem vim-plugのインストール
+where /Q pwsh
+set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
+if not exist %VIMPLUG% (
+echo vim-plugのインストールを行います。
+    if %ERRORLEVEL% == 0 (
+        pwsh -c md ~\appdata\local\nvim\autoload
+        pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    ) else (
+        powershell -c md ~\appdata\local\nvim\autoload
+        powershell -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    )
+)
+echo すべての処理が終わりました。
 @pause
 
