@@ -9,7 +9,7 @@ set number
 autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 
 " カラースキーマ
-colorscheme molokai
+colorscheme jellybeans
 
 " 背景色設定
 "hi Normal guibg=NONE
