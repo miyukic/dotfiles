@@ -1,4 +1,6 @@
-" vimplugin
+" vimplugin ================================================================
+
+if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
 if has('nvim') && has('win32')
     let g:local = '~/AppData/Local/nvim/plugged'
 else
@@ -25,7 +27,18 @@ Plug 'tpope/vim-surround'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim'
+" status bar
+Plug 'itchyny/lightline.vim'
 call plug#end()
+
+"vim-visual-multi
+nnoremap <silent> <M-j> <C-n>
+
+"status line plugin
+set noshowmode
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ }
 
 " lspの設定
 let g:lsp_diagnostics_enabled = 0 "リアルタイムのエラー表示を有効にする
@@ -33,7 +46,11 @@ let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1 "実験的な機能,不具合があるときは0に
 nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
-nnoremap <silent> <C-]> :LspDefinition<CR> "リファクタリング・リネーム
+nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
+
+endif
+
+" vimplugin setting END ====================================================
 
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
@@ -251,11 +268,11 @@ if has('nvim')
     hi Special guibg=NONE
     hi Identifier guibg=NONE
 else
-    hi Normal guibg=Gray4
-    hi LineNr guibg=Gray4
-    hi VertSplit guibg=Gray4
-    hi Special guibg=Gray4
-    hi Identifier guibg=Gray4
+    hi Normal guibg=BLACK
+    hi LineNr guibg=BLACK
+    hi VertSplit guibg=BLACK
+    hi Special guibg=BLACK
+    hi Identifier guibg=BLACK
 endif
 
 " コマンドラインの補完

@@ -11,6 +11,11 @@ autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 " カラースキーマ
 colorscheme jellybeans
 
+" status line
+let g:lightline = {
+\ 'colorscheme': 'Tomorrow',
+\ }
+
 " 背景色設定
 "hi Normal guibg=NONE
 "hi LineNr guibg=NONE
