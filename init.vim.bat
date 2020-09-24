@@ -1,53 +1,56 @@
 @echo off
+
+rem ã“ã®ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«ã¯vimrcã®è¨­ç½®ã¨vimplugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
+
 set target=%USERPROFILE%\AppData\Local\nvim\
 set vimrc_name=init.vim
 set gvimrc_name=ginit.vim
 
-echo "Œ»İ‚ÌƒfƒBƒŒƒNƒgƒŠ==> %~dp0"
-echo %target%‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚µ‚Ü‚·B
+echo "ç¾åœ¨ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª==> %~dp0"
+echo %target%ã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã—ã¾ã™ã€‚
 rem vimrc
 if not exist %target%%vimrc_name% (
     if not exist %target% (
-        echo %target%‚ğì¬‚µ‚Ü‚·B
+        echo %target%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mkdir %target%
-        echo %target%‚ğì¬‚µ‚Ü‚µ‚½B
+        echo %target%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
     )
     if exist %~dp0.vimrc (
-        echo mklink ‚ğÀs‚µ‚Ü‚·B
+        echo mklink ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
         mklink %target%%vimrc_name% %~dp0\.vimrc
         echo %target%%vimrc_name% ==> %~dp0\.vimrc
     ) else (
-        echo ".vimrc" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+        echo ".vimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
     )
 ) else (
-    echo ‚·‚Å‚É %vimrc_name% ‚ª‘¶İ‚·‚é‚Ì‚ÅA
-    echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+    echo ã™ã§ã« %vimrc_name% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
+    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
 )
 echo ==============================================================
 rem gvimrc
 if not exist %target%%gvimrc_name% (
     if not exist %target% (
-        echo %target%‚ğì¬‚µ‚Ü‚·B
+        echo %target%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mkdir %target%
-        echo %target%‚ğì¬‚µ‚Ü‚µ‚½B
+        echo %target%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
     )
     if exist %~dp0.gvimrc (
-        echo mklink ‚ğÀs‚µA%gvimrc_name%‚ğì¬‚µ‚Ü‚·B
+        echo mklink ã‚’å®Ÿè¡Œã—ã€%gvimrc_name%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mklink %target%%gvimrc_name% %~dp0\.gvimrc
         echo %target%%gvimrc_name% ==> %~dp0\.gvimrc
     ) else (
-        echo ".gvimrc" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+        echo ".gvimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
     )
 ) else (
-    echo ‚·‚Å‚É %gvimrc_name% ‚ª‘¶İ‚·‚é‚Ì‚ÅA
-    echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+    echo ã™ã§ã« %gvimrc_name% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
+    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
 )
 
-rem vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹
+rem vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 where /Q pwsh
 set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
 if not exist %VIMPLUG% (
-echo vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğs‚¢‚Ü‚·B
+echo vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
     if %ERRORLEVEL% == 0 (
         pwsh -c md ~\appdata\local\nvim\autoload
         pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -58,6 +61,7 @@ echo vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğs‚¢‚Ü‚·B
         powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
     )
 )
-echo ‚·‚×‚Ä‚Ìˆ—‚ªI‚í‚è‚Ü‚µ‚½B
+
+echo ã™ã¹ã¦ã®å‡¦ç†ãŒçµ‚ã‚ã‚Šã¾ã—ãŸã€‚
 @pause
 
