@@ -47,10 +47,12 @@ let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1 "実験的な機能,不具合があるときは0に
 nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
 nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
+nnoremap <silent> <C-Space> :LspCodeAction<CR> "コードアクション
 nnoremap <Leader>K :<C-u>LspHover<CR>
 nnoremap <Leader>n :<C-u>LspReferences<CR>
 nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
 nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
+
 endif
 " vimplugin setting END ====================================================
 
