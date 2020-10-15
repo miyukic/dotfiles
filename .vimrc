@@ -47,9 +47,13 @@ let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1 "実験的な機能,不具合があるときは0に
 nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
 nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
+nnoremap <silent> <C-Space> :LspCodeAction<CR> "コードアクション
+nnoremap <Leader>K :<C-u>LspHover<CR>
+nnoremap <Leader>n :<C-u>LspReferences<CR>
+nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
+nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 
 endif
-
 " vimplugin setting END ====================================================
 
 " vim の矩形選択で文字が無くても右へ進める
@@ -118,6 +122,7 @@ autocmd FileType python setlocal tabstop=4
 "python3とRuby
 if has('win32') && ('nvim')
     let g:python3_host_prog = '~\Anaconda3\python.EXE'
+    let g:python_host_prog = '~\Anaconda3\python.EXE'
     let g:ruby_host_prog = '~\scoop\apps\ruby\current\gems\bin\neovim-ruby-host.bat'
 elseif has('unix') && ('nvim')
 endif

@@ -1,75 +1,68 @@
-@rem Windows‚ÅnvimŒü‚¯‚Ì‰ŠúÝ’è‚ð‚·‚ébatƒXƒNƒŠƒvƒg
-
 @echo off
+
+rem ã“ã®ãƒãƒƒãƒãƒ•ã‚¡ã‚¤ãƒ«ã¯vimrcã®è¨­ç½®ã¨vimplugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
+
 set target=%USERPROFILE%\AppData\Local\nvim\
 set vimrc_name=init.vim
 set gvimrc_name=ginit.vim
 
-echo "Œ»Ý‚ÌƒfƒBƒŒƒNƒgƒŠ==> %~dp0"
-echo %target%‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ðì¬‚µ‚Ü‚·B
-@rem vimrc‚ÌÝ’u
+echo "ç¾åœ¨ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª==> %~dp0"
+echo %target%ã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã—ã¾ã™ã€‚
+rem vimrc
 if not exist %target%%vimrc_name% (
     if not exist %target% (
-        echo %target%‚ðì¬‚µ‚Ü‚·B
+        echo %target%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mkdir %target%
-        echo %target%‚ðì¬‚µ‚Ü‚µ‚½B
+        echo %target%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
     )
     if exist %~dp0.vimrc (
-        echo mklink ‚ðŽÀs‚µ‚Ü‚·B
+        echo mklink ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
         mklink %target%%vimrc_name% %~dp0\.vimrc
         echo %target%%vimrc_name% ==> %~dp0\.vimrc
     ) else (
-        echo ".vimrc" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+        echo ".vimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
     )
 ) else (
-    echo ‚·‚Å‚É %vimrc_name% ‚ª‘¶Ý‚·‚é‚Ì‚ÅA
-    echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ðì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+    echo ã™ã§ã« %vimrc_name% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
+    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
 )
 echo ==============================================================
-rem gvimrc‚ÌÝ’u
+rem gvimrc
 if not exist %target%%gvimrc_name% (
     if not exist %target% (
-        echo %target%‚ðì¬‚µ‚Ü‚·B
+        echo %target%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mkdir %target%
-        echo %target%‚ðì¬‚µ‚Ü‚µ‚½B
+        echo %target%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
     )
     if exist %~dp0.gvimrc (
-        echo mklink ‚ðŽÀs‚µA%gvimrc_name%‚ðì¬‚µ‚Ü‚·B
+        echo mklink ã‚’å®Ÿè¡Œã—ã€%gvimrc_name%ã‚’ä½œæˆã—ã¾ã™ã€‚
         mklink %target%%gvimrc_name% %~dp0\.gvimrc
         echo %target%%gvimrc_name% ==> %~dp0\.gvimrc
     ) else (
-        echo ".gvimrc" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+        echo ".gvimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
     )
 ) else (
-    echo ‚·‚Å‚É %gvimrc_name% ‚ª‘¶Ý‚·‚é‚Ì‚ÅA
-    echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ðì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+    echo ã™ã§ã« %gvimrc_name% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
+    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
 )
 
-@rem vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹
-rem where /Q pwsh
-rem set VIMPLUG=%USERPROFILE%\appdata\local\nvim\autoload\plug.vim
-rem set url=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-rem if not exist %VIMPLUG% (
-rem echo vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ðs‚¢‚Ü‚·B
-rem     if %ERRORLEVEL% == 0 (
-rem         pwsh -c md ~\appdata\local\nvim\autoload
-rem         rem pwsh -c $url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-rem         pwsh -c (new-object net.webclient).downloadfile(%url%, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
-rem     ) else (
-rem         powershell -c md ~\appdata\local\nvim\autoload
-rem         rem powershell -c $url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-rem         powershell -c (new-object net.webclient).downloadfile(%url%, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
-rem     )
-rem )
-
-@rem nvimŒü‚¯python‚ÌƒCƒ“ƒXƒg[ƒ‹
-set PATH=%PATH%;%USERPROFILE%\Anaconda3\Library\bin;%USERPROFILE%\Anaconda3\Scripts;%USERPROFILE%\Anaconda3\condabin
-where /Q python
-if %ERRORLEVEL% == 0 (
-    pip install pynvim
+rem vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+where /Q pwsh
+set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
+if not exist %VIMPLUG% (
+echo vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
+    if %ERRORLEVEL% == 0 (
+        pwsh -c md ~\appdata\local\nvim\autoload
+        pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    ) else (
+        powershell -c md ~\appdata\local\nvim\autoload
+        powershell -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    )
 )
 
-
-echo ‚·‚×‚Ä‚Ìˆ—‚ªI‚í‚è‚Ü‚µ‚½B
+echo ã™ã¹ã¦ã®å‡¦ç†ãŒçµ‚ã‚ã‚Šã¾ã—ãŸã€‚
 @pause
 
+>>>>>>> eea6481465e4ece026c519b4494d5b1c9fa5e364

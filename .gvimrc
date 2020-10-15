@@ -26,6 +26,7 @@ let g:lightline = {
 " フォント設定
 GuiFont! Cica:h12
 
+
 " 起動時にフルスクリーン(1)
 "call GuiWindowFullscreen(1)
 
@@ -33,11 +34,6 @@ GuiFont! Cica:h12
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <RightMouse> :call GuiShowContextMenu()<CR>gv
-
-" 余分な空バッファを表示しないようにする
-if has('nvim') && @% == ""
-  bd
-endif
 
 " 個別設定
 if has('win32')
