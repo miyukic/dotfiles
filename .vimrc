@@ -213,7 +213,7 @@ set cmdheight=1
 set autoread
 
 " 行番号表示
-"set number
+set number
 
 " ファイルを上書きする前にバックアップを作ることを無効化
 set nowritebackup
