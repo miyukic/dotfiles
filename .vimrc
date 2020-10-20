@@ -25,6 +25,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 Plug 'tpope/vim-surround'
+Plug 'neomake/neomake'
+Plug 'scrooloose/syntastic'
     "Plug 'OmniSharp/omnisharp-vim'
 " ColorScheme
 Plug 'nanotech/jellybeans.vim'
@@ -42,6 +44,20 @@ set noshowmode
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ }
+
+"syntasticの設定
+let g:syntastic_check_on_open = 1
+let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+let g:syntastic_python_flake8_args = '--max-line-length=120'
+
+"neomakeの設定
+let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
+
+autocmd FileType python setlocal omnifunc=jedi#completions
+if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 " lspの設定
 let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
