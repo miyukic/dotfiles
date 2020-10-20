@@ -1,3 +1,6 @@
+if !has('nvim')
+    source $VIMRUNTIME/defaults.vim
+endif
 " vimplugin ================================================================
 
 if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
@@ -41,7 +44,7 @@ let g:lightline = {
 \ }
 
 " lspの設定
-let g:lsp_diagnostics_enabled = 0 "リアルタイムのエラー表示を有効にする
+let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
 let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1 "実験的な機能,不具合があるときは0に
@@ -264,6 +267,11 @@ endif
 
 " ダーク系のカラースキームを使う
 set background=dark
+
+" Errorの色を変更
+highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
+" Todoの色設定
+highlight Todo ctermfg=0 guifg=#F78A81
 
 " 背景色設定
 if has('nvim') 
