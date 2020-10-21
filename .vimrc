@@ -192,8 +192,8 @@ noremap k gk
 "inoremap <C-w> <C-o>db
 
 "バッファの切り替えを<C-j> <C-k>で行う
-nnoremap <silent> <C-j> :bprev<CR>
-nnoremap <silent> <C-k> :bnext<CR>
+nnoremap <silent> <C-h> :bprev<CR>
+nnoremap <silent> <C-l> :bnext<CR>
 
 " 選択範囲のインデントを連続して変更
 vnoremap < <gv
