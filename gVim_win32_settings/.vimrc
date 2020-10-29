@@ -1,21 +1,28 @@
-
-if !has('nvim')
-    source $VIMRUNTIME/defaults.vim
+set encoding=utf-8
+if has('kaoriya')
+	let g:no_vimrc_example=0
+	let g:vimrc_local_finish=1
+	let g:gvimrc_local_finish=1
+ 
+	"$VIM/plugins/kaoriya/autodate.vim
+	let plugin_autodate_disable  = 1
+	"$VIM/plugins/kaoriya/cmdex.vim
+	let plugin_cmdex_disable     = 1
+	"$VIM/plugins/kaoriya/dicwin.vim
+	let plugin_dicwin_disable    = 1
+	"$VIMRUNTIME/plugin/format.vim
+	let plugin_format_disable    = 1
+	"$VIM/plugins/kaoriya/hz_ja.vim
+	let plugin_hz_ja_disable     = 1
+	"$VIM/plugins/kaoriya/scrnmode.vim
+	let plugin_scrnmode_disable  = 1
+	"$VIM/plugins/kaoriya/verifyenc.vim
+	let plugin_verifyenc_disable = 1
 endif
-" vimplugin ================================================================
-
-if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
-if has('nvim') && has('win32')
-    let g:local = '~/AppData/Local/nvim/plugged'
-else
-    let g:local = '~/.vim/plugged'
-endif
+let g:local = '~/vimfiles/plugged'
 call plug#begin(local)
-if has('nvim')
-else
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-endif
     "Plug 'hougo/neocomplcache.vim'
 Plug 'tpope/vim-sensible'
 Plug 'mg979/vim-visual-multi' " マルチカーソル
@@ -59,7 +66,6 @@ if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-
 " lspの設定
 let g:lsp_diagnostics_enabled = 0 "リアルタイムのエラー表示を有効にする
 let g:lsp_log_verbose = 1
@@ -89,9 +95,6 @@ nnoremap <Leader>K :<C-u>LspHover<CR>
 nnoremap <Leader>n :<C-u>LspReferences<CR>
 nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
 nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
-
-endif
-" vimplugin setting END ====================================================
 
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
@@ -309,7 +312,7 @@ highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
 highlight Todo ctermfg=0 guifg=#F78A81
 
 " 背景色設定
-if has('nvim') 
+if has('nvim')
     hi Normal guibg=NONE
     hi LineNr guibg=NONE
     hi VertSplit guibg=NONE
