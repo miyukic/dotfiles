@@ -103,6 +103,11 @@ inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 " menuone補完が一個しかなくても常に補完を出すのと補完候補を挿入しない。
 set completeopt=menuone,noinsert
 
+"Terminal設定
+if has('nvim')
+    tnoremap <C-w> <C-\><C-n><C-w>
+    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif " ターミナルに切り替えたとき自動的にインサートモードにする
+endif
 " 既にターミナルを開いているときの処理
 function! TermOpen()
     if has('nvim')
@@ -119,18 +124,6 @@ endfunction
 
 noremap <silent> <Space>@ :call TermOpen()<CR>
 
-" シェルのパス
-if has('win32') && has('nvim')
-   " set shell=pwsh.exe
-   " set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
-endif
-
-"Terminal設定
-if has('nvim')
-    tnoremap <C-w> <C-\><C-n><C-w>
-    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif " ターミナルに切り替えたとき自動的にインサートモードにする
-endif
-
 " バッファを閉じるときに保存しなくても良い
 set hidden
 
@@ -141,6 +134,12 @@ if version >= 801
     " ターミナルの高さx幅
     set termwinsize=7x0
 endif
+
+" シェルのパス
+"if has('win32') && has('nvim')
+"   " set shell=pwsh.exe
+"   " set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
+"endif
 
 "コード自動判定
 set fileformats=unix,dos,mac
