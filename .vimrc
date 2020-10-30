@@ -1,4 +1,3 @@
-
 if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
@@ -43,8 +42,8 @@ nnoremap <silent> <M-j> <C-n>
 "status line plugin
 set noshowmode
 let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ }
+            \ 'colorscheme': 'wombat',
+            \ }
 
 "syntasticの設定
 let g:syntastic_check_on_open = 1
@@ -177,8 +176,10 @@ if has('nvim')
 endif
 
 " clipboardを有効にする
+if has('nvim') || !has('win32')
 set clipboard&
 set clipboard^=unnamedplus
+endif
 
 " マウスを有効にする
 "set mouse=a
@@ -309,7 +310,7 @@ highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
 highlight Todo ctermfg=0 guifg=#F78A81
 
 " 背景色設定
-if has('nvim') 
+if has('nvim') || has('win32') 
     hi Normal guibg=NONE
     hi LineNr guibg=NONE
     hi VertSplit guibg=NONE

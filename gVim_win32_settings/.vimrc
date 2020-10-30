@@ -19,7 +19,10 @@ if has('kaoriya')
 	"$VIM/plugins/kaoriya/verifyenc.vim
 	let plugin_verifyenc_disable = 1
 endif
-let g:local = '~/vimfiles/plugged'
+
+if has('win32') && !has('nvim')
+    let g:local = '~/vimfiles/plugged'
+endif
 call plug#begin(local)
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -49,9 +52,9 @@ nnoremap <silent> <M-j> <C-n>
 
 "status line plugin
 set noshowmode
-let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ }
+"let g:lightline = {
+"\ 'colorscheme': 'one dark',
+"\ }
 
 "syntasticの設定
 let g:syntastic_check_on_open = 1
@@ -100,7 +103,7 @@ nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 set virtualedit=block
 
 " 補完表示時のEnterで改行をしない
-inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+noremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 
 " menuone補完が一個しかなくても常に補完を出すのと補完候補を挿入しない。
 set completeopt=menuone,noinsert
@@ -150,9 +153,8 @@ set fileformats=unix,dos,mac
 "ファイルエンコーディング自動判定
 set fileencodings=utf-8,cp932,sjis,iso-2022-jp,euc-jp
 
-
 " タブの幅設定
-"set noexpandtab
+set noexpandtab
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -180,8 +182,10 @@ if has('nvim')
 endif
 
 " clipboardを有効にする
+if has('nvim') || !has('win32')
 set clipboard&
 set clipboard^=unnamedplus
+endif
 
 " マウスを有効にする
 "set mouse=a
@@ -221,12 +225,12 @@ nnoremap <silent> <C-l> :bnext<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" スクロール時に表示を指定行確保
+"" スクロール時に表示を指定行確保
 set scrolloff=5
-
-" ファイル名表示
-"set statusline=%F 
-
+"
+"" ファイル名表示
+""set statusline=%F 
+"
 " 行、列番号
 "set statusline=%f%m%=%3l,%3c
 
@@ -312,7 +316,7 @@ highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
 highlight Todo ctermfg=0 guifg=#F78A81
 
 " 背景色設定
-if has('nvim')
+if has('nvim') || has('win32')
     hi Normal guibg=NONE
     hi LineNr guibg=NONE
     hi VertSplit guibg=NONE
@@ -327,6 +331,7 @@ else
 endif
 
 " コマンドラインの補完
+
 set wildmode=list:longest
 
 " 現在の行を強調表示（縦）
