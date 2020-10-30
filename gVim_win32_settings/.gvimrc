@@ -17,11 +17,11 @@ colorscheme ayu
 "\ }
 
 " 背景色設定
-hi Normal guibg=BLACK
-hi LineNr guibg=BLACK
-hi VertSplit guibg=BLACK
-hi Special guibg=BLACK "＆等の記号
-hi Identifier guibg=BLACK "予約語? 
+hi Normal guibg=grey3  
+hi LineNr guibg=grey3  
+hi VertSplit guibg=grey3  
+hi Special guibg=grey3 "＆等の記号
+hi Identifier guibg=grey3 "予約語? 
 
 " フォント設定
 "GuiFont! Cica:h12
@@ -40,6 +40,24 @@ set guioptions-=T
 " メニューバー非表示
 "set guioptions-=m
 
+" ウィンドウの位置とサイズを記憶する
+let g:save_window_file = expand('~/.vimwinpos')
+augroup SaveWindow
+  autocmd!
+  autocmd VimLeavePre * call s:save_window()
+  function! s:save_window()
+    let options = [
+      \ 'set columns=' . &columns,
+      \ 'set lines=' . &lines,
+      \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+      \ ]
+    call writefile(options, g:save_window_file)
+  endfunction
+augroup END
+
+if filereadable(g:save_window_file)
+  execute 'source' g:save_window_file
+endif 
 
 " 個別設定
 "if has('win32')
