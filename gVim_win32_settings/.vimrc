@@ -104,6 +104,10 @@ nnoremap <Leader>n :<C-u>LspReferences<CR>
 nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
 nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 
+" vimplugin setting END ====================================================
+" コマンドライン補完
+set wildmenu
+
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
 
