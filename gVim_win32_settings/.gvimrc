@@ -22,6 +22,17 @@ hi VertSplit guibg=grey3
 hi Special guibg=grey3 "＆等の記号
 hi Identifier guibg=grey3 "予約語? 
 
+function! Change_font_size()
+    set guifont=Cica:h18
+endfunction
+
+let g:load_cast_position_file = expand('~/vimcastposition')
+function! Set_window_cast_position()
+    if filereadable(g:load_cast_position_file)
+        execute 'source' g:load_cast_position_file
+    endif
+endfunction
+
 if has('nvim')
     " フォント設定
     GuiFont! Cica:h12
@@ -70,4 +81,5 @@ else
 
 endif
 
-command :Cast echo "test" 
+command! Cast call Change_font_size()
+command! SetWindowCast call Set_window_cast_position()
