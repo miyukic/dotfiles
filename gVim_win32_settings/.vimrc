@@ -107,7 +107,8 @@ nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 " vimplugin setting END ====================================================
 " コマンドライン補完
 set wildmenu
-
+set wildmode=list:full
+"
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
 
@@ -337,10 +338,6 @@ else
     hi Special guibg=BLACK
     hi Identifier guibg=BLACK
 endif
-
-" コマンドラインの補完
-
-set wildmode=list:longest
 
 " 現在の行を強調表示（縦）
 "set cursorcolumn

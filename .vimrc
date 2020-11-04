@@ -4,97 +4,99 @@ endif
 " vimplugin ================================================================
 
 if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
-if has('nvim') && has('win32')
-    let g:local = '~/AppData/Local/nvim/plugged'
-else
-    let g:local = '~/.vim/plugged'
-endif
-call plug#begin(local)
-if has('nvim')
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-else
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-endif
+    if has('nvim') && has('win32')
+        let g:local = '~/AppData/Local/nvim/plugged'
+    else
+        let g:local = '~/.vim/plugged'
+    endif
+    call plug#begin(local)
+    if has('nvim')
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    else
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
     "Plug 'hougo/neocomplcache.vim'
-Plug 'tpope/vim-sensible'
-Plug 'mg979/vim-visual-multi' " マルチカーソル
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'mattn/vim-lsp-icons'
-Plug 'tpope/vim-surround'
-"Plug 'neomake/neomake'
-Plug 'scrooloose/syntastic'
+    Plug 'tpope/vim-sensible'
+    Plug 'mg979/vim-visual-multi' " マルチカーソル
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'mattn/vim-lsp-icons'
+    Plug 'tpope/vim-surround'
+    "Plug 'neomake/neomake'
+    Plug 'scrooloose/syntastic'
     "Plug 'OmniSharp/omnisharp-vim'
-" ColorScheme
-Plug 'nanotech/jellybeans.vim'
-Plug 'tomasr/molokai'
-Plug 'ayu-theme/ayu-vim'
-" status bar
-Plug 'itchyny/lightline.vim'
-call plug#end()
+    " ColorScheme
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'tomasr/molokai'
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'NLKNguyen/papercolor-theme'
+    " status bar
+    Plug 'itchyny/lightline.vim'
+    call plug#end()
 
-"vim-visual-multi
-nnoremap <silent> <M-j> <C-n>
+    "vim-visual-multi
+    nnoremap <silent> <M-j> <C-n>
 
-"status line plugin
-set noshowmode
-let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ }
+    "status line plugin
+    set noshowmode "ノーマルのモード表示をオフにする
+    let g:lightline = {
+                \ 'colorscheme': 'selenized_black',
+                \ }
 
-"syntasticの設定
-let g:syntastic_check_on_open = 1
-let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
-let g:syntastic_python_flake8_args = '--max-line-length=120'
+    "syntasticの設定
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+    let g:syntastic_python_flake8_args = '--max-line-length=120'
 
-""neomakeの設定
-"let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
-"
-"autocmd FileType python setlocal omnifunc=jedi#completions
-"if !exists('g:neocomplete#force_omni_input_patterns')
-"    let g:neocomplete#force_omni_input_patterns = {}
-"endif
-"let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    ""neomakeの設定
+    "let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
 
-" lspの設定
-let g:lsp_diagnostics_enabled = 0 "リアルタイムのエラー表示を有効にする
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-" asyncomplete.vim log
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+    "autocmd FileType python setlocal omnifunc=jedi#completions
+    "if !exists('g:neocomplete#force_omni_input_patterns')
+    "    let g:neocomplete#force_omni_input_patterns = {}
+    "endif
+    "let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
-" omnisharpの設定
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <f2> <plug>(lsp-rename)
-  echo 
-endfunction
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+    " lspの設定
+    let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
+    let g:lsp_log_verbose = 1
+    let g:lsp_log_file = expand('~/vim-lsp.log')
+    " asyncomplete.vim log
+    let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
-nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
-nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
-nnoremap <silent> <C-Space> :LspCodeAction<CR>
-nnoremap <Leader>K :<C-u>LspHover<CR>
-nnoremap <Leader>n :<C-u>LspReferences<CR>
-nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
-nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
+    " omnisharpの設定
+    function! s:on_lsp_buffer_enabled() abort
+        setlocal omnifunc=lsp#complete
+        setlocal signcolumn=yes
+        nmap <buffer> gd <plug>(lsp-definition)
+        nmap <buffer> <f2> <plug>(lsp-rename)
+        echo 
+    endfunction
+    augroup lsp_install
+        au!
+        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    augroup END
+
+    let g:asyncomplete_popup_delay = 200
+    let g:lsp_text_edit_enabled = 1
+    nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
+    nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
+    nnoremap <silent> <C-Space> :LspCodeAction<CR>
+    nnoremap <Leader>K :<C-u>LspHover<CR>
+    nnoremap <Leader>n :<C-u>LspReferences<CR>
+    nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
+    nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 
 endif
 " vimplugin setting END ====================================================
 " コマンドライン補完
 set wildmenu
+set wildmode=list:full
 
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
@@ -326,9 +328,6 @@ else
     hi Special guibg=BLACK
     hi Identifier guibg=BLACK
 endif
-
-" コマンドラインの補完
-set wildmode=list:longest
 
 " 現在の行を強調表示（縦）
 "set cursorcolumn
