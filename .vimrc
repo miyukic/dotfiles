@@ -1,23 +1,45 @@
+set encoding=utf-8
+if has('kaoriya')
+	let g:no_vimrc_example=0
+	let g:vimrc_local_finish=1
+	let g:gvimrc_local_finish=1
+ 
+	"$VIM/plugins/kaoriya/autodate.vim
+	let plugin_autodate_disable  = 1
+	"$VIM/plugins/kaoriya/cmdex.vim
+	let plugin_cmdex_disable     = 1
+	"$VIM/plugins/kaoriya/dicwin.vim
+	let plugin_dicwin_disable    = 1
+	"$VIMRUNTIME/plugin/format.vim
+	let plugin_format_disable    = 1
+	"$VIM/plugins/kaoriya/hz_ja.vim
+	let plugin_hz_ja_disable     = 1
+	"$VIM/plugins/kaoriya/scrnmode.vim
+	let plugin_scrnmode_disable  = 1
+	"$VIM/plugins/kaoriya/verifyenc.vim
+	let plugin_verifyenc_disable = 1
+endif
 if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 " vimplugin ================================================================
 
-if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
-    if has('nvim') && has('win32')
+if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim')) || filereadable(expand('~/vimfiles/autoload/plug.vim'))
+    if has('nvim') && has('win32') " Neovim
         let g:local = '~/AppData/Local/nvim/plugged'
-    else
+    elseif has('unix') "LinuxVim
         let g:local = '~/.vim/plugged'
+    else "gVim
+        let g:local = '~/vimfiles/plugged'
     endif
     call plug#begin(local)
     if has('nvim')
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
     else
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
     "Plug 'hougo/neocomplcache.vim'
+    Plug 'vim-jp/vimdoc-ja'
     Plug 'tpope/vim-sensible'
     Plug 'mg979/vim-visual-multi' " マルチカーソル
     Plug 'prabirshrestha/async.vim'
@@ -128,9 +150,6 @@ endfunction
 
 noremap <silent> <Space>@ :call TermOpen()<CR>
 
-" バッファを閉じるときに保存しなくても良い
-set hidden
-
 " 水平分割時に下に追加されるようになる
 set splitbelow
 
@@ -144,6 +163,9 @@ endif
 "   " set shell=pwsh.exe
 "   " set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
 "endif
+
+" バッファを閉じるときに保存しなくても良い
+set hidden
 
 "コード自動判定
 set fileformats=unix,dos,mac

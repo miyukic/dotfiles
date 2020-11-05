@@ -11,9 +11,9 @@ autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 colorscheme ayu
 
 " status line
-let g:lightline = {
-\ 'colorscheme': 'selenized_black',
-\ }
+"let g:lightline = {
+"\ 'colorscheme': 'molokai',
+"\ }
 
 " 背景色設定
 hi Normal guibg=grey3  
@@ -22,25 +22,40 @@ hi VertSplit guibg=grey3
 hi Special guibg=grey3 "＆等の記号
 hi Identifier guibg=grey3 "予約語? 
 
-if has('nvim')
+
+if has('nvim') " neovim-qt 固有の設定
     " フォント設定
     GuiFont! Cica:h12
 
-    " 右クリックメニュー 
-    "nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
-    "inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
-    "vnoremap <RightMouse> :call GuiShowContextMenu()<CR>gv
-    "
+    "右クリックメニュー 
+    nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
+    inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
+    vnoremap <RightMouse> :call GuiShowContextMenu()<CR>gv
+    
     " 起動時にフルスクリーン(1)
     "call GuiWindowFullscreen(1)
 
     " 個別設定
-    "if has('win32')
-    "    if filereadable(expand('~/AppData/local/nvim/indifile.vim'))
-    "        source ~/AppData/local/nvim/indifile.vim
-    "    endif
-    "endif
-else
+    if has('win32')
+        if filereadable(expand('~/AppData/local/nvim/indifile.vim'))
+            source ~/AppData/local/nvim/indifile.vim
+        endif
+    endif
+else " gVim 固有の設定
+    function! Change_font_size()
+        set guifont=Cica:h18
+    endfunction
+
+    let g:load_cast_position_file = expand('~/vimcastposition')
+    function! Set_window_cast_position()
+        if filereadable(g:load_cast_position_file)
+            execute 'source' g:load_cast_position_file
+        endif
+    endfunction
+    
+    " OSとのクリップボードの共有設定
+    set clipboard=unnamed
+
     " フォント設定
     set guifont=Cica:h12
 
@@ -69,3 +84,6 @@ else
     endif 
 
 endif
+
+command! Cast call Change_font_size()
+command! SetWindowCast call Set_window_cast_position()

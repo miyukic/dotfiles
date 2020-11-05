@@ -30,7 +30,7 @@ call plug#begin(local)
 Plug 'vim-jp/vimdoc-ja'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-    "Plug 'hougo/neocomplcache.vim'
+"Plug 'hougo/neocomplcache.vim'
 Plug 'tpope/vim-sensible'
 Plug 'mg979/vim-visual-multi' " マルチカーソル
 Plug 'prabirshrestha/async.vim'
@@ -42,7 +42,7 @@ Plug 'mattn/vim-lsp-icons'
 Plug 'tpope/vim-surround'
 "Plug 'neomake/neomake'
 Plug 'scrooloose/syntastic'
-    "Plug 'OmniSharp/omnisharp-vim'
+"Plug 'OmniSharp/omnisharp-vim'
 " ColorScheme
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasr/molokai'
@@ -57,8 +57,8 @@ nnoremap <silent> <M-j> <C-n>
 "status line plugin
 set noshowmode
 "let g:lightline = {
-"\ 'colorscheme': 'one dark',
-"\ }
+            "\ 'colorscheme': 'one dark',
+            "\ }
 
 "syntasticの設定
 let g:syntastic_check_on_open = 1
@@ -83,15 +83,15 @@ let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 " omnisharpの設定
 function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <f2> <plug>(lsp-rename)
-  echo 
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    echo 
 endfunction
 augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
 let g:asyncomplete_popup_delay = 200
@@ -113,7 +113,7 @@ set wildmode=list:full
 set virtualedit=block
 
 " 補完表示時のEnterで改行をしない
-noremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 
 " menuone補完が一個しかなくても常に補完を出すのと補完候補を挿入しない。
 set completeopt=menuone,noinsert
