@@ -324,21 +324,21 @@ set cursorline
 "yucolor="light"  " for light version of theme
 "let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
-colorscheme PaperColor " カラースキーマ
+colorscheme ayu " カラースキーマ
 
 " カラースキーマ
 "colorscheme molokai
 
 if has('nvim')
     " 256Color のときのカレント行の色設定
-    "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+    "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
     " 24bitColorのときのカレント行の色設定
     autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
 else
     " 256Color のときのカレント行の色設定
-    "autocmd ColorScheme * hi CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+    "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
     " 24bitColorのときのカレント行の色設定
-    autocmd ColorScheme * hi CursorLine cterm=underline guifg=NONE guibg=NONE
+    autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
 endif
 
 " ダーク系のカラースキームを使う
@@ -351,17 +351,17 @@ highlight Todo ctermfg=0 guifg=#F78A81
 
 " 背景色設定
 if has('nvim') || has('win32') 
-    hi Normal guibg=NONE
-    hi LineNr guibg=NONE
-    hi VertSplit guibg=NONE
-    hi Special guibg=NONE
-    hi Identifier guibg=NONE
+    highlight Normal guibg=NONE
+    highlight LineNr guibg=NONE
+    highlight VertSplit guibg=NONE
+    highlight Special guibg=NONE
+    highlight Identifier guibg=NONE
 else
-    hi Normal guibg=BLACK
-    hi LineNr guibg=BLACK
-    hi VertSplit guibg=BLACK
-    hi Special guibg=BLACK
-    hi Identifier guibg=BLACK
+    highlight Normal guibg=NONE
+    highlight LineNr guibg=NONE
+    highlight VertSplit guibg=NONE
+    highlight Special guibg=NONE
+    highlight Identifier guibg=NONE
 endif
 
 " 現在の行を強調表示（縦）
