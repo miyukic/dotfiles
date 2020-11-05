@@ -7,26 +7,32 @@ where /Q scoop
 if %ERRORLEVEL% == 1 (
     echo ==================================================
     echo scoopのインストールを開始します....
-    pwsh -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     rem scoopのインストール
-    pwsh -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
+    powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
 )
 
 rem gitコマンドのインストール
 where /Q git
 if %ERRORLEVEL% == 1 (
     echo ==================================================
-    echo 手動でgitへパスを通しますか？(Y/N)
-    set /P USR_RESP="入力:"
+    echo 自動でgitへパスを通しますか？<Y/N>
+    set /P UserResp="入力: "
     echo.
-    if /i %USR_RESP% == "N" (
-        echo scoopでgitをインストールしますか？(Y/N)
-        set /P USR_RESP="入力:"
-        if /i %USR_RESP% == "N" (
-            pwsh -c scoop update
-            pwsh -c scoop install git
+    if /i %UserResp% == "Y" (
+        echo gitコマンドが必要です。
+        echo WSLのgitを流用する[W], scoopでgitをインストールする[G], スキップする[C]
+        :SELECT
+        set /P UserResp="入力: "
+        if /i %UserResp% == "S" (
+            powershell -c scoop update
+            powershell -c scoop install git
+        ) else if /i %SerResp% == "W" (
+            curl -fLo %SystemRoot%\system32\git.exe https://www.dropbox.com/s/c2qpu3tk5gwy2r1/wslgit.exe?dl=0
+        ) else if %SerResp% == "C" (
         ) else (
-        echo WSLのgit等を手動でパスを通してください。
+            echo 何れかのキー[W, G, C]を選択してください。
+            goto SELECT
         )
         echo.
     )
@@ -35,10 +41,10 @@ echo ==================================================
 
 rem Rubyの設定
 echo Rubyのインストールを開始します。
-pwsh -c scoop install ruby && gem install neovim
+powershell -c scoop install ruby && gem install neovim
 for /F %%i in ('which neovim-ruby-host') do set INSTALL_PATH=%%i
 echo ==================================================
-echo %INSTALL_PATH%にあります。
+echo %INSTALL_PATH% にあります。
 
 rem npmのインストール
 echo =========================================================================
@@ -54,4 +60,69 @@ echo =========================================================================
 rem Pythonの設定
 echo ==================================================
 rem Todo スクリプト未作成
+
+
+rem ここから、vimrcの設置とvimplugのインストールを行います。
+
+set TARGET=%USERPROFILE%\AppData\Local\nvim\
+set VIMRC_NAME=init.vim
+set GVIMRC_NAME=ginit.vim
+
+echo "現在のディレクトリ==> %~dp0"
+echo %TARGET%にシンボリックリンクを作成します。
+rem vimrc
+if not exist %TARGET%%VIMRC_NAME% (
+    if not exist %TARGET% (
+        echo %TARGET%を作成します。
+        mkdir %TARGET%
+        echo %TARGET%を作成しました。
+    )
+    if exist %~dp0.vimrc (
+        echo mklink を実行します。
+        mklink %TARGET%%VIMRC_NAME% %~dp0\.vimrc
+        echo %TARGET%%VIMRC_NAME% ==> %~dp0\.vimrc
+    ) else (
+        echo ".vimrc" が見つかりませんでした。
+    )
+) else (
+    echo すでに %VIMRC_NAME% が存在するので、
+    echo 新たにシンボリックリンクを作成する必要はありません。
+)
+echo ==============================================================
+rem gvimrc
+if not exist %TARGET%%GVIMRC_NAME% (
+    if not exist %TARGET% (
+        echo %TARGET%を作成します。
+        mkdir %TARGET%
+        echo %TARGET%を作成しました。
+    )
+    if exist %~dp0.gvimrc (
+        echo mklink を実行し、%GVIMRC_NAME%を作成します。
+        mklink %TARGET%%GVIMRC_NAME% %~dp0\.gvimrc
+        echo %TARGET%%GVIMRC_NAME% ==> %~dp0\.gvimrc
+    ) else (
+        echo ".gvimrc" が見つかりませんでした。
+    )
+) else (
+    echo すでに %GVIMRC_NAME% が存在するので、
+    echo 新たにシンボリックリンクを作成する必要はありません。
+)
+
+rem vim-plugのインストール
+where /Q pwsh
+set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
+if not exist %VIMPLUG% (
+echo vim-plugのインストールを行います。
+    if %ERRORLEVEL% == 0 (
+        pwsh -c md ~\appdata\local\nvim\autoload
+        pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    ) else (
+        powershell -c md ~\appdata\local\nvim\autoload
+        powershell -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+    )
+)
+
+echo すべての処理が終わりました。
 @pause

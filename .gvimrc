@@ -11,9 +11,9 @@ autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 colorscheme ayu
 
 " status line
-"let g:lightline = {
-"\ 'colorscheme': 'molokai',
-"\ }
+let g:lightline = {
+\ 'colorscheme': 'selenized_black',
+\ }
 
 " 背景色設定
 hi Normal guibg=grey3  
