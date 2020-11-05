@@ -18,6 +18,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
     "Plug 'hougo/neocomplcache.vim'
+    Plug 'vim-jp/help'
     Plug 'tpope/vim-sensible'
     Plug 'mg979/vim-visual-multi' " マルチカーソル
     Plug 'prabirshrestha/async.vim'
@@ -37,6 +38,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     Plug 'NLKNguyen/papercolor-theme'
     " status bar
     Plug 'itchyny/lightline.vim'
+    Plug 'mattn/vim-usa_president_2020'
     call plug#end()
 
     "vim-visual-multi
@@ -45,8 +47,20 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     "status line plugin
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-                \ 'colorscheme': 'selenized_black',
-                \ }
+            \ 'colorscheme': 'selenized_black',
+            \ 'mode_map': {'c': 'NORMAL'},
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+            \   'right' : [ [ 'lineinfo', 'syntastic' ], 
+            \               [ 'percent' ],
+            \               [ 'charcode', 'fileformat', 'fileencoding', 'filetype' ],
+            \               [ 'usa_president_2020' ],
+            \             ]
+            \ },
+            \ 'component_function': {
+            \   'usa_president_2020': 'usa_president_2020#status',
+            \ }
+            \ }
 
     "syntasticの設定
     let g:syntastic_check_on_open = 1
@@ -289,7 +303,7 @@ set cursorline
 "yucolor="light"  " for light version of theme
 "let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
-colorscheme ayu " カラースキーマ
+colorscheme PaperColor " カラースキーマ
 
 " カラースキーマ
 "colorscheme molokai
