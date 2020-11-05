@@ -70,7 +70,7 @@ set GVIMRC_NAME=ginit.vim
 
 echo "現在のディレクトリ==> %~dp0"
 echo %TARGET%にシンボリックリンクを作成します。
-rem vimrc
+rem .vimrc
 if not exist %TARGET%%VIMRC_NAME% (
     if not exist %TARGET% (
         echo %TARGET%を作成します。
@@ -89,7 +89,7 @@ if not exist %TARGET%%VIMRC_NAME% (
     echo 新たにシンボリックリンクを作成する必要はありません。
 )
 echo ==============================================================
-rem gvimrc
+rem .gvimrc
 if not exist %TARGET%%GVIMRC_NAME% (
     if not exist %TARGET% (
         echo %TARGET%を作成します。
