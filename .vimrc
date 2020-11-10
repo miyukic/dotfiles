@@ -59,7 +59,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     Plug 'NLKNguyen/papercolor-theme'
     " status bar
     Plug 'itchyny/lightline.vim'
-    Plug 'mattn/vim-usa_president_2020'
     call plug#end()
 
     "vim-visual-multi
@@ -144,8 +143,10 @@ set completeopt=menuone,noinsert
 
 "Terminal設定
 if has('nvim')
-    tnoremap <C-w> <C-\><C-n><C-w>
-    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif " ターミナルに切り替えたとき自動的にインサートモードにする
+    " <C-w>でvimと同じ動きにする
+    tnoremap <C-w> <C-\><C-n><C-w> " 
+     " ターミナルに切り替えたとき自動的にインサートモードにする
+    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
 endif
 " 既にターミナルを開いているときの処理
 function! TermOpen()
@@ -320,49 +321,53 @@ syntax on
 " 現在の行を強調表示
 set cursorline
 
-" ayu color
-"yucolor="light"  " for light version of theme
-"let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu " カラースキーマ
+augroup ColorSchemeSetting
+    " ayu color
+    "yucolor="light"  " for light version of theme
+    "let ayucolor="mirage" " for mirage version of theme
+    let ayucolor="dark"   " for dark version of theme
+    colorscheme ayu " カラースキーマ
 
-" カラースキーマ
-"colorscheme molokai
+    " カラースキーマ
+    "colorscheme molokai
 
-if has('nvim')
-    " 256Color のときのカレント行の色設定
-    "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
-    " 24bitColorのときのカレント行の色設定
-    autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
-else
-    " 256Color のときのカレント行の色設定
-    "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
-    " 24bitColorのときのカレント行の色設定
-    autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
-endif
+    if has('nvim')
+        " 256Color のときのカレント行の色設定
+        "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+        " 24bitColorのときのカレント行の色設定
+        autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
+    else
+        " 256Color のときのカレント行の色設定
+        "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
+        " 24bitColorのときのカレント行の色設定
+        autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
+    endif
 
-" ダーク系のカラースキームを使う
-set background=dark
+    " ダーク系のカラースキームを使う
+    set background=dark
 
-" Errorの色を変更
-highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
-" Todoの色設定
-highlight Todo ctermfg=0 guifg=#F78A81
+    " Errorの色を変更
+    highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
+    " Todoの色設定
+    highlight Todo ctermfg=0 guifg=#F78A81
 
-" 背景色設定
-if has('nvim') || has('win32') 
-    highlight Normal guibg=NONE
-    highlight LineNr guibg=NONE
-    highlight VertSplit guibg=NONE
-    highlight Special guibg=NONE
-    highlight Identifier guibg=NONE
-else
-    highlight Normal guibg=NONE
-    highlight LineNr guibg=NONE
-    highlight VertSplit guibg=NONE
-    highlight Special guibg=NONE
-    highlight Identifier guibg=NONE
-endif
+    " 背景色設定
+    augroup transBGColor
+        if has('nvim')
+            highlight Normal guibg=NONE
+            highlight LineNr guibg=NONE
+            highlight VertSplit guibg=NONE
+            highlight Special guibg=NONE
+            highlight Identifier guibg=NONE
+        else
+            highlight Normal guibg=Gray3
+            highlight LineNr guibg=Gray3
+            highlight VertSplit guibg=Gray3
+            highlight Special guibg=Gray3
+            highlight Identifier guibg=Gray3
+        endif
+    augroup END
+augroup END
 
 " 現在の行を強調表示（縦）
 "set cursorcolumn

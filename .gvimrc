@@ -23,7 +23,8 @@ hi Special guibg=grey3 "＆等の記号
 hi Identifier guibg=grey3 "予約語? 
 
 
-if has('nvim') " neovim-qt 固有の設定
+if has('nvim') && has('win32') " neovim-qt 固有の設定
+    let $MYGVIMRC = "~/AppData/local/nvim/ginit.vim"
     " フォント設定
     GuiFont! Cica:h12
 
@@ -31,16 +32,24 @@ if has('nvim') " neovim-qt 固有の設定
     nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
     inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
     vnoremap <RightMouse> :call GuiShowContextMenu()<CR>gv
-    
+
+    " GUIのTab非表示
+    GuiTabline 0
+
+    " GUIの補完メニュー非表示
+    GuiPopupmenu 0
+
     " 起動時にフルスクリーン(1)
     "call GuiWindowFullscreen(1)
 
     " 個別設定
-    if has('win32')
+    let $INDIFILE = "~/AppData/local/nvim/indifile.vim"
+        if has('win32') 
         if filereadable(expand('~/AppData/local/nvim/indifile.vim'))
             source ~/AppData/local/nvim/indifile.vim
         endif
     endif
+
 else " gVim 固有の設定
     function! Change_font_size()
         set guifont=Cica:h18
@@ -64,6 +73,10 @@ else " gVim 固有の設定
 
     " メニューバー非表示
     "set guioptions-=m
+    
+    " GUIのTab非表示
+    set guioptions -=e
+
 
     " ウィンドウの位置とサイズを記憶する
     let g:save_window_file = expand('~/.vimwinpos')
