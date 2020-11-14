@@ -49,9 +49,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     Plug 'mattn/vim-lsp-settings'
     Plug 'mattn/vim-lsp-icons'
     Plug 'tpope/vim-surround'
+
+    " Linter系
     "Plug 'neomake/neomake'
-    Plug 'scrooloose/syntastic'
-    "Plug 'OmniSharp/omnisharp-vim'
+    "Plug 'scrooloose/syntastic'
+    
     " ColorScheme
     Plug 'nanotech/jellybeans.vim'
     Plug 'tomasr/molokai'
@@ -67,25 +69,30 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     "status line plugin
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-            \ 'colorscheme': 'selenized_black',
-            \ 'mode_map': {'c': 'NORMAL'},
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-            \   'right' : [ [ 'lineinfo', 'syntastic' ], 
-            \               [ 'percent' ],
-            \               [ 'charcode', 'fileformat', 'fileencoding', 'filetype' ],
-            \               [ 'usa_president_2020' ],
-            \             ]
-            \ },
-            \ 'component_function': {
-            \   'usa_president_2020': 'usa_president_2020#status',
-            \ }
-            \ }
+                \ 'colorscheme': 'selenized_black',
+                \ 'mode_map': {'c': 'NORMAL'},
+                \ 'active': {
+                \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+                \   'right' : [ [ 'lineinfo', 'syntastic' ], 
+                \               [ 'percent' ],
+                \               [ 'charcode', 'fileformat', 'fileencoding', 'filetype' ],
+                \               [ 'usa_president_2020' ],
+                \             ]
+                \ },
+                \ 'component_function': {
+                \   'usa_president_2020': 'usa_president_2020#status',
+                \ }
+                \ }
 
     "syntasticの設定
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
-    let g:syntastic_python_flake8_args = '--max-line-length=120'
+    function! SyntasticSettings() abort
+        let g:syntastic_check_on_open = 1
+        "let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+        let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+        let g:syntastic_python_flake8_args = '--max-line-length=120'
+    endfunction
+    autocmd!
+    autocmd User lsp_setup call SyntasticSettings()
 
     ""neomakeの設定
     "let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
@@ -103,13 +110,34 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     " asyncomplete.vim log
     let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
+    " pylsの設定。LinterのON/OFFなどが可能
+    let s:pyls_config = {'pyls': {'plugins': {
+                \   'pycodestyle': {'enabled': v:false},
+                \   'pydocstyle': {'enabled': v:false},
+                \   'pylint': {'enabled': v:false},
+                \   'flake8': {'enabled': v:false},
+                \   'jedi_definition': {
+                \     'follow_imports': v:true,
+                \     'follow_builtin_imports': v:true,
+                \   },
+                \ }}}
+    " pylsの起動定義
+    augroup LspPython
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'pyls',
+                    \ 'cmd': { server_info -> ['pyls'] },
+                    \ 'whitelist': ['python'],
+                    \ 'workspace_config': s:pyls_config
+                    \})
+    augroup END
+
     " omnisharpの設定
     function! s:on_lsp_buffer_enabled() abort
         setlocal omnifunc=lsp#complete
         setlocal signcolumn=yes
         nmap <buffer> gd <plug>(lsp-definition)
         nmap <buffer> <f2> <plug>(lsp-rename)
-        echo 
     endfunction
     augroup lsp_install
         au!
@@ -326,7 +354,7 @@ augroup ColorSchemeSetting
     "yucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
     let ayucolor="dark"   " for dark version of theme
-    colorscheme ayu " カラースキーマ
+    colorscheme PaperColor " カラースキーマ
 
     " カラースキーマ
     "colorscheme molokai
