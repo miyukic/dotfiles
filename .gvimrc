@@ -7,7 +7,7 @@ set number
 " カレント行の色設定
 autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 
-" カラースキーマ
+
 colorscheme ayu
 
 " status line
@@ -76,6 +76,9 @@ else " gVim 固有の設定
     
     " GUIのTab非表示
     set guioptions -=e
+
+    " shをウィンドウ内で開く
+    set guioptions+=!
 
 
     " ウィンドウの位置とサイズを記憶する
