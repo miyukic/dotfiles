@@ -72,13 +72,16 @@ else " gVim 固有の設定
     set guioptions-=T
 
     " メニューバー非表示
-    "set guioptions-=m
+    set guioptions-=m
     
     " GUIのTab非表示
     set guioptions -=e
 
     " shをウィンドウ内で開く
     set guioptions+=!
+
+    " 右スクロールバーを非表示
+    set guioptions -=r
 
 
     " ウィンドウの位置とサイズを記憶する
