@@ -105,6 +105,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
 
     " lspの設定
     let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
+    let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをおあわせたときにエラーの理由をする
+    let g:lsp_sign_enavled = 1 "エラーの表示をファイルに直接する
     let g:lsp_log_verbose = 1
     let g:lsp_log_file = expand('~/vim-lsp.log')
     " asyncomplete.vim log
@@ -289,7 +291,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " スクロール時に表示を指定行確保
-set scrolloff=5
+set scrolloff=18
 
 " ファイル名表示
 "set statusline=%F 
