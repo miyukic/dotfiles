@@ -104,13 +104,15 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     "let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
     " lspの設定
+    let g:asyncomplete_popup_delay = 200
+    let g:lsp_text_edit_enabled = 1
     let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
     let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをおあわせたときにエラーの理由をする
     let g:lsp_sign_enavled = 1 "エラーの表示をファイルに直接する
     let g:lsp_log_verbose = 1
     let g:lsp_log_file = expand('~/vim-lsp.log')
     " asyncomplete.vim log
-    let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+    "let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
     " pylsの設定。LinterのON/OFFなどが可能
     let s:pyls_config = {'pyls': {'plugins': {
@@ -134,27 +136,25 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
                     \})
     augroup END
 
-    " omnisharpの設定
+    " omnisharpの設定 + Lspのキーバインド
     function! s:on_lsp_buffer_enabled() abort
         setlocal omnifunc=lsp#complete
         setlocal signcolumn=yes
         nmap <buffer> gd <plug>(lsp-definition)
         nmap <buffer> <f2> <plug>(lsp-rename)
+        nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
+        nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
+        nnoremap <silent> <C-Space> :LspCodeAction<CR>
+        nnoremap <silent> gh :<C-u>LspHover<CR> "ghに割り当てると選択モードが使えなくなる
+        nnoremap <Leader>n :<C-u>LspReferences<CR>
+        nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
+        nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
     endfunction
     augroup lsp_install
         au!
         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
     augroup END
 
-    let g:asyncomplete_popup_delay = 200
-    let g:lsp_text_edit_enabled = 1
-    nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
-    nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
-    nnoremap <silent> <C-Space> :LspCodeAction<CR>
-    nnoremap <Leader>K :<C-u>LspHover<CR>
-    nnoremap <Leader>n :<C-u>LspReferences<CR>
-    nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>
-    nnoremap <Leader>s :<C-u>LspDocumentFormat<CR>
 
 endif
 " vimplugin setting END ====================================================
