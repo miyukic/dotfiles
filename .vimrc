@@ -158,6 +158,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
 
 endif
 " vimplugin setting END ====================================================
+
 " コマンドライン補完
 set wildmenu
 set wildmode=list:full
@@ -176,16 +177,20 @@ if has('nvim')
     " <C-w>でvimと同じ動きにする
     tnoremap <C-w> <C-\><C-n><C-w> " 
      " ターミナルに切り替えたとき自動的にインサートモードにする
-    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+    "autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+elseif !has('nvim')
+    " ターミナルに移ったときにインサートモードを抜けてノーマルモードにする
+    " \<C-\>\<C-n>のように\でスケープすると、キー入力として呼び出せる
+    autocmd WinEnter * if &buftype ==# 'terminal' | call timer_start(0, { -> feedkeys("\<C-\>\<C-n>") }) | endif
 endif
 " 既にターミナルを開いているときの処理
 function! TermOpen()
     if has('nvim')
         execute "sp|term"
-        startinsert
+        "startinsert
     else
         if empty(term_list())
-                execute "terminal"
+            execute "terminal"
         else
             call win_gotoid(win_findbuf(term_list()[0])[0])
         endif
