@@ -69,7 +69,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     "status line plugin
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-                \ 'colorscheme': 'selenized_black',
+                \ 'colorscheme': 'PaperColor',
                 \ 'mode_map': {'c': 'NORMAL'},
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
