@@ -204,7 +204,7 @@ set splitbelow
 
 if version >= 801
     " ターミナルの高さx幅
-    set termwinsize=7x0
+    set termwinsize=9x0
 endif
 
 " シェルのパス
@@ -244,7 +244,9 @@ endif
 set t_Co=256~
 
 " True Color(24bit Color) サポート
-set termguicolors
+if has('nvim')
+    set termguicolors
+endif
 
 " 補完ウィンドウ等の透明度0~100
 if has('nvim') 
@@ -296,7 +298,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " スクロール時に表示を指定行確保
-set scrolloff=18
+set scrolloff=40
 
 " ファイル名表示
 "set statusline=%F 
@@ -358,50 +360,63 @@ set cursorline
 
 augroup ColorSchemeSetting
     " ayu color
-    "yucolor="light"  " for light version of theme
+    "colorscheme jellybeans
+    "ayucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
-    let ayucolor="dark"   " for dark version of theme
+    "let ayucolor="dark"   " for dark version of theme
     colorscheme PaperColor " カラースキーマ
 
     " カラースキーマ
     "colorscheme molokai
+    " ダーク系のカラースキームを使う
+    set background=dark
 
     if has('nvim')
         " 256Color のときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
         " 24bitColorのときのカレント行の色設定
         autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
+        " 背景色設定
+        highlight Normal guibg=NONE
+        highlight LineNr guibg=NONE
+        highlight VertSplit guibg=NONE
+        highlight Special guibg=NONE
+        highlight Identifier guibg=NONE
     else
-        " 256Color のときのカレント行の色設定
-        "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
-        " 24bitColorのときのカレント行の色設定
-        autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
-    endif
-
-    " ダーク系のカラースキームを使う
+    colorscheme PaperColor
     set background=dark
+        if &termguicolors
+            " 24bitColorのときのカレント行の色設定
+            autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
+            " 24bitColorのときの背景色設定
+            highlight Normal guibg=Gray3
+            highlight LineNr guibg=Gray3
+            highlight VertSplit guibg=Gray3
+            highlight Special guibg=Gray3
+            highlight Identifier guibg=Gray3
+            highlight NonText guibg=Gray3
+        else
+            " 256Color のときのカレント行の色設定
+            highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            " 24bitColor のときの背景色の設定
+            highlight Normal ctermbg=NONE
+            highlight LineNr ctermbg=NONE
+            highlight VertSplit ctermbg=NONE
+            highlight Special ctermbg=NONE
+            highlight Identifier ctermbg=NONE
+            highlight EndOfBuffer ctermbg=NONE
+            highlight Folded ctermbg=NONE
+            highlight Conceal ctermbg=NONE
+            highlight NonText ctermbg=NONE
+        endif
+    endif
 
     " Errorの色を変更
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
     " Todoの色設定
     highlight Todo ctermfg=0 guifg=#F78A81
 
-    " 背景色設定
-    augroup transBGColor
-        if has('nvim')
-            highlight Normal guibg=NONE
-            highlight LineNr guibg=NONE
-            highlight VertSplit guibg=NONE
-            highlight Special guibg=NONE
-            highlight Identifier guibg=NONE
-        else
-            highlight Normal guibg=Gray3
-            highlight LineNr guibg=Gray3
-            highlight VertSplit guibg=Gray3
-            highlight Special guibg=Gray3
-            highlight Identifier guibg=Gray3
-        endif
-    augroup END
 augroup END
 
 " 現在の行を強調表示（縦）
@@ -417,5 +432,5 @@ set wrapscan
 set hlsearch
 
 " 折り返さない
-set nowrap
+set wrap
 
