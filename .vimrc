@@ -1,47 +1,50 @@
 set encoding=utf-8
 if has('kaoriya')
-	let g:no_vimrc_example=0
-	let g:vimrc_local_finish=1
-	let g:gvimrc_local_finish=1
+    let g:no_vimrc_example=0
+    let g:vimrc_local_finish=1
+    let g:gvimrc_local_finish=1
  
-	"$VIM/plugins/kaoriya/autodate.vim
-	let plugin_autodate_disable  = 1
-	"$VIM/plugins/kaoriya/cmdex.vim
-	let plugin_cmdex_disable     = 1
-	"$VIM/plugins/kaoriya/dicwin.vim
-	let plugin_dicwin_disable    = 1
-	"$VIMRUNTIME/plugin/format.vim
-	let plugin_format_disable    = 1
-	"$VIM/plugins/kaoriya/hz_ja.vim
-	let plugin_hz_ja_disable     = 1
-	"$VIM/plugins/kaoriya/scrnmode.vim
-	let plugin_scrnmode_disable  = 1
-	"$VIM/plugins/kaoriya/verifyenc.vim
-	let plugin_verifyenc_disable = 1
+    "$VIM/plugins/kaoriya/autodate.vim
+    let plugin_autodate_disable  = 1
+    "$VIM/plugins/kaoriya/cmdex.vim
+    let plugin_cmdex_disable     = 1
+    "$VIM/plugins/kaoriya/dicwin.vim
+    let plugin_dicwin_disable    = 1
+    "$VIMRUNTIME/plugin/format.vim
+    let plugin_format_disable    = 1
+    "$VIM/plugins/kaoriya/hz_ja.vim
+    let plugin_hz_ja_disable     = 1
+    "$VIM/plugins/kaoriya/scrnmode.vim
+    let plugin_scrnmode_disable  = 1
+    "$VIM/plugins/kaoriya/verifyenc.vim
+    let plugin_verifyenc_disable = 1
 endif
 if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
 " vimplugin ================================================================
 
-if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim')) || filereadable(expand('~/vimfiles/autoload/plug.vim'))
-    if has('nvim') && has('win32') " Neovim
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+            \|| filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
+            \|| filereadable(expand('~/vimfiles/autoload/plug.vim'))
+    if has('nvim') && has('win32') " Neovim on Windows
         let g:local = '~/AppData/Local/nvim/plugged'
-    elseif has('unix') "LinuxVim
+    elseif has('unix') "vim on Linux
         let g:local = '~/.vim/plugged'
-    else "gVim
+    else "gVim on Windows
         let g:local = '~/vimfiles/plugged'
     endif
     call plug#begin(local)
     if has('nvim')
+    " Neovimのみのプラグイン
     else
+    " ノーマルvimのみのプラグイン
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
     endif
     "Plug 'hougo/neocomplcache.vim'
     Plug 'vim-jp/vimdoc-ja'
     Plug 'tpope/vim-sensible'
-    Plug 'mg979/vim-visual-multi' " マルチカーソル
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -49,6 +52,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
     Plug 'mattn/vim-lsp-settings'
     Plug 'mattn/vim-lsp-icons'
     Plug 'tpope/vim-surround'
+
+    " マルチカーソル
+    Plug 'mg979/vim-visual-multi'
+
+    "vimとGitの連携
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
 
     " Linter系
     "Plug 'neomake/neomake'
@@ -72,15 +82,16 @@ if filereadable(expand('~/.vim/autoload/plug.vim')) || filereadable(expand('~/Ap
                 \ 'colorscheme': 'PaperColor',
                 \ 'mode_map': {'c': 'NORMAL'},
                 \ 'active': {
-                \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+                \   'left': [   [ 'mode', 'paste' ],
+                \               [ 'gitbranch', 'readonly', 'filename', 'modidied'],
+                \           ],
                 \   'right' : [ [ 'lineinfo', 'syntastic' ], 
                 \               [ 'percent' ],
                 \               [ 'charcode', 'fileformat', 'fileencoding', 'filetype' ],
-                \               [ 'usa_president_2020' ],
                 \             ]
                 \ },
                 \ 'component_function': {
-                \   'usa_president_2020': 'usa_president_2020#status',
+                \   'gitbranch':    'FugitiveHead',
                 \ }
                 \ }
 
@@ -383,7 +394,6 @@ augroup ColorSchemeSetting
         highlight Special guibg=NONE
         highlight Identifier guibg=NONE
     else
-    colorscheme PaperColor
     set background=dark
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
