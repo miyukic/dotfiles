@@ -119,7 +119,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     let g:lsp_text_edit_enabled = 1
     let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
     let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをおあわせたときにエラーの理由をする
-    let g:lsp_sign_enavled = 1 "エラーの表示をファイルに直接する
+    let g:lsp_signs_enabled = 1 "エラーの表示をファイルに直接する
     let g:lsp_log_verbose = 1
     let g:lsp_log_file = expand('~/vim-lsp.log')
     " asyncomplete.vim log
