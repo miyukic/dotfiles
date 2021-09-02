@@ -350,7 +350,7 @@ set ignorecase
 set smartcase
 
 " 行末のスペースを可視化
-set list
+set nolist
 set listchars=tab:^\ ,trail:~,eol:↲
 
 " 不可視文字（tab:tab,trail:行末スペース,nbsp:ノーブレークスペース,eol:改行）
