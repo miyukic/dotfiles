@@ -443,4 +443,3 @@ set hlsearch
 
 " 折り返さない
 set wrap
-
