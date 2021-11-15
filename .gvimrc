@@ -8,7 +8,7 @@ set number
 autocmd ColorScheme * hi CursorLine gui=NONE guifg=NONE guibg=grey6
 
 
-colorscheme ayu
+colorscheme jellybeans
 
 " status line
 "let g:lightline = {
