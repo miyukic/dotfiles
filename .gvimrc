@@ -22,6 +22,7 @@ hi VertSplit guibg=grey3
 hi Special guibg=grey3 "＆等の記号
 hi Identifier guibg=grey3 "予約語? 
 
+set renderingoptions=type:directx
 
 if has('nvim') && has('win32') " neovim-qt 固有の設定
     let $MYGVIMRC = "~/AppData/local/nvim/ginit.vim"
@@ -66,13 +67,14 @@ else " gVim 固有の設定
     set clipboard=unnamed
 
     " フォント設定
-    set guifont=Cica:h12
+    set guifont=CaskaydiaCove_Nerd_Font_Mono:h10"
+    set renderoptions=type:directx
 
     " ツールバー非表示
     set guioptions-=T
 
     " メニューバー非表示
-    set guioptions-=m
+    "set guioptions-=m
     
     " GUIのTab非表示
     set guioptions -=e
