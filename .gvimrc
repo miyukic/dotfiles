@@ -68,7 +68,7 @@ else " gVim 固有の設定
 
     " フォント設定
     set guifont=CaskaydiaCove_Nerd_Font_Mono:h10"
-    set renderoptions=type:directx
+    "set renderoptions=type:directx
 
     " ツールバー非表示
     set guioptions-=T
