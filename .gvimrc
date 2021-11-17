@@ -22,7 +22,6 @@ hi VertSplit guibg=grey3
 hi Special guibg=grey3 "＆等の記号
 hi Identifier guibg=grey3 "予約語? 
 
-set renderingoptions=type:directx
 
 if has('nvim') && has('win32') " neovim-qt 固有の設定
     let $MYGVIMRC = "~/AppData/local/nvim/ginit.vim"
