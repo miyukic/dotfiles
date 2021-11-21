@@ -15,7 +15,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
 Set-PSReadLineOption -PredictionSource History
 
 #nvimエイリアス
-Set-Alias vim nvim
+"Set-Alias vim nvim
 Set-Alias vi nvim
 Set-Alias gvim Call-Gvim
 
