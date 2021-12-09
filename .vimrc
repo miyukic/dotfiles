@@ -255,6 +255,7 @@ endif
 set t_Co=256~
 
 " True Color(24bit Color) サポート
+"set termguicolors
 if has('nvim')
     set termguicolors
 endif
@@ -370,11 +371,13 @@ syntax on
 set cursorline
 
 augroup ColorSchemeSetting
-    " ayu color
     "colorscheme jellybeans
+    " ayu color
+    "colorscheme ayu
     "ayucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
     "let ayucolor="dark"   " for dark version of theme
+    
     colorscheme PaperColor " カラースキーマ
 
     " カラースキーマ
@@ -386,15 +389,16 @@ augroup ColorSchemeSetting
         " 256Color のときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
         " 24bitColorのときのカレント行の色設定
-        autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE
+        "autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
+        highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
         " 背景色設定
         highlight Normal guibg=NONE
         highlight LineNr guibg=NONE
         highlight VertSplit guibg=NONE
         highlight Special guibg=NONE
         highlight Identifier guibg=NONE
+        highlight NonText guibg=NONE
     else
-    set background=dark
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
             autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
@@ -407,18 +411,23 @@ augroup ColorSchemeSetting
             highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
-            highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-            "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-            " 24bitColor のときの背景色の設定
-            highlight Normal ctermbg=NONE
-            highlight LineNr ctermbg=NONE
-            highlight VertSplit ctermbg=NONE
-            highlight Special ctermbg=NONE
-            highlight Identifier ctermbg=NONE
-            highlight EndOfBuffer ctermbg=NONE
-            highlight Folded ctermbg=NONE
-            highlight Conceal ctermbg=NONE
-            highlight NonText ctermbg=NONE
+            "highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            " 256Color のときの背景色の設定
+            highlight Normal guibg=NONE
+            highlight LineNr guibg=NONE
+            highlight VertSplit guibg=NONE
+            highlight Special guibg=NONE
+            highlight Identifier guibg=NONE
+            "highlight Normal ctermbg=NONE
+            "highlight LineNr ctermbg=NONE
+            "highlight VertSplit ctermbg=NONE
+            "highlight Special ctermbg=NONE
+            "highlight Identifier ctermbg=NONE
+            "highlight EndOfBuffer ctermbg=NONE
+            "highlight Folded ctermbg=NONE
+            "highlight Conceal ctermbg=NONE
+            "highlight NonText ctermbg=NONE
         endif
     endif
 
@@ -443,3 +452,4 @@ set hlsearch
 
 " 折り返さない
 set wrap
+
