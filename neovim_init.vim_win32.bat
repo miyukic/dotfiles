@@ -1,4 +1,5 @@
 @echo off
+chcp 65001
 
 rem このbatfileはneovimに必要なコマンドとアプリケーションを自動インストールします。
 
