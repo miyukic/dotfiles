@@ -7,6 +7,10 @@ function Call-Gvim {
     cmd.exe /c gvim $args
 }
 
+function Call-ls {
+    ls.exe -la
+}
+
 function Start-OhMyPosh {
     #Import-Module posh-git
     #Import-Module oh-my-posh
@@ -27,6 +31,9 @@ Set-PSReadLineOption -PredictionSource History
 #Set-Alias vim nvim
 Set-Alias vi nvim
 Set-Alias gvim Call-Gvim
+
+Set-Alias ll Call-ls
+Set-Alias ls ls.exe
 
 #oh-my-posh (PsowerLine) 
 if ($env:WT_PROFILE_ID) {
