@@ -371,14 +371,14 @@ syntax on
 set cursorline
 
 augroup ColorSchemeSetting
-    "colorscheme jellybeans
+    colorscheme jellybeans
     " ayu color
     "colorscheme ayu
     "ayucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
     "let ayucolor="dark"   " for dark version of theme
     
-    colorscheme PaperColor " カラースキーマ
+    "colorscheme PaperColor " カラースキーマ
 
     " カラースキーマ
     "colorscheme molokai
@@ -411,23 +411,25 @@ augroup ColorSchemeSetting
             highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
-            "highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-            autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+            "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
             " 256Color のときの背景色の設定
-            highlight Normal guibg=NONE
-            highlight LineNr guibg=NONE
-            highlight VertSplit guibg=NONE
-            highlight Special guibg=NONE
-            highlight Identifier guibg=NONE
-            "highlight Normal ctermbg=NONE
-            "highlight LineNr ctermbg=NONE
-            "highlight VertSplit ctermbg=NONE
-            "highlight Special ctermbg=NONE
-            "highlight Identifier ctermbg=NONE
-            "highlight EndOfBuffer ctermbg=NONE
-            "highlight Folded ctermbg=NONE
-            "highlight Conceal ctermbg=NONE
-            "highlight NonText ctermbg=NONE
+            "highlight Normal guibg=NONE
+            "highlight LineNr guibg=NONE
+            "highlight VertSplit guibg=NONE
+            "highlight Special guibg=NONE
+            "highlight Identifier guibg=NONE
+            if has('unix') " Windows上で背景を透過できない不具合?対策
+                highlight Normal ctermbg=NONE
+                highlight LineNr ctermbg=NONE
+                highlight VertSplit ctermbg=NONE
+                highlight Special ctermbg=NONE
+                highlight Identifier ctermbg=NONE
+                highlight EndOfBuffer ctermbg=NONE
+                highlight Folded ctermbg=NONE
+                highlight Conceal ctermbg=NONE
+                highlight NonText ctermbg=NONE
+            endif
         endif
     endif
 
