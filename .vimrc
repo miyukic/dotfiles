@@ -301,6 +301,9 @@ noremap k gk
 "inoremap <C-u> <C-o>d^
 "inoremap <C-w> <C-o>db
 
+" 改行無しのカーソルから文末までコピー
+nnoremap Y y$
+
 "バッファの切り替えを<C-j> <C-k>で行う
 nnoremap <silent> <C-h> :bprev<CR>
 nnoremap <silent> <C-l> :bnext<CR>
