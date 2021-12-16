@@ -388,6 +388,8 @@ augroup ColorSchemeSetting
     " ダーク系のカラースキームを使う
     set background=dark
 
+    " コメント色
+    highlight Comment ctermfg=DarkGreen
     if has('nvim')
         " 256Color のときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
