@@ -320,9 +320,6 @@ nnoremap <silent> <C-l> :bnext<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" 水平分割の分割サイズ変更
-nnoremap <A-<
-
 " スクロール時に表示を指定行確保
 set scrolloff=40
 
