@@ -22,7 +22,8 @@ endif
 if !has('nvim')
     source $VIMRUNTIME/defaults.vim
 endif
-" vimplugin ================================================================
+" vimplugin settings start
+" ============================================================================
 
 if filereadable(expand('~/.vim/autoload/plug.vim'))
             \|| filereadable(expand('~/AppData/Local/nvim/autoload/plug.vim'))
@@ -55,6 +56,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 
     " マルチカーソル
     Plug 'mg979/vim-visual-multi'
+
+    " 分割リサイズ https://github.com/simeji/winresizer#customize-options
+    Plug 'simeji/winresizer'
 
     "vimとGitの連携
     Plug 'airblade/vim-gitgutter'
@@ -166,9 +170,13 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
     augroup END
 
+    " winresizer の設定
+    let g:winresizer_vert_resize = 6
+    let g:winresizer_horiz_resize = 2
+    let g:winresizer_start_key = '<C-e>'
 
 endif
-" vimplugin setting END ====================================================
+" vimplugin setting END ======================================================
 
 " コマンドライン補完
 set wildmenu
@@ -311,6 +319,9 @@ nnoremap <silent> <C-l> :bnext<CR>
 " 選択範囲のインデントを連続して変更
 vnoremap < <gv
 vnoremap > >gv
+
+" 水平分割の分割サイズ変更
+nnoremap <A-<
 
 " スクロール時に表示を指定行確保
 set scrolloff=40
