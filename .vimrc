@@ -159,7 +159,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         nmap <buffer> <f2> <plug>(lsp-rename)
         nnoremap <silent> cre :LspRename<CR> "リファクタリング・リネーム
         nnoremap <silent> <C-]> :LspDefinition<CR> "定義ジャンプ
-        nnoremap <silent> <C-Space> :LspCodeAction<CR>
+        nnoremap <silent> <C-.> :<C-u>LspCodeAction<CR>
         nnoremap <silent> gh :<C-u>LspHover<CR> "ghに割り当てると選択モードが使えなくなる
         nnoremap <Leader>n :<C-u>LspReferences<CR>
         nnoremap <Leader>f :<C-u>LspDocumentDiagnostics<CR>

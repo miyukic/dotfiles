@@ -33,8 +33,8 @@ noremap <CR> o<Esc>
 
 "コメントアウト
 "※バグ？で反映されないのでVSのキーボードショートカットで設定する
-vnoremap <C-/> :vsc 編集.行コメントの切り替え
-nnoremap <C-/> :vsc 編集.行コメントの切り替え
+"vnoremap <C-/> :vsc 編集.行コメントの切り替え
+"nnoremap <C-/> :vsc 編集.行コメントの切り替え
 
 " 行末までコピー
 nnoremap Y v$y<C-o>
@@ -53,9 +53,9 @@ inoremap <C-u> <C-o>d^
 inoremap <C-w> <C-o>db
 
 " 変換候補選択
-"inoremap <C-p> :vsc 編集.入力候補<CR>
-inoremap <C-p> :vsc 候補リスト.Edit.IntelliCode.Next<CR>
-inoremap <C-n> :vsc 候補リスト.Edit.IntelliCode.Previous<CR>
+inoremap <C-p> :vsc 編集.入力候補<CR>
+nnoremap <C-p> :vsc 候補リスト.Edit.IntelliCode.Next<CR>
+nnoremap <C-n> :vsc 候補リスト.Edit.IntelliCode.Previous<CR>
 
 " j, k による移動を折り返されたテキストでも自然に振る舞うように変更
 nnoremap j gj
