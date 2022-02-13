@@ -1,5 +1,5 @@
-"検索をファイルの先頭へ循環しない
-set nowrapscan
+"検索をファイルの先頭へ循環する
+set wrapscan
 
 "大文字小文字の区別なし
 set ignorecase
@@ -12,7 +12,7 @@ set smartcase
 set hlsearch
 
 "スクロール時に表示を指定行確保
-set scrolloff=30
+set scrolloff=40
 
 "JIS 配列 C-[ で Esc
 inoremap <C-[> <Esc>
@@ -40,17 +40,17 @@ noremap <CR> o<Esc>
 nnoremap Y v$y<C-o>
 
 "インサートモードで bash 風キーマップ
-inoremap <C-a> <C-o>^
-inoremap <C-e> <C-o>$<Right>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
+"inoremap <C-a> <C-o>^
+"inoremap <C-e> <C-o>$<Right>
+"inoremap <C-b> <Left>
+"inoremap <C-f> <Right>
 "inoremap <C-n> <Down>
 "inoremap <C-p> <Up>
-inoremap <C-h> <BS>
-inoremap <C-d> <Del>
-inoremap <C-k> <C-o>D<Right>
-inoremap <C-u> <C-o>d^
-inoremap <C-w> <C-o>db
+"inoremap <C-h> <BS>
+"inoremap <C-d> <Del>
+"inoremap <C-k> <C-o>D<Right>
+"inoremap <C-u> <C-o>d^
+"inoremap <C-w> <C-o>db
 
 " 変換候補選択
 inoremap <C-p> :vsc 編集.入力候補<CR>
@@ -67,6 +67,9 @@ vnoremap v $h
 " TABにて対応ペアにジャンプ
 nnoremap &lt;Tab&gt; %
 vnoremap &lt;tab&gt; %
+
+"矩形選択で文字が無くても右へ進める
+set virtualedit=block
 
 " 動作環境との統合
 " OSのクリップボードをレジスタ指定無しで Yank, Put 出来るようにする
