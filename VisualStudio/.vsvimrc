@@ -12,7 +12,7 @@ set smartcase
 set hlsearch
 
 "スクロール時に表示を指定行確保
-set scrolloff=40
+set scrolloff=10
 
 "JIS 配列 C-[ で Esc
 inoremap <C-[> <Esc>
