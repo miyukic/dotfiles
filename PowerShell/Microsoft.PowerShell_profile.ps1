@@ -18,7 +18,7 @@ function Call-CommandPath {
 function Start-OhMyPosh {
     #Import-Module posh-git
     #Import-Module oh-my-posh
-    Set-PoshPrompt -Theme powerlevel10k_rainbow
+    Set-PoshPrompt -Theme negligible
     # $GitPromptSettings.AnsiConsole = $true
     $Env:POSHGIT_CYGWIN_WARNING = 'off'
 }
@@ -45,3 +45,7 @@ Set-Alias type Call-CommandPath
 if ($env:WT_PROFILE_ID) {
     Start-OhMyPosh
 }
+
+#Rust目的で導入したOpenSSL
+$env:OPENSSL_LIB_DIR="C:\Program Files\OpenSSL-Win64"
+$env:OPENSSL_INCLUDE_DIR="C:\Program Files\OpenSSL-Win64\include"

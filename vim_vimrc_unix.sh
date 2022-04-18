@@ -35,6 +35,7 @@ done
 # vim-plugのインストール
 VIMPLUG=~/.vim/autoload/plug.vim
 if [ ! -e $VIMPLUG ]; then
+    mkdir -p ~/.vim/autoload
     curl -fLo $VIMPLUG --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     # vim-plug PlugInstallの実行

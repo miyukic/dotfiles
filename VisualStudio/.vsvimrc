@@ -108,7 +108,7 @@ map <silent> [Tag]h gT
 map <silent> [Tag]l gt
 
 " 入力モード中に素早くJJと入力した場合はESCとみなす
-inoremap jj <Esc>
+"inoremap jj <Esc>
 
 
 " マウスオーバーヒント
