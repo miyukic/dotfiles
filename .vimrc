@@ -53,6 +53,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'mattn/vim-lsp-settings'
     Plug 'mattn/vim-lsp-icons'
     Plug 'tpope/vim-surround'
+    " FuzzyFinder
+    Plug 'ctrlpvim/ctrlp.vim'
 
     " マルチカーソル
     Plug 'mg979/vim-visual-multi'
@@ -175,6 +177,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     let g:winresizer_horiz_resize = 2
     let g:winresizer_start_key = '<C-e>'
 
+    " CtrlP の設定
+    nnoremap ,, :CtrlPMRU<CR>
+    
+ 
 endif
 " vimplugin setting END ======================================================
 
