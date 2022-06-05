@@ -42,9 +42,12 @@ Set-Alias ls ls.exe
 Set-Alias type Call-CommandPath
 
 #oh-my-posh (PsowerLine) 
-if ($env:WT_PROFILE_ID) {
-    Start-OhMyPosh
-}
+#if ($env:WT_PROFILE_ID) {
+#    Start-OhMyPosh
+#}
+
+#starship
+Invoke-Expression (&starship init powershell)
 
 #Rust目的で導入したOpenSSL
 $env:OPENSSL_LIB_DIR="C:\Program Files\OpenSSL-Win64"

@@ -1,0 +1,9 @@
+[character]
+disabled = false
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+
+[time]
+disabled = false
+time_format = "%Y-%m-%d %H:%M:%S"
+utc_time_offset = "+9"
