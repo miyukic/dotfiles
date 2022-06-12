@@ -1,9 +1,9 @@
-rem @echo off
+@echo off
 chcp 65001
+
 @rem scoopコマンド存在確認
 
 WHERE /Q scoop
-echo %ERRORELEVEL%
 IF "%ERRORELEVEL%" == "1" (
     echo "scoopコマンドがありません"
     echo "starshipをインストールするにはscoopが必要です"
@@ -14,22 +14,31 @@ IF "%ERRORELEVEL%" == "1" (
     rem scoopのインストール
     powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
 
+) ELSE (
+    echo "scoopは既にインストールされています"
 )
-echo "starshipをインストールします"
-scoop install starship
+
+@rem starshipコマンド存在確認
+WHERE /Q starship
+IF "%ERRORELEVEL%" == "1" (
+    echo "starshipをインストールします"
+    scoop install starship
+) ELSE (
+    echo "starshipは既にインストールされています"
+)
 
 
 
-@rem IF NOT EXIST %USERPROFILE%\.config (
-@rem     mkdir %USERPROFILE%\.config
-@rem 
-@rem     setlocal
-@rem     for /f "usebackq delims=" %%A in (`ver`) do set PATH=%%A
-@rem     echo %PATH%
-@rem 
-@rem     rem mklink %USERPROFILE%\.config\starship.toml %~dp0
-@rem ) ELSE (
-@rem     echo ".configフォルダが既に存在しているため作成できませんでした"
-@rem )
+IF NOT EXIST %USERPROFILE%\.config\ (
+    rem mkdir %USERPROFILE%\.config
+
+    rem setlocal
+    rem for /f "usebackq delims=" %%A in (`ver`) do set PATH=%%A
+    rem echo %PATH%
+
+    rem mklink %USERPROFILE%\.config\starship.toml %~dp0
+) ELSE (
+    echo ".configフォルダが既に存在しているため作成できませんでした"
+)
 
 pwsh ./starship_install.ps1
