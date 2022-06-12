@@ -5,7 +5,7 @@ rem このbatfileはneovimに必要なコマンドとアプリケーションを
 
 rem scoopのインストール
 where /Q scoop
-if %ERRORLEVEL% == 1 (
+if "%ERRORLEVEL%" == "1" (
     echo ==================================================
     echo scoopのインストールを開始します....
     powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
@@ -15,7 +15,7 @@ if %ERRORLEVEL% == 1 (
 
 rem gitコマンドのインストール
 where /Q git
-if %ERRORLEVEL% == 1 (
+if "%ERRORLEVEL%" == "1" (
     echo ==================================================
     echo 自動でgitへパスを通しますか？<Y/N>
     set /P UserResp="入力: "
@@ -114,7 +114,7 @@ where /Q pwsh
 set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
 if not exist %VIMPLUG% (
 echo vim-plugのインストールを行います。
-    if %ERRORLEVEL% == 0 (
+    if "%ERRORLEVEL%" == "0" (
         pwsh -c md ~\appdata\local\nvim\autoload
         pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
         pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
