@@ -7,8 +7,6 @@ WHERE /Q scoop
 IF "%ERRORELEVEL%" == "1" (
     echo "scoopコマンドがありません"
     echo "starshipをインストールするにはscoopが必要です"
-    rem scoopのインストール
-    echo ==================================================
     echo scoopのインストールを開始します....
     powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     rem scoopのインストール
@@ -27,18 +25,26 @@ IF "%ERRORELEVEL%" == "1" (
     echo "starshipは既にインストールされています"
 )
 
-
-
+rem .configフォルダの作成
 IF NOT EXIST %USERPROFILE%\.config\ (
-    rem mkdir %USERPROFILE%\.config
-
-    rem setlocal
-    rem for /f "usebackq delims=" %%A in (`ver`) do set PATH=%%A
-    rem echo %PATH%
-
-    rem mklink %USERPROFILE%\.config\starship.toml %~dp0
-) ELSE (
-    echo ".configフォルダが既に存在しているため作成できませんでした"
+    echo %USERPROFILE%\.config を作成します
+    mkdir %USERPROFILE%\.config
 )
 
-pwsh ./starship_install.ps1
+rem starship設定ファイルの作成(シンボリックリンクの作成)
+IF NOT EXIST %USERPROFILE%\.config\starship.toml (
+    echo "starshipの設定ファイル[~\.config\starshop.toml]"
+    echo "を作成しますか?[実際には設定ファイルへのシンボリックリンクが生成されます] Y/N"
+    set /P UserResp="入力: "
+    rem echo %UserResp%
+    IF /i "%UserResp%" == "Y" (
+        WHERE /Q scoop
+        IF "%ERRORELEVEL%" == "1" (
+            echo "PowerShellをインストールします"
+            winget install --id Microsoft.PowerShell --source winget
+        )
+        pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
+    )
+)
+echo インストールが終わりました。
+
