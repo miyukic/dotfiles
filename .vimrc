@@ -474,3 +474,7 @@ set hlsearch
 " 折り返さない
 set wrap
 
+"ターミナルの指定
+if has('win32') "Windows
+   " set shell=C:\Program Files\PowerShell\7\pwsh.exe
+endif

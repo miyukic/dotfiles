@@ -1,3 +1,4 @@
+Set-StrictMode -Version Latest
 
 function Get-Assembly {
    [Appdomain]::CurrentDomain.GetAssemblies() | %{$_.GetName().Name}
@@ -11,6 +12,13 @@ function Call-ls {
     ls.exe -la
 }
 
+function Call-lsd-la {
+    lsd.exe -la
+}
+
+function Call-lsd-tree {
+    lsd.exe --tree
+}
 
 function Call-CommandPath {
     (Get-Command $args).source
@@ -52,10 +60,15 @@ if ($env:WT_PROFILE_ID) {
     Invoke-Expression (&starship init powershell)
 }
 
-#lsdコマンド
+#lsd,batコマンド
 if ($env:WT_PROFILE_ID) {
     Set-Alias ls lsd
+    Set-Alias ll Call-lsd-la
+    Set-Alias tree Call-lsd-tree
 }
+
+#パイプ通過時、コンソール出力時の文字コード
+$OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 
 # Rust目的で導入したOpenSSL
 #$env:OPENSSL_LIB_DIR="C:\Program Files\OpenSSL-Win64"
