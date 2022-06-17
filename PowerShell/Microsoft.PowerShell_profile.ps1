@@ -35,6 +35,10 @@ function Start-OhMyPosh {
 #Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
+# zsh風Tabの補完
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+# PowerShell/cmd風のTab補完
+#Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
 
 # fish風のオートサジェスト機能を有効に
 Set-PSReadLineOption -PredictionSource History
