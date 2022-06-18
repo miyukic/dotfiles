@@ -1,0 +1,117 @@
+//C:\Users\username\AppData\Roaming\Code\User\settings.json
+{
+    "workbench.iconTheme": "ayu",
+    "git.path": "C:\\Users\\username\\scoop\\shims\\git.exe",
+    "java.semanticHighlighting.enabled": true,
+
+    "vim.handleKeys": {
+        "<C-d>": true
+    },
+    "vim.surround": true,
+    "vim.normalModeKeyBindingsNonRecursive": [ //ノーマルモード
+        {"before": ["u"],"commands"   : [{"command"  : "undo"}]},                            //デフォルトだと戻りすぎるので修正 redo,undoで戻りすぎたりする
+        {"before": ["<C-r>"],"commands": [{"command": "redo"}]},                             //デフォルトだと戻りすぎるので修正
+        {"before": ["<C-o>"],"commands": [{"command": "workbench.action.navigateBack"}]},    //デフォルトだと上手く動作しないので修正
+        {"before": ["<C-i>"],"commands": [{"command": "workbench.action.navigateForward"}]}, //デフォルトだと上手く動作しないので修正
+        {"before": [">"], "commands"   : ["editor.action.indentLines"]},                      //インデント調整(repeat可能)
+        {"before": ["<"], "commands"   : ["editor.action.outdentLines"]},                     //インデント調整(repeat可能)
+        {"before": ["x"], "commands"   : [{"command"  : "deleteRight"}]},                     //xで削除してもレジスタを占領しない
+        {"before": ["j"], "after": ["g", "j"] }, // 折り返した行内を移動できる
+        {"before": ["k"], "after": ["g", "k"] }, // 折り返した行内を移動できる
+        {"before": ["cre"], "after": ["editor.action.rename"] } // リファクタリング、名前の変更
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [ //ビジュアルモード
+        { "before": [">"], "after": [">", "g", "v"] }, // 連続してインデント調整可能 (repeat可能)
+        { "before": ["<"], "after": ["<", "g", "v"] } // 連続してインデント調整可能 (repeat可能)
+    ],
+    "vim.highlightedyank.enable"   : true,                           //yankした箇所をハイライト表示にする
+    "vim.highlightedyank.color"    : "rgba(0   , 240 , 170 , 0.5)" , //yankした時の色
+    "vim.highlightedyank.duration" : 150,                            //yankした時の色の表示時間
+    "vim.hlsearch": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "vim.useSystemClipboard": true,
+    "scrolloff.alwaysCenter": false,
+    "scrolloff.scrolloff": 8,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "on",
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "C_Cpp.updateChannel": "Insiders",
+    "python.pythonPath": "C:\\Users\\username\\Anaconda3\\envs\\3.9\\python.exe",
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command",
+        "switch:command",
+        "push:menu"
+    ],
+    "vsicons.dontShowNewVersionMessage": true,
+    "sshfs.configs": [
+        {
+            "name": "pi",
+            "host": "192.168.1.104",
+            "port": 50041,
+            "privateKeyPath": "c:\\Users\\username\\.ssh\\id_rsa",
+            "merge": true,
+            "username": "pi"
+        }
+    ],
+    "editor.acceptSuggestionOnEnter": "on",
+    // 余分なホワイトスペースを削除
+    "files.trimTrailingWhitespace": true,
+    "python.languageServer": "Pylance",
+    "omnisharp.useEditorFormattingSettings": false,
+    "editor.renderControlCharacters": true,
+    "vim.easymotion": true,
+    "editor.cursorSurroundingLines": 30,
+    "[csharp]": {
+        //"editor.quickSuggestions": false,
+        // C#でスペースで勝手に候補が確定されないようにする
+        "editor.acceptSuggestionOnCommitCharacter": false,
+        "editor.suggest.insertMode": "replace",
+        "editor.semanticHighlighting.enabled": true
+    },
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "python.showStartPage": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "powershell.promptToUpdatePowerShell": false,
+    "editor.codeLens": false,
+    "debug.onTaskErrors": "showErrors",
+    "editor.wordWrap": "on",
+    "git.ignoreWindowsGit27Warning": true,
+    "python.defaultInterpreterPath": "C:\\Users\\username\\Anaconda3\\envs\\3.10\\python.exe",
+    "workbench.editor.untitled.hint": "hidden",
+    "security.workspace.trust.enabled": false,
+    "remote.SSH.remotePlatform": {
+        "wlgv": "linux",
+        "nv": "linux"
+    },
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "git.suggestSmartCommit": false,
+    "editor.fontSize": 16,
+    "breadcrumbs.enabled": false,
+    "editor.mouseWheelZoom": true,
+    "editor.letterSpacing": -0.9,
+    "workbench.activityBar.visible": false,
+    "[typescriptreact]": {
+        "editor.tabSize": 4
+    },
+    "[javascript]": {
+        "editor.tabSize": 4
+    },
+    "[html]": {
+        "editor.tabSize": 2
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "python.linting.mypyEnabled": true,
+    "workbench.colorTheme": "Boxy Ocean (dimmed bg)",
+
+    //開いたファイルによってタブサイズを変える
+    "editor.detectIndentation": false,
+    "C_Cpp.default.cppStandard": "c++20",
+    "update.showReleaseNotes": false
+}
