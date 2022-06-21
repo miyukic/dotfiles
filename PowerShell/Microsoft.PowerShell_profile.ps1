@@ -1,4 +1,9 @@
-Set-StrictMode -Version Latest
+# .NETのngenで事前コンパイルし起動を速くする
+#Set-Alias ngen @(  
+#dir (join-path ${env:\windir} "Microsoft.NET\Framework") ngen.exe -recurse |  
+#sort -descending lastwritetime  
+#)[0].fullName  
+#[appdomain]::currentdomain.getassemblies() | %{ngen $_.location}
 
 function Get-Assembly {
    [Appdomain]::CurrentDomain.GetAssemblies() | %{$_.GetName().Name}
