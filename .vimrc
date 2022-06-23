@@ -143,15 +143,18 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
                 \   },
                 \ }}}
     " pylsの起動定義
-    augroup LspPython
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'pyls',
-                    \ 'cmd': { server_info -> ['pyls'] },
-                    \ 'whitelist': ['python'],
-                    \ 'workspace_config': s:pyls_config
-                    \})
-    augroup END
+    if executable('pyls')
+        augroup LspPython
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name': 'pyls',
+                        \ 'cmd': { server_info -> ['pyls'] },
+                        \ 'whitelist': ['python'],
+                        \ 'workspace_config': s:pyls_config
+                        \})
+        augroup END
+    endif
+    
 
     " omnisharpの設定 + Lspのキーバインド
     function! s:on_lsp_buffer_enabled() abort
