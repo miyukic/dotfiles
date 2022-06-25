@@ -37,6 +37,10 @@ function Start-OhMyPosh {
     $Env:POSHGIT_CYGWIN_WARNING = 'off'
 }
 
+function Start-StarShip {
+    Invoke-Expression (&starship init powershell)
+}
+
 #Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
@@ -66,7 +70,7 @@ Set-Alias type Call-CommandPath
 
 # starship
 if ($env:WT_PROFILE_ID) {
-    Invoke-Expression (&starship init powershell)
+    Start-StarShip
 }
 
 #lsd,batコマンド
