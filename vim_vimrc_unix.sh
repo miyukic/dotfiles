@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 TARGET_DIR=$HOME/
 vimrc=.vimrc

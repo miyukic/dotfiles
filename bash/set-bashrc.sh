@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ALIASES_FILE=".bash_aliases"
 MYBASHRC_FILE=".mybashrc"
 if [ -e "~/${ALIASES_FILE}" ]; then
