@@ -1,8 +1,0 @@
-#.bashrcに読み込まれる
-#source ~/.mybashrc
-
-#alias python=python3
-
-#xmodmap ~/ .xmodmap_default
-
-
