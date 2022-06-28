@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#/usr/bin/env bash
 
 from=$(pwd)
 cd `dirname $0`
+#echo -e "\e[1;33mDEBUG===>"$0"\e[1;0m"
 
 ALIASES_FILE=".bash_aliases"
 MYBASHRC_FILE=".mybashrc"

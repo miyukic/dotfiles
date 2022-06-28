@@ -5,6 +5,6 @@ echo "debug => $1"
 
 echo $(pwd )
 
-echo -e "Y\n" | . ./vim_vimrc_unix.sh && \
-. ./bash/set-bashrc.sh && \
-. ./Git/gitinit.sh
+echo -e "Y\n" | bash ./vim_vimrc_unix.sh && \
+bash ./bash/set-bashrc.sh && \
+bash ./Git/gitinit.sh
