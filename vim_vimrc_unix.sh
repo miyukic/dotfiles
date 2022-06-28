@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+from=`pwd`
+cd `dirname $0`
 
 TARGET_DIR=$HOME/
 vimrc=.vimrc
@@ -46,3 +49,4 @@ if [ ! -e $VIMPLUG ]; then
     fi
 fi
 
+cd $from

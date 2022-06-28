@@ -66,4 +66,3 @@ $notexists | ForEach-Object {
     Write-Output "$_をインストールします"
     scoop install $_
 }
-
