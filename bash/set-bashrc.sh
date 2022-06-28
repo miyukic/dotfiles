@@ -25,7 +25,7 @@ else
 fi
 
 cat ~/.bashrc | grep -E "^source ~/${MYBASHRC_FILE}$"
-if [ $? = 1 ]; then
+if [ $? -ne 0 ]; then
     cat "source ~/${MYBASHRC_FILE}" >> ~/.bashrc
 else
     echo "source ~/${MYBASHRC_FILE}はすでに記述されています"
