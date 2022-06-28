@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+from=$(pwd)
+cd `dirname $0`
+
 ALIASES_FILE=".bash_aliases"
 MYBASHRC_FILE=".mybashrc"
 REAL_ALIASES_FILE="bash_aliases"
@@ -19,14 +22,16 @@ printLine
 echo " "
 
 # .bash_aliasesの配置
-if [ -e $HOME/$ALIASES_FILE ]; then
+# なぜか二段構えじゃないとファイルの存在判定ができない...
+test -e $HOME/$ALIASES_FILE 
+if [ $? = "0" ]; then
     echo ${ALIASES_FILE}"はすでに存在しています"
     echo 
     echo "削除して置き換えますか？(Y/N)"
     read resp
     if [ $resp = "Y" ]; then
         echo "Yが入力されました。"
-        rm $HOME/$ALIASES_FILE
+        rm -f "$HOME/$ALIASES_FILE"
         #echo "~/"${ALIASES_FILE}"が削除されました。"
         sudo ln -s `pwd`"/"${REAL_ALIASES_FILE} $HOME"/.bash_aliases" && echo "`pwd`/${REAL_ALIASES_FILE} ==> ~/$ALIASES_FILE シンボリックリンクをを作成しました"
 
@@ -46,16 +51,19 @@ printLine
 echo " "
 
 # .mybashrcの配置
-if [ -e $HOME/$MYBASHRC_FILE ]; then
+# なぜか二段構えじゃないとファイルの存在判定ができない...
+test -e $HOME/$MYBASHRC_FILE
+if test $? = "0"; then
     echo ${MYBASHRC_FILE}"はすでに存在しています"
     echo 
     echo "削除して置き換えますか？(Y/N)"
     read resp2
     if [ $resp2 = "Y" ]; then
         echo "Yが入力されました。"
-        rm $HOME/$MYBASHRC_FILE
+        echo "$HOME/$MYBASHRC_FILE"
+        rm -f "$HOME/$MYBASHRC_FILE"
         #echo "~/ ${MYBASHRC_FILE} が削除されました。"
-        sudo ln -s "`pwd`/${REAL_MYBASHRC_FILE}}" ~/${MYBASHRC_FILE} && echo "`pwd`/${REAL_MYBASHRC_FILE} ==> ~/${MYBASHRC_FILE} シンボリックリンクを作成しました"
+        sudo ln -s "`pwd`/${REAL_MYBASHRC_FILE}" ~/${MYBASHRC_FILE} && echo "`pwd`/${REAL_MYBASHRC_FILE} ==> ~/${MYBASHRC_FILE} シンボリックリンクを作成しました"
 
     elif [ $resp = "N" ]; then
         echo "Nが入力されました。";
@@ -84,3 +92,5 @@ fi
 echo " "
 printLine
 echo " "
+
+cd $from
