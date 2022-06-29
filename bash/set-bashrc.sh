@@ -83,8 +83,8 @@ echo " "
 
 # .bashrc内に.mybashrcの読み込みスクリプトの追記
 cat ~/.bashrc | grep -E "^source ~/${MYBASHRC_FILE}$"
-if [ $? = 1 ]; then
-    echo "source ~/${MYBASHRC_FILE}" >> ~/.bashrc
+if [ $? -ne 0 ]; then
+    cat "source ~/${MYBASHRC_FILE}" >> ~/.bashrc
 else
     echo ~/.bashrc 内に
     echo "source ~/${MYBASHRC_FILE}はすでに記述されています"
