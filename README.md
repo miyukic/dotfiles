@@ -1,12 +1,23 @@
 # dotfiles
-dotfiles for miyuki
+dotfiles for miyuki❄
 
-## How to Install
-### Windows
+## 💡How to Install
+### 🟦 Windows
+Still incomplete
+```bat
 ./bootstrap.bat [option]
-option:
-    auto ・・・None CLI interactive mode
-### Linux
+```
+
+- options
+    - `auto`        None CLI interactive mode
+    - `full`        full install
+
+### 🐧Linux
+Still incomplete
+```bash
 ./bootstrap.sh [option]
-option:
-    auto ・・・None CLI interactive mode
+```
+
+- options:
+    - `auto`        None CLI interactive mode
+    - `full`        full install
