@@ -477,6 +477,9 @@ set hlsearch
 " 折り返さない
 set wrap
 
+" 現在のファイルパス確認
+:command! Mfile echo expand("%:p")
+
 "ターミナルの指定
 if has('win32') "Windows
    " set shell=C:\Program Files\PowerShell\7\pwsh.exe
