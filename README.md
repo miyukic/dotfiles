@@ -3,6 +3,10 @@ dotfiles for miyuki
 
 ## How to Install
 ### Windows
-準備中
+./bootstrap.bat [option]
+option:
+    auto ・・・None CLI interactive mode
 ### Linux
-./bootstrap.sh auto
+./bootstrap.sh [option]
+option:
+    auto ・・・None CLI interactive mode
