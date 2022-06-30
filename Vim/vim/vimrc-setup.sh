@@ -5,11 +5,12 @@ cd `dirname $0`
 
 TARGET_DIR=$HOME/
 vimrc=.vimrc
+real_vimrc=vimrc
 
 create_link() {
     current_dir=$(cd $(dirname $0); pwd)
-    echo $current_dir
-    ln -s $current_dir/.vimrc ${TARGET_DIR}${vimrc}
+    cd ../
+    ln -s $(pwd)/$real_vimrc ${TARGET_DIR}${vimrc}
     echo "${TARGET_DIR}${vimrc}にシンボリックリンクを作成しました！"
 }
 
