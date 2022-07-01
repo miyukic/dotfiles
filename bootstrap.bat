@@ -1,6 +1,26 @@
+rem https://raw.githubusercontent.com/miyukic/dotfiles/master/bootstrap.bat
 @echo off
 chcp 65001
 
+if "%1" == "curl" (
+    GOTO GIT_INSTALL
+) else (
+    GOTO START
+)
+
+:GIT_INSTALL
+WHERE /Q git
+IF "%ERRORELEVEL%" == "0" (
+    GOTO DOTFILES_CLONE
+) ELSE (
+    winget install git
+)
+:DOTFILES_CLONE
+git clone https://github.com/miyukic/dotfiles.git %USERPROFILE%\dotfiles
+%USERPROFILE%\dotfiles\bootstrap.bat auto
+exit
+
+:START
 rem starship
 if NOT "%1" == "auto" (
     .\starship\starship_install.bat
