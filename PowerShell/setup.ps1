@@ -20,6 +20,7 @@ if ($result) { #存在する場合
         exit
     }
 }
+}
 
 $result = IsExistCommand("scoop")
 if ($result) { 
