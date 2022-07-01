@@ -13,8 +13,25 @@ WHERE /Q git
 IF "%ERRORELEVEL%" == "0" (
     GOTO DOTFILES_CLONE
 ) ELSE (
-    winget install Git.Git
+    GOTO GIT_INSTALL
 )
+:GIT_INSTALL
+rem winget install Git.Git
+WHERE /Q scoop
+IF "%ERRORELEVEL%" == "1" (
+    GOTO SCOOP_INSTALL
+) ELSE (
+    echo "scoopは既にインストールされています"
+    GOTO SKIP_SCOOP_INSTALL
+)
+:SCOOP_INSTALL
+echo scoopのインストールを開始します....
+powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+rem scoopのインストール
+powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
+:SKIP_SCOOP_INSTALL
+scoop install git
+
 :DOTFILES_CLONE
 git clone https://github.com/miyukic/dotfiles.git %USERPROFILE%\dotfiles
 %USERPROFILE%\dotfiles\bootstrap.bat auto

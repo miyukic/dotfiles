@@ -9,8 +9,9 @@ Still incomplete
 ```
 
 - options
-    - `auto`        None CLI interactive mode
-    - `full`        full install
+    - `auto`        None CLI interactive mode.
+    - `full`        Full install.
+    - `curl`        When installing using curl.
 
 ### 🐧Linux
 Still incomplete
@@ -19,5 +20,5 @@ Still incomplete
 ```
 
 - options:
-    - `auto`        None CLI interactive mode
-    - `full`        full install
+    - `auto`        None CLI interactive mode.
+    - `full`        Full install.
