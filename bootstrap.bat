@@ -36,10 +36,13 @@ scoop install git
 
 :DOTFILES_CLONE
 git clone https://github.com/miyukic/dotfiles.git %USERPROFILE%\dotfiles
-%USERPROFILE%\dotfiles\bootstrap.bat auto
+start %USERPROFILE%\dotfiles\bootstrap.bat auto
 exit
 
 :START
+echo 現在のディレクトリ
+echo %~dp0
+echo;
 rem starship
 if NOT "%1" == "auto" (
     .\starship\starship_install.bat
@@ -55,6 +58,17 @@ if NOT "%1" == "auto" (
     echo Y | .\Git\gitinit.bat
 )
 echo ✅ gitconfigの設定が終わりました。
+
+rem pwshのインストール
+%~dp0\PowerShell\vimrc-setup.bat
+pwsh -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1 -flag "true"
+echo ✅ PowerShell(pwsh)のインストールが終わりました。
+
+
+rem Vimのインストール
+scoop install vim-nightly
+%~dp0\Vim\vim\vimrc-setup.bat
+echo ✅ bimのインストールが終わりました。
 
 if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
