@@ -1,129 +1,201 @@
 @echo off
-chcp 65001
+chcp 932
 
-rem ã“ã®batfileã¯neovimã«å¿…è¦ãªã‚³ãƒãƒ³ãƒ‰ã¨ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è‡ªå‹•ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚
+rem ‚±‚Ìbatfile‚Íneovim‚É•K—v‚ÈƒRƒ}ƒ“ƒh‚ÆƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğ©“®ƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
 
-rem scoopã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+rem scoop‚ÌƒCƒ“ƒXƒg[ƒ‹
 where /Q scoop
 if "%ERRORLEVEL%" == "1" (
-    echo ==================================================
-    echo scoopã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’é–‹å§‹ã—ã¾ã™....
-    powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-    rem scoopã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
-    powershell -c iwr -useb get.scoop.sh | iex && echo scoopã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãŒå®Œäº†ã—ã¾ã—ãŸã€‚
+    GOTO SCOOP
+) ELSE (
+    GOTO SCOOP_FIN
 )
+:SCOOP
+echo ==================================================
+echo scoop‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğŠJn‚µ‚Ü‚·....
+powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+rem scoop‚ÌƒCƒ“ƒXƒg[ƒ‹
+powershell -c iwr -useb get.scoop.sh | iex && echo scoop‚ÌƒCƒ“ƒXƒg[ƒ‹‚ªŠ®—¹‚µ‚Ü‚µ‚½B
+:SCOOP_FIN
 
-rem gitã‚³ãƒãƒ³ãƒ‰ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+rem gitƒRƒ}ƒ“ƒh‚ÌƒCƒ“ƒXƒg[ƒ‹
 where /Q git
 if "%ERRORLEVEL%" == "1" (
-    echo ==================================================
-    echo è‡ªå‹•ã§gitã¸ãƒ‘ã‚¹ã‚’é€šã—ã¾ã™ã‹ï¼Ÿ<Y/N>
-    set /P UserResp="å…¥åŠ›: "
-    echo.
-    if /i %UserResp% == "Y" (
-        echo gitã‚³ãƒãƒ³ãƒ‰ãŒå¿…è¦ã§ã™ã€‚
-        echo WSLã®gitã‚’æµç”¨ã™ã‚‹[W], scoopã§gitã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹[G], ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹[C]
-        :SELECT
-        set /P UserResp="å…¥åŠ›: "
-        if /i %UserResp% == "S" (
-            powershell -c scoop update
-            powershell -c scoop install git
-        ) else if /i %SerResp% == "W" (
-            curl -fLo %SystemRoot%\system32\git.exe https://www.dropbox.com/s/c2qpu3tk5gwy2r1/wslgit.exe?dl=0
-        ) else if %SerResp% == "C" (
-        ) else (
-            echo ä½•ã‚Œã‹ã®ã‚­ãƒ¼[W, G, C]ã‚’é¸æŠã—ã¦ãã ã•ã„ã€‚
-            goto SELECT
-        )
-        echo.
-    )
+    GOTO GIT
+) else (
+    GOTO FIN_GIT
 )
+:GIT
+echo ==================================================
+echo ©“®‚Ågit‚ÖƒpƒX‚ğ’Ê‚µ‚Ü‚·‚©H<Y/N>
+set /P UserResp="“ü—Í: "
+echo.
+if /i %UserResp% == "Y" (
+    echo gitƒRƒ}ƒ“ƒh‚ª•K—v‚Å‚·B
+    echo WSL‚Ìgit‚ğ—¬—p‚·‚é[W], scoop‚Ågit‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é[G], ƒXƒLƒbƒv‚·‚é[C]
+    :SELECT
+    set /P UserResp="“ü—Í: "
+    if /i %UserResp% == "S" (
+        powershell -c scoop update
+        powershell -c scoop install git
+    ) else if /i %SerResp% == "W" (
+        curl -fLo %SystemRoot%\system32\git.exe https://www.dropbox.com/s/c2qpu3tk5gwy2r1/wslgit.exe?dl=0
+    ) else if %SerResp% == "C" (
+    ) else (
+        echo ‰½‚ê‚©‚ÌƒL[[W, G, C]‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢B
+        goto SELECT
+    )
+    echo.
+)
+:FIN_GIT
 echo ==================================================
 
-rem Rubyã®è¨­å®š
-echo Rubyã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’é–‹å§‹ã—ã¾ã™ã€‚
+rem Ruby‚Ìİ’è
+echo Ruby‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğŠJn‚µ‚Ü‚·B
 powershell -c scoop install ruby && gem install neovim
 for /F %%i in ('which neovim-ruby-host') do set INSTALL_PATH=%%i
 echo ==================================================
-echo %INSTALL_PATH% ã«ã‚ã‚Šã¾ã™ã€‚
+echo %INSTALL_PATH% ‚É‚ ‚è‚Ü‚·B
 
-rem npmã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
-echo =========================================================================
-echo nvmã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚
-echo =========================================================================
+rem npm‚ÌƒCƒ“ƒXƒg[ƒ‹
+echo „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
+echo nvm‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
+echo „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 powershell -c scoop install nvm
-echo nvm list available ã§æœ€æ–°ã®LTSç‰ˆãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’ç¢ºèªã™ã‚‹ã€‚
-echo nvm install <version> ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ« ex) nvm install 12.18.4
-echo æœ€å¾Œã«åˆ©ç”¨ã—ãŸã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’æŒ‡å®šã™ã‚‹ï¼ˆã“ã“ã§ç’°å¢ƒå¤‰æ•°ã«ãƒ‘ã‚¹ãŒè¿½åŠ ã•ã‚Œã‚‹ï¼‰
+echo nvm list available ‚ÅÅV‚ÌLTS”Åƒo[ƒWƒ‡ƒ“‚ğŠm”F‚·‚éB
+echo nvm install <version> ‚ÅƒCƒ“ƒXƒg[ƒ‹ ex) nvm install 12.18.4
+echo ÅŒã‚É—˜—p‚µ‚½‚¢ƒo[ƒWƒ‡ƒ“‚ğw’è‚·‚éi‚±‚±‚ÅŠÂ‹«•Ï”‚ÉƒpƒX‚ª’Ç‰Á‚³‚ê‚éj
 echo ex) nvm use 12.18.4
-echo =========================================================================
+echo „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 
-rem Pythonã®è¨­å®š
+rem Python‚Ìİ’è
 echo ==================================================
-rem Todo ã‚¹ã‚¯ãƒªãƒ—ãƒˆæœªä½œæˆ
+rem Todo ƒXƒNƒŠƒvƒg–¢ì¬
 
 
-rem ã“ã“ã‹ã‚‰ã€vimrcã®è¨­ç½®ã¨vimplugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
+rem ‚±‚±‚©‚çAvimrc‚Ìİ’u‚Ævimplug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğs‚¢‚Ü‚·B
 
 set TARGET=%USERPROFILE%\AppData\Local\nvim\
 set VIMRC_NAME=init.vim
 set GVIMRC_NAME=ginit.vim
 
-echo "ç¾åœ¨ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª==> %~dp0"
-echo %TARGET%ã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã—ã¾ã™ã€‚
+SET CD=%~dp0
+SET VIM=%CD:~0,-7%
+set REAL_VIMRC=vimrc
+set REAL_GVIMRC=gvimrc
+
+echo "Œ»İ‚ÌƒfƒBƒŒƒNƒgƒŠ==> %~dp0"
+echo %TARGET%‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚µ‚Ü‚·B
 rem .vimrc
 if not exist %TARGET%%VIMRC_NAME% (
-    if not exist %TARGET% (
-        echo %TARGET%ã‚’ä½œæˆã—ã¾ã™ã€‚
-        mkdir %TARGET%
-        echo %TARGET%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
-    )
-    if exist %~dp0.vimrc (
-        echo mklink ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
-        mklink %TARGET%%VIMRC_NAME% %~dp0\.vimrc
-        echo %TARGET%%VIMRC_NAME% ==> %~dp0\.vimrc
-    ) else (
-        echo ".vimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
-    )
+    GOTO NOT_EXIST_VIMRC
 ) else (
-    echo ã™ã§ã« %VIMRC_NAME% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
-    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
+    GOTO EXIST_VIMRC
 )
+
+:NOT_EXIST_VIMRC
+if not exist %TARGET% (
+    GOTO MKDIR_VIMRC
+)
+:MKDIR_VIMRC
+echo %TARGET%‚ğì¬‚µ‚Ü‚·B
+mkdir %TARGET%
+echo %TARGET%‚ğì¬‚µ‚Ü‚µ‚½B
+if exist %VIM%%REAL_VIMRC% (
+    mklink %TARGET%%VIMRC_NAME% %VIM%%REAL_VIMRC% 
+    echo %TARGET%%VIMRC_NAME% ==> %VIM%%REAL_VIMRC%
+) else (
+    echo %VIM%%REAL_VIMRC% ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+)
+GOTO FIN_VIMRC
+
+:EXIST_VIMRC
+echo;
+echo ‚·‚Å‚É %VIMRC_NAME% ‚ª‘¶İ‚·‚é‚Ì‚ÅA
+echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+echo "’£‚è’¼‚µ‚Ü‚·‚©H<Y/N>"
+set /P UserResp="“ü—Í: "
+IF /i "%UserResp%" == "Y" (
+    GOTO YES_VIMRC
+) ELSE (
+    GOTO NO_VIMRC
+)
+GOTO FIN_VIMRC
+
+:YES_VIMRC
+echo mklink ‚ğÀs‚µ‚Ü‚·B
+del %TARGET%%VIMRC_NAME%
+mklink %TARGET%%VIMRC_NAME% %VIM%%REAL_VIMRC%
+echo %TARGET%%VIMRC_NAME% ==> %VIM%%REAL_VIMRC%
+GOTO FIN_VIMRC
+:NO_VIMRC
+echo ’£‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+:FIN_VIMRC
 echo ==============================================================
 rem .gvimrc
 if not exist %TARGET%%GVIMRC_NAME% (
-    if not exist %TARGET% (
-        echo %TARGET%ã‚’ä½œæˆã—ã¾ã™ã€‚
-        mkdir %TARGET%
-        echo %TARGET%ã‚’ä½œæˆã—ã¾ã—ãŸã€‚
-    )
-    if exist %~dp0.gvimrc (
-        echo mklink ã‚’å®Ÿè¡Œã—ã€%GVIMRC_NAME%ã‚’ä½œæˆã—ã¾ã™ã€‚
-        mklink %TARGET%%GVIMRC_NAME% %~dp0\.gvimrc
-        echo %TARGET%%GVIMRC_NAME% ==> %~dp0\.gvimrc
-    ) else (
-        echo ".gvimrc" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚
-    )
+    GOTO NOT_EXIST_GVIMRC
 ) else (
-    echo ã™ã§ã« %GVIMRC_NAME% ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€
-    echo æ–°ãŸã«ã‚·ãƒ³ãƒœãƒªãƒƒã‚¯ãƒªãƒ³ã‚¯ã‚’ä½œæˆã™ã‚‹å¿…è¦ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
+    GOTO EXIST_GVIMRC
 )
+:NOT_EXIST_GVIMRC
+if not exist %TARGET% (
+    echo %TARGET%‚ğì¬‚µ‚Ü‚·B
+    mkdir %TARGET%
+    echo %TARGET%‚ğì¬‚µ‚Ü‚µ‚½B
+)
+if exist %VIM%%REAL_VIMRC% (
+    echo mklink ‚ğÀs‚µA%GVIMRC_NAME%‚ğì¬‚µ‚Ü‚·B
+    mklink %TARGET%%GVIMRC_NAME% %VIM%%REAL_VIMRC%
+    echo %TARGET%%GVIMRC_NAME% ==> %VIM%%REAL_VIMRC%
+) else (
+    echo ".gvimrc" ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+)
+GOTO FIN_GVIMRC
+:EXIST_GVIMRC
 
-rem vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
-where /Q pwsh
-set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
+echo ‚·‚Å‚É %GVIMRC_NAME% ‚ª‘¶İ‚·‚é‚Ì‚ÅA
+echo V‚½‚ÉƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+set /P UserResp="’£‚è’¼‚µ‚Ü‚·‚©<Y/N>H"
+IF /i "%UserResp%" == "Y" (
+    GOTO YES_GVIMRC
+) ELSE (
+    GOTO NO_GVIMRC
+)
+:YES_GVIMRC
+echo mklink ‚ğÀs‚µ‚Ü‚·B
+del %TARGET%%GVIMRC_NAME%
+mklink %TARGET%%GVIMRC_NAME% %VIM%%REAL_GVIMRC%
+echo %TARGET%%GVIMRC_NAME% ==> %VIM%%REAL_GVIMRC%
+GOTO FIN_GVIMRC
+:NO_GVIMRC
+echo ’£‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+:FIN_GVIMRC
+
+rem vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹
+set VIMPLUG=%USERPROFILE%\appdata\local\nvim\autoload\plug.vim
 if not exist %VIMPLUG% (
-echo vim-plugã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’è¡Œã„ã¾ã™ã€‚
-    if "%ERRORLEVEL%" == "0" (
-        pwsh -c md ~\appdata\local\nvim\autoload
-        pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
-    ) else (
-        powershell -c md ~\appdata\local\nvim\autoload
-        powershell -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
-    )
+    echo vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğs‚¢‚Ü‚·B
+    curl -fLo %VIMPLUG% --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && echo ƒCƒ“ƒXƒg[ƒ‹‚ªŠ®—¹‚µ‚Ü‚µ‚½B
 )
 
-echo ã™ã¹ã¦ã®å‡¦ç†ãŒçµ‚ã‚ã‚Šã¾ã—ãŸã€‚
+rem PowerShell‚ğg‚Á‚½vimplug“±“ü(“®‚©‚È‚¢)
+rem  vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹
+rem where /Q pwsh
+rem set VIMPLUG=~\appdata\local\nvim\autoload\plug.vim
+rem if not exist %VIMPLUG% (
+rem echo vim-plug‚ÌƒCƒ“ƒXƒg[ƒ‹‚ğs‚¢‚Ü‚·B
+rem     if "%ERRORLEVEL%" == "0" (
+rem         pwsh -c md ~\appdata\local\nvim\autoload
+rem         pwsh -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+rem         pwsh -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+rem     ) else (
+rem         powershell -c md ~\appdata\local\nvim\autoload
+rem         powershell -c $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+rem         powershell -c (new-object net.webclient).downloadfile($uri, $executioncontext.sessionstate.path.getunresolvedproviderpathfrompspath("~\appdata\local\nvim\autoload\plug.vim"))
+rem     )
+rem )
+
+echo ‚·‚×‚Ä‚Ìˆ—‚ªI‚í‚è‚Ü‚µ‚½B
+chcp 65001
 @pause
