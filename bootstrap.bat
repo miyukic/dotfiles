@@ -61,8 +61,8 @@ echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール
 %~dp0\PowerShell\vimrc-setup.bat
-pwsh -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1 -flag "true"
-echo ✅ PowerShell(pwsh)のインストールが終わりました。
+pwsh -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
+echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
 
 rem Vimのインストール
