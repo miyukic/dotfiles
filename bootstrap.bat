@@ -13,7 +13,7 @@ WHERE /Q git
 IF "%ERRORELEVEL%" == "0" (
     GOTO DOTFILES_CLONE
 ) ELSE (
-    winget install git
+    winget install Git.Git
 )
 :DOTFILES_CLONE
 git clone https://github.com/miyukic/dotfiles.git %USERPROFILE%\dotfiles
