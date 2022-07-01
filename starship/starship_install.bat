@@ -13,7 +13,7 @@ IF "%ERRORELEVEL%" == "1" (
     echo scoopのインストールを開始します....
     powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     rem scoopのインストール
-    powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
+    powershell -c "iwr -useb get.scoop.sh | iex" && echo scoopのインストールが完了しました。
 
 ) ELSE (
     echo "scoopは既にインストールされています"

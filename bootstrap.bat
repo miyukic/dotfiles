@@ -15,20 +15,22 @@ IF "%ERRORELEVEL%" == "0" (
 ) ELSE (
     GOTO GIT_INSTALL
 )
+
 :GIT_INSTALL
 rem winget install Git.Git
 WHERE /Q scoop
-IF "%ERRORELEVEL%" == "1" (
-    GOTO SCOOP_INSTALL
-) ELSE (
+IF "%ERRORELEVEL%" == "0" (
     echo "scoopは既にインストールされています"
     GOTO SKIP_SCOOP_INSTALL
+) ELSE (
+    GOTO SCOOP_INSTALL
 )
+
 :SCOOP_INSTALL
 echo scoopのインストールを開始します....
 powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 rem scoopのインストール
-powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
+powershell -c "iwr -useb get.scoop.sh | iex" && echo scoopのインストールが完了しました。
 :SKIP_SCOOP_INSTALL
 scoop install git
 
