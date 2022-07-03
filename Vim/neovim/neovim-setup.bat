@@ -52,7 +52,7 @@ echo ==================================================
 
 rem Rubyの設定
 echo Rubyのインストールを開始します。
-powershell -c scoop install ruby && gem install neovim
+powershell -c "scoop install ruby && gem install neovim"
 for /F %%i in ('which neovim-ruby-host') do set INSTALL_PATH=%%i
 echo ==================================================
 echo %INSTALL_PATH% にあります。
@@ -123,7 +123,7 @@ IF /i "%UserResp%" == "Y" (
 GOTO FIN_VIMRC
 
 :YES_VIMRC
-echo mklink を実行します。
+rem echo mklink を実行します。
 del %TARGET%%VIMRC_NAME%
 mklink %TARGET%%VIMRC_NAME% %VIM%%REAL_VIMRC%
 echo %TARGET%%VIMRC_NAME% ==> %VIM%%REAL_VIMRC%
