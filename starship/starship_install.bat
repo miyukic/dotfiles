@@ -33,18 +33,27 @@ IF NOT EXIST %USERPROFILE%\.config\ (
 
 rem starship設定ファイルの作成(シンボリックリンクの作成)
 IF NOT EXIST %USERPROFILE%\.config\starship.toml (
-    echo "starshipの設定ファイル[~\.config\starshop.toml]"
-    echo "を作成しますか?[実際には設定ファイルへのシンボリックリンクが生成されます] Y/N"
-    set /P UserResp="入力: "
-    rem echo %UserResp%
-    IF /i "%UserResp%" == "Y" (
-        WHERE /Q scoop
-        IF "%ERRORELEVEL%" == "1" (
-            echo "PowerShellをインストールします"
-            winget install --id Microsoft.PowerShell --source winget
-        )
-        pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
-    )
+    GOTO INSTALL_STARSHIP_CONFIG
+) ELSE (
+    GOTO FIN_STARSHIP_CONFIG
 )
+:INSTALL_STARSHIP_CONFIG
+echo "starshipの設定ファイル[~\.config\starshop.toml]"
+echo "を作成しますか?[実際には設定ファイルへのシンボリックリンクが生成されます] Y/N"
+set /P UserResp="入力: "
+rem echo %UserResp%
+IF /i "%UserResp%" == "Y" (
+    GOTO STARSHIP_INSTALL
+) ELSE (
+    GOTO FIN_STARSHIP_INSTALL
+)
+:STARSHIP_INSTALL
+WHERE /Q scoop
+IF "%ERRORELEVEL%" == "1" (
+    echo "PowerShellをインストールします"
+    winget install --id Microsoft.PowerShell --source winget
+)
+pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
 echo インストールが終わりました。
+:FIN_STARSHIP_CONFIG
 
