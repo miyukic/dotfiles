@@ -3,6 +3,9 @@ chcp 65001
 
 @rem scoopコマンド存在確認
 
+echo;
+echo;
+
 WHERE /Q scoop
 IF "%ERRORELEVEL%" == "1" (
     echo "scoopコマンドがありません"
@@ -10,11 +13,13 @@ IF "%ERRORELEVEL%" == "1" (
     echo scoopのインストールを開始します....
     powershell -c Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     rem scoopのインストール
-    powershell -c iwr -useb get.scoop.sh | iex && echo scoopのインストールが完了しました。
+    powershell -c "iwr -useb get.scoop.sh | iex" && echo scoopのインストールが完了しました。
 
 ) ELSE (
     echo "scoopは既にインストールされています"
 )
+
+echo;
 
 @rem starshipコマンド存在確認
 WHERE /Q starship
@@ -25,11 +30,15 @@ IF "%ERRORELEVEL%" == "1" (
     echo "starshipは既にインストールされています"
 )
 
+echo;
+
 rem .configフォルダの作成
 IF NOT EXIST %USERPROFILE%\.config\ (
     echo %USERPROFILE%\.config を作成します
     mkdir %USERPROFILE%\.config
 )
+
+echo;
 
 rem starship設定ファイルの作成(シンボリックリンクの作成)
 IF NOT EXIST %USERPROFILE%\.config\starship.toml (
@@ -56,4 +65,3 @@ IF "%ERRORELEVEL%" == "1" (
 pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
 echo インストールが終わりました。
 :FIN_STARSHIP_CONFIG
-

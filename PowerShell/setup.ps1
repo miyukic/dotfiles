@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+#Set-StrictMode -Version Latest
 
 
 #コマンド存在チェック
@@ -19,6 +19,7 @@ if ($result) { #存在する場合
         Write-Output "powershell(pwsh)のインストールに失敗しました"
         exit
     }
+}
 }
 
 $result = IsExistCommand("scoop")

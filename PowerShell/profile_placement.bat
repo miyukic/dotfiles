@@ -14,10 +14,11 @@ rem リンクファイルが存在するかどうか
 IF EXIST %LINK_FILE_PATH%. (
     echo true
     rm %LINK_FILE_PATH%
-    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
+    sudo mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 ) else (
     echo false
-    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
+    mkdir %LINK_FILE_PATH%
+    sudo mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 )
 
 rem ) ELSE (

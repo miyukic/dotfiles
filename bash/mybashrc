@@ -1,0 +1,27 @@
+#.bashrcに読み込まれる
+#source ~/.mybashrc
+
+#alias python=python3
+
+#xmodmap ~/ .xmodmap_default
+
+
+bind '"\C-i": menu-complete'
+_IS_MENU_COMPLETE=true
+function toggleComplete()
+{
+    if [ "$_IS_MENU_COMPLETE" = true ]; then
+        bind '"\C-i": complete'
+        _IS_MENU_COMPLETE=false
+    else
+        _IS_MENU_COMPLETE=true
+        bind '"\C-i": menu-complete'
+    fi
+}
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -path)"
+
+#root環境にインストールしたくないコマンド
+export PATH=$PATH:$HOME/usr/bin
