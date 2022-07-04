@@ -74,11 +74,14 @@ if ($env:WT_PROFILE_ID) {
 }
 
 #lsd,batコマンド
-if ($env:WT_PROFILE_ID) {
-    Set-Alias ls lsd
-    Set-Alias ll Call-lsd-la
-    Set-Alias tree Call-lsd-tree
-}
+#if ($env:WT_PROFILE_ID) {
+#    Set-Alias ls lsd
+#    Set-Alias ll Call-lsd-la
+#    Set-Alias tree Call-lsd-tree
+#}
+Set-Alias ls lsd
+Set-Alias ll Call-lsd-la
+Set-Alias tree Call-lsd-tree
 
 #パイプ通過時、コンソール出力時の文字コード
 $OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
