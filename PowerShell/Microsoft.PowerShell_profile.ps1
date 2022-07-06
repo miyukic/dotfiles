@@ -83,6 +83,8 @@ Set-Alias ls lsd
 Set-Alias ll Call-lsd-la
 Set-Alias tree Call-lsd-tree
 
+Set-Alias ss Start-StarShip
+
 #パイプ通過時、コンソール出力時の文字コード
 $OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 
