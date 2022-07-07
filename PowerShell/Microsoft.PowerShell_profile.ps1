@@ -9,6 +9,10 @@ function Get-Assembly {
    [Appdomain]::CurrentDomain.GetAssemblies() | %{$_.GetName().Name}
 }
 
+function Call-Neovide {
+    neovide.exe --multigrid $args
+}
+
 function Call-Gvim {
     cmd.exe /c gvim $args
 }
@@ -57,6 +61,7 @@ Set-PSReadLineOption -PredictionSource History
 #Set-Alias vim nvim
 Set-Alias vi nvim
 Set-Alias gvim Call-Gvim
+Set-Alias neovide Call-Neovide
 
 #Set-Alias ll Call-ls
 #Set-Alias ls ls.exe
