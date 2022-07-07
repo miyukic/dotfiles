@@ -1,4 +1,9 @@
 set encoding=utf-8
+
+augroup vimrc
+      autocmd!
+augroup END
+
 if has('kaoriya')
     let g:no_vimrc_example=0
     let g:vimrc_local_finish=1
@@ -188,8 +193,10 @@ endif
 " vimplugin setting END ======================================================
 
 " コマンドライン補完
+if !has('nvim')
 set wildmenu
 set wildmode=list:full
+endif
 
 " vim の矩形選択で文字が無くても右へ進める
 set virtualedit=block
@@ -277,10 +284,14 @@ if has('nvim')
     set termguicolors
 endif
 
-" 補完ウィンドウ等の透明度0~100
 if has('nvim') 
-    set pumblend=10 
+    " 補完ウィンドウ等の透明度0~100
+    set pumblend=20
+    " floating window の透明度 0~100
+    set winblend=18
 endif
+
+
 
 " clipboardを有効にする
 if has('nvim') || !has('win32')
@@ -462,6 +473,30 @@ augroup ColorSchemeSetting
 
 augroup END
 
+" termguicolors
+if has("terminal") && has("nvim")
+if version >= 800
+    let g:terminal_ansi_colors = [
+                \ '#073642', " black                30m
+                \ '#E06C75', " Red                  31m
+                \ '#98C379', " green                32m
+                \ '#E5C07B', " yellow               33m
+                \ '#61AFEF', " blue                 34m
+                \ '#C678DD', " magenta              35m
+                \ '#56B6C2', " cyan                 36m
+                \ '#DCDFE4', " white                37m
+                \ '#5A6374', " black (bright)
+                \ '#E06C75', " red (bright)
+                \ '#98C379', " green (bright)
+                \ '#E5C07B', " yellow (bright)
+                \ '#61AFEF', " blue (bright)
+                \ '#C678DD', " magenta (bright)
+                \ '#56B6C2', " cyan (bright)
+                \ '#DCDFE4', " white (bright)
+                \ ]
+endif " version >= 800
+endif " has("terminal")
+
 " 現在の行を強調表示（縦）
 "set cursorcolumn
 
@@ -477,6 +512,9 @@ set hlsearch
 " 折り返さない
 set wrap
 
+" オートインデント
+set autoindent
+
 " 現在のファイルパス確認
 :command! Mfile echo expand("%:p")
 
@@ -485,7 +523,27 @@ if has('win32') "Windows
    " set shell=C:\Program Files\PowerShell\7\pwsh.exe
 endif
 
-" neovide
-let g:neovide_remember_window_size = v:true
-let g:neovide_cursor_vfx_mode = "railgun"
-set guifont=Cica:h13
+" Neovide
+if (exists("g:neovide"))
+    colorscheme ayu
+    " コメント色
+    highlight Comment ctermfg=DarkGreen
+    " Errorの色を変更
+    highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
+    " Todoの色設定
+    highlight Todo ctermfg=0 guifg=#F78A81
+    let g:neovide_remember_window_size = v:true
+    let g:neovide_cursor_vfx_mode = "railgun"
+    let g:neovide_cursor_vfx_mode = "ripple"
+    set guifont=CaskaydiaCove\ Nerd\ Font\ Mono:h12
+    let g:neovide_transparency=0.95
+    function! s:ToggleFullscreen()
+        if g:neovide_fullscreen == v:true
+            let g:neovide_fullscreen=v:false
+        else
+            let g:neovide_fullscreen=v:true
+        endif
+    endfunctio
+    nnoremap <silent><F11> :call s:ToggleFullscreen()<CR>
+endif
+
