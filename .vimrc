@@ -48,9 +48,9 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'mattn/vim-lsp-icons'
+    " Plug 'prabirshrestha/vim-lsp'
+    " Plug 'mattn/vim-lsp-settings'
+    " Plug 'mattn/vim-lsp-icons'
     Plug 'tpope/vim-surround'
 
     " マルチカーソル
@@ -271,7 +271,7 @@ set clipboard^=unnamedplus
 endif
 
 " マウスを有効にする
-"set mouse=a
+set mouse=
 
 " マウススクロールを有効にする
 "set ttymouse=xterm2
