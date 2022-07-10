@@ -129,7 +129,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     let g:asyncomplete_popup_delay = 200
     let g:lsp_text_edit_enabled = 1
     let g:lsp_diagnostics_enabled = 1 "リアルタイムのエラー表示を有効にする
-    let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをおあわせたときにエラーの理由をする
+    let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをあわせたときにエラーの理由をする
+    let g:lsp_diagnostics_float_cursor = 1 "LSPのメッセージをポップアップウィンドウで表示する
     let g:lsp_signs_enabled = 1 "エラーの表示をファイルに直接する
     let g:lsp_log_verbose = 1
     let g:lsp_log_file = expand('~/vim-lsp.log')
@@ -520,7 +521,7 @@ set autoindent
 
 "ターミナルの指定
 if has('win32') "Windows
-   " set shell=C:\Program Files\PowerShell\7\pwsh.exe
+   set shell=pwsh
 endif
 
 " Neovide
@@ -537,13 +538,13 @@ if (exists("g:neovide"))
     let g:neovide_cursor_vfx_mode = "ripple"
     set guifont=CaskaydiaCove\ Nerd\ Font\ Mono:h12
     let g:neovide_transparency=0.95
-    function! s:ToggleFullscreen()
+    function! ToggleFullscreen()
         if g:neovide_fullscreen == v:true
             let g:neovide_fullscreen=v:false
         else
             let g:neovide_fullscreen=v:true
         endif
     endfunctio
-    nnoremap <silent><F11> :call s:ToggleFullscreen()<CR>
+    nnoremap <silent><F11> :call ToggleFullscreen()<CR>
 endif
 
