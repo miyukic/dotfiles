@@ -23,9 +23,10 @@ printLine
 echo " "
 
 # .bash_aliasesの配置
-# なぜか二段構えじゃないとファイルの存在判定ができない...
-test -e $HOME/$ALIASES_FILE 
-if [ $? = "0" ]; then
+# なぜか二段構えじゃないとファイルの存在判定ができなかった
+#test -e $HOME/$ALIASES_FILE 
+#if [ $? = "0" ]; then
+if [[ -e "$HOME/$ALIASES_FILE" ]]; then
     echo ${ALIASES_FILE}"はすでに存在しています"
     echo 
     echo "削除して置き換えますか？(Y/N)"
@@ -53,8 +54,9 @@ echo " "
 
 # .mybashrcの配置
 # なぜか二段構えじゃないとファイルの存在判定ができない...
-test -e $HOME/$MYBASHRC_FILE
-if test $? = "0"; then
+# test -e $HOME/$MYBASHRC_FILE
+# if test $? = "0"; then
+if [[ -e "$HOME/$MYBASHRC_FILE" ]]; then
     echo ${MYBASHRC_FILE}"はすでに存在しています"
     echo 
     echo "削除して置き換えますか？(Y/N)"
