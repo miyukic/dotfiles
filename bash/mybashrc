@@ -31,3 +31,4 @@ export PATH=$PATH:$HOME/.local
 
 # vimに始まってvimに終わる
 #[[ -z "$VIM_TERMINAL" ]] && vim && exit
+export XDG_CONFIG_HOME="${HOME}/.config"
