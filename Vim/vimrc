@@ -79,7 +79,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'nanotech/jellybeans.vim'
     Plug 'tomasr/molokai'
     Plug 'ayu-theme/ayu-vim'
-    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'Rigellute/rigel'
+    "Plug 'NLKNguyen/papercolor-theme'
     " status bar
     Plug 'itchyny/lightline.vim'
     call plug#end()
@@ -91,7 +92,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     "colorscheme ayu_dark wombat PaperColor one
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-                \ 'colorscheme': 'one',
+                \ 'colorscheme': 'rigel',
                 \ 'mode_map': {'c': 'NORMAL'},
                 \ 'active': {
                 \   'left': [   [ 'mode', 'paste' ],
@@ -147,7 +148,6 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         endfor
         return join(ret, ' ')
     endfunction
-
 
     "syntasticの設定
     function! SyntasticSettings() abort
@@ -457,7 +457,7 @@ syntax on
 set cursorline
 
 augroup ColorSchemeSetting
-    colorscheme jellybeans
+    colorscheme rigel
     " ayu color
     "colorscheme ayu
     "ayucolor="light"  " for light version of theme
