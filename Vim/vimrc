@@ -317,7 +317,7 @@ set fileencodings=utf-8,cp932,sjis,iso-2022-jp,euc-jp
 "set noexpandtab
 set expandtab
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 
 " Python設定
 autocmd FileType python setlocal tabstop=4
