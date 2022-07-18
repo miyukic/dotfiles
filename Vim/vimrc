@@ -143,7 +143,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         let ret = []
         for i in [0, 1, 2]
             if hunks[i] > 0
-                call add(ret, symbols[i] . hunks[i])
+                call add(ret, symbols[i]. " ". hunks[i])
             endif
         endfor
         return join(ret, ' ')
@@ -575,7 +575,11 @@ set autoindent
 
 "ターミナルの指定
 if has('win32') "Windows
-   set shell=pwsh
+    if executable('pwsh')
+        set shell=pwsh
+    elseif executable('powershell')
+        set shell=powershell
+    endif
 endif
 
 " Neovide
