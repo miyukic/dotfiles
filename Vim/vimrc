@@ -486,17 +486,17 @@ augroup ColorSchemeSetting
         highlight Special guibg=NONE
         highlight Identifier guibg=NONE
         highlight NonText guibg=NONE
-    else
+    else "vimの場合
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
             autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
             " 24bitColorのときの背景色設定
-            highlight Normal guibg=Gray3
-            highlight LineNr guibg=Gray3
-            highlight VertSplit guibg=Gray3
-            highlight Special guibg=Gray3
-            highlight Identifier guibg=Gray3
-            highlight NonText guibg=Gray3
+            "highlight Normal guibg=Gray3
+            "highlight LineNr guibg=Gray3
+            "highlight VertSplit guibg=Gray3
+            "highlight Special guibg=Gray3
+            "highlight Identifier guibg=Gray3
+            "highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
             highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
@@ -518,8 +518,8 @@ augroup ColorSchemeSetting
                 highlight Conceal ctermbg=NONE
                 highlight NonText ctermbg=NONE
             endif
-        endif
-    endif
+        endif "&termguicolors
+    endif "nvim、vim条件分岐
 
     " Errorの色を変更
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
