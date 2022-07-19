@@ -584,7 +584,7 @@ endif
 
 " Neovide
 if (exists("g:neovide"))
-    colorscheme ayu
+    "colorscheme ayu
     " コメント色
     highlight Comment ctermfg=DarkGreen
     " Errorの色を変更
