@@ -583,7 +583,7 @@ if has('win32') "Windows
 endif
 
 " Neovide
-if (exists("g:neovide"))
+if exists("g:neovide")
     "colorscheme ayu
     " コメント色
     highlight Comment ctermfg=DarkGreen
@@ -593,7 +593,8 @@ if (exists("g:neovide"))
     highlight Todo ctermfg=0 guifg=#F78A81
     let g:neovide_remember_window_size = v:true
     let g:neovide_cursor_vfx_mode = "railgun"
-    let g:neovide_cursor_vfx_mode = "ripple"
+    let g:neovide_cursor_vfx_mode = "modidied"
+"ripple
     set guifont=CaskaydiaCove\ Nerd\ Font\ Mono:h12
     let g:neovide_transparency=0.95
     function! ToggleFullscreen()
