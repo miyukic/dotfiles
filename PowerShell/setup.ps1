@@ -1,5 +1,21 @@
 #Set-StrictMode -Version Latest
 
+function Install-ModuleEx([stinrg]$Name, $Args) {
+    if (Get-Module -ListAvailable -Name $Name) {
+    } else {
+        Install-Module -Name $Name
+    }
+}
+
+#PowerShellGetのインストール
+Install-ModuleEx -Name PowerShellGet
+#PSReadLineのインストール
+Install-ModuleEx -Name PSReadLine
+#DockerCompletion
+if (-Not (Get-Module -ListAvailable -Name DockerCompletion)) {
+} else {
+    Install-Module DockerCompletion -Scope CurrentUser
+}
 
 #コマンド存在チェック
 #true or falseで返る
@@ -20,7 +36,7 @@ if ($result) { #存在する場合
         exit
     }
 }
-}
+
 
 $result = IsExistCommand("scoop")
 if ($result) { 
