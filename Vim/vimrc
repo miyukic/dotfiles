@@ -79,7 +79,8 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'nanotech/jellybeans.vim'
     Plug 'tomasr/molokai'
     Plug 'ayu-theme/ayu-vim'
-    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'Rigellute/rigel'
+    "Plug 'NLKNguyen/papercolor-theme'
     " status bar
     Plug 'itchyny/lightline.vim'
     call plug#end()
@@ -88,13 +89,14 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     nnoremap <silent> <M-j> <C-n>
 
     "status line plugin
+    "colorscheme ayu_dark wombat PaperColor one
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-                \ 'colorscheme': 'ayu_dark',
+                \ 'colorscheme': 'rigel',
                 \ 'mode_map': {'c': 'NORMAL'},
                 \ 'active': {
                 \   'left': [   [ 'mode', 'paste' ],
-                \               [ 'gitbranch', 'readonly', 'filename', 'modidied'],
+                \               [ 'gitbranch', 'gitgutter', 'readonly', 'filename', 'modidied'],
                 \           ],
                 \   'right' : [ [ 'lineinfo', 'syntastic' ], 
                 \               [ 'percent' ],
@@ -102,9 +104,50 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
                 \             ]
                 \ },
                 \ 'component_function': {
-                \   'gitbranch':    'FugitiveHead',
+                \   'gitbranch':    'MyFugitive',
+                \   'gitgutter':    'MyGitGutter',
+                \ },
+                \ 'separator': {'left': "\ue0bc", 'right': "\ue0ba"},
+                \ 'subseparator': {'left': "\ue0bd", 'right': "\ue0bd"}
                 \ }
-                \ }
+    " https://www.nerdfonts.com/cheat-sheet
+    let g:lightline#ale#indicator_checking = " \uf110 "
+    let g:lightline#ale#indicator_warnings = "\uf071 "
+    let g:lightline#ale#indicator_errors = "\uf05e "
+    let g:lightline#ale#indicator_ok = "\uf00c "
+    function! MyFugitive()
+        try
+            "if exists(FugitiveHead())
+                let _ = FugitiveHead()
+                return strlen(_) ? "\ue0a0 "._ : ''
+            "endif
+        catch
+        endtry
+        return ''
+    endfunction
+    let g:gitgutter_sign_added = '✚'
+    let g:gitgutter_sign_modified = '➜'
+    let g:gitgutter_sign_removed = '✘'
+    function! MyGitGutter()
+        if ! exists('*GitGutterGetHunkSummary')
+                    \ || ! get(g:, 'gitgutter_enabled', 0)
+                    \ || winwidth('.') <= 90
+            return ''
+        endif
+        let symbols = [
+                    \ g:gitgutter_sign_added . '',
+                    \ g:gitgutter_sign_modified . '',
+                    \ g:gitgutter_sign_removed . ''
+                    \ ]
+        let hunks = GitGutterGetHunkSummary()
+        let ret = []
+        for i in [0, 1, 2]
+            if hunks[i] > 0
+                call add(ret, symbols[i]. " ". hunks[i])
+            endif
+        endfor
+        return join(ret, ' ')
+    endfunction
 
     "syntasticの設定
     function! SyntasticSettings() abort
@@ -113,13 +156,18 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
         let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
         let g:syntastic_python_flake8_args = '--max-line-length=120'
     endfunction
-    autocmd!
-    autocmd User lsp_setup call SyntasticSettings()
+    augroup syntastic_settings
+        autocmd!
+        autocmd User lsp_setup call SyntasticSettings()
+    augroup END
 
     ""neomakeの設定
     "let g:neomake_python_enabled_makers = ['python', 'flake8', 'mypy']
 
+    "augroup neomake
+    "autocmd!
     "autocmd FileType python setlocal omnifunc=jedi#completions
+    "augroup END
     "if !exists('g:neocomplete#force_omni_input_patterns')
     "    let g:neocomplete#force_omni_input_patterns = {}
     "endif
@@ -213,11 +261,17 @@ if has('nvim')
     " <C-w>でvimと同じ動きにする
     tnoremap <C-w> <C-\><C-n><C-w> " 
      " ターミナルに切り替えたとき自動的にインサートモードにする
-    "autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+    "augroup WinEnterInsertMode
+        "autocmd!
+        "autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+    "augroup END
 elseif !has('nvim')
     " ターミナルに移ったときにインサートモードを抜けてノーマルモードにする
     " \<C-\>\<C-n>のように\でスケープすると、キー入力として呼び出せる
-    autocmd WinEnter * if &buftype ==# 'terminal' | call timer_start(0, { -> feedkeys("\<C-\>\<C-n>") }) | endif
+    augroup WinEnterInsertMode_!nvim
+        autocmd!
+        autocmd WinEnter * if &buftype ==# 'terminal' | call timer_start(0, { -> feedkeys("\<C-\>\<C-n>") }) | endif
+    augroup END
 endif
 " 既にターミナルを開いているときの処理
 function! TermOpen()
@@ -263,7 +317,7 @@ set fileencodings=utf-8,cp932,sjis,iso-2022-jp,euc-jp
 "set noexpandtab
 set expandtab
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 
 " Python設定
 autocmd FileType python setlocal tabstop=4
@@ -403,7 +457,7 @@ syntax on
 set cursorline
 
 augroup ColorSchemeSetting
-    colorscheme jellybeans
+    colorscheme rigel
     " ayu color
     "colorscheme ayu
     "ayucolor="light"  " for light version of theme
@@ -432,17 +486,17 @@ augroup ColorSchemeSetting
         highlight Special guibg=NONE
         highlight Identifier guibg=NONE
         highlight NonText guibg=NONE
-    else
+    else "vimの場合
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
             autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
             " 24bitColorのときの背景色設定
-            highlight Normal guibg=Gray3
-            highlight LineNr guibg=Gray3
-            highlight VertSplit guibg=Gray3
-            highlight Special guibg=Gray3
-            highlight Identifier guibg=Gray3
-            highlight NonText guibg=Gray3
+            "highlight Normal guibg=Gray3
+            "highlight LineNr guibg=Gray3
+            "highlight VertSplit guibg=Gray3
+            "highlight Special guibg=Gray3
+            "highlight Identifier guibg=Gray3
+            "highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
             highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
@@ -464,8 +518,8 @@ augroup ColorSchemeSetting
                 highlight Conceal ctermbg=NONE
                 highlight NonText ctermbg=NONE
             endif
-        endif
-    endif
+        endif "&termguicolors
+    endif "nvim、vim条件分岐
 
     " Errorの色を変更
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
@@ -521,12 +575,16 @@ set autoindent
 
 "ターミナルの指定
 if has('win32') "Windows
-   set shell=pwsh
+    if executable('pwsh')
+        set shell=pwsh
+    elseif executable('powershell')
+        set shell=powershell
+    endif
 endif
 
 " Neovide
-if (exists("g:neovide"))
-    colorscheme ayu
+if exists("g:neovide")
+    "colorscheme ayu
     " コメント色
     highlight Comment ctermfg=DarkGreen
     " Errorの色を変更
@@ -535,7 +593,8 @@ if (exists("g:neovide"))
     highlight Todo ctermfg=0 guifg=#F78A81
     let g:neovide_remember_window_size = v:true
     let g:neovide_cursor_vfx_mode = "railgun"
-    let g:neovide_cursor_vfx_mode = "ripple"
+    let g:neovide_cursor_vfx_mode = "modidied"
+"ripple
     set guifont=CaskaydiaCove\ Nerd\ Font\ Mono:h12
     let g:neovide_transparency=0.95
     function! ToggleFullscreen()
