@@ -36,7 +36,7 @@ function Call-CommandPath {
 function Start-OhMyPosh {
     #Import-Module posh-git
     #Import-Module oh-my-posh
-    Set-PoshPrompt -Theme negligible
+    #Set-PoshPrompt -Theme negligible
     # $GitPromptSettings.AnsiConsole = $true
     $Env:POSHGIT_CYGWIN_WARNING = 'off'
 }
@@ -45,6 +45,7 @@ function Start-StarShip {
     Invoke-Expression (&starship init powershell)
 }
 
+#標準で同行されてからImportが必要なくなった...?
 #Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
@@ -55,6 +56,9 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 # fish風のオートサジェスト機能を有効に
 Set-PSReadLineOption -PredictionSource History
+
+#DockerCompletion(Dockerコマンド補完)
+Import-Module DockerCompletion
 
 
 # nvimエイリアス
@@ -92,6 +96,9 @@ Set-Alias ss Start-StarShip
 
 #パイプ通過時、コンソール出力時の文字コード
 $OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
+
+#コンソールへの出力時のエンコード（文字出力が文字化けする場合）
+[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
 # Rust目的で導入したOpenSSL
 #$env:OPENSSL_LIB_DIR="C:\Program Files\OpenSSL-Win64"
