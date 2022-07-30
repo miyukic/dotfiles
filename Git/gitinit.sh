@@ -19,6 +19,9 @@ if type git > /dev/null 2>&1; then
     if type vim > /dev/null 2>&1; then
         git config --global core.editor 'vim -c "set fenc=utf-8"'
     fi
+
+    # ファイルモード（アクセス権等)の変更を変更と見なさない
+    git config core.filemode false
 fi
 
 cd $from
