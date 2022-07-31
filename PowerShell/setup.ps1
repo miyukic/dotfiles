@@ -1,6 +1,6 @@
 #Set-StrictMode -Version Latest
 
-function Install-ModuleEx([stinrg]$Name, $Args) {
+function Install-ModuleEx([string]$Name, $Args) {
     if (Get-Module -ListAvailable -Name $Name) {
     } else {
         Install-Module -Name $Name
@@ -13,9 +13,9 @@ Install-ModuleEx -Name PowerShellGet
 Install-ModuleEx -Name PSReadLine
 #DockerCompletion
 if (-Not (Get-Module -ListAvailable -Name DockerCompletion)) {
-} else {
     Install-Module DockerCompletion -Scope CurrentUser
 }
+
 
 #コマンド存在チェック
 #true or falseで返る

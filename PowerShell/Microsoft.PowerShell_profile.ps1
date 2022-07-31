@@ -100,6 +100,8 @@ $OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 #コンソールへの出力時のエンコード（文字出力が文字化けする場合）
 [Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
 
-# Rust目的で導入したOpenSSL
-#$env:OPENSSL_LIB_DIR="C:\Program Files\OpenSSL-Win64"
-#$env:OPENSSL_INCLUDE_DIR="C:\Program Files\OpenSSL-Win64\include"
+#zoxide
+Invoke-Expression (& {
+        $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+        (zoxide init --hook $hook powershell | Out-String)
+        })
