@@ -479,47 +479,56 @@ augroup ColorSchemeSetting
         " 24bitColorのときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
         highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
-        " 背景色設定
-        highlight Normal guibg=NONE
-        highlight LineNr guibg=NONE
-        highlight VertSplit guibg=NONE
-        highlight Special guibg=NONE
-        highlight Identifier guibg=NONE
-        highlight NonText guibg=NONE
     else "vimの場合
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
             autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
-            " 24bitColorのときの背景色設定
-            "highlight Normal guibg=Gray3
-            "highlight LineNr guibg=Gray3
-            "highlight VertSplit guibg=Gray3
-            "highlight Special guibg=Gray3
-            "highlight Identifier guibg=Gray3
-            "highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
             highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
             "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-            " 256Color のときの背景色の設定
-            "highlight Normal guibg=NONE
-            "highlight LineNr guibg=NONE
-            "highlight VertSplit guibg=NONE
-            "highlight Special guibg=NONE
-            "highlight Identifier guibg=NONE
-            if has('unix') " Windows上で背景を透過できない不具合?対策
-                highlight Normal ctermbg=NONE
-                highlight LineNr ctermbg=NONE
-                highlight VertSplit ctermbg=NONE
-                highlight Special ctermbg=NONE
-                highlight Identifier ctermbg=NONE
-                highlight EndOfBuffer ctermbg=NONE
-                highlight Folded ctermbg=NONE
-                highlight Conceal ctermbg=NONE
-                highlight NonText ctermbg=NONE
-            endif
         endif "&termguicolors
     endif "nvim、vim条件分岐
+    function! BgTransparent()
+        if has('nvim')
+            " 背景色設定
+            highlight Normal guibg=NONE
+            highlight LineNr guibg=NONE
+            highlight VertSplit guibg=NONE
+            highlight Special guibg=NONE
+            highlight Identifier guibg=NONE
+            highlight NonText guibg=NONE
+        else "vimの場合
+            if &termguicolors
+                " 24bitColorのときの背景色設定
+                "highlight Normal guibg=Gray3
+                "highlight LineNr guibg=Gray3
+                "highlight VertSplit guibg=Gray3
+                "highlight Special guibg=Gray3
+                "highlight Identifier guibg=Gray3
+                "highlight NonText guibg=Gray3
+            else
+                " 256Color のときの背景色の設定
+                "highlight Normal guibg=NONE
+                "highlight LineNr guibg=NONE
+                "highlight VertSplit guibg=NONE
+                "highlight Special guibg=NONE
+                "highlight Identifier guibg=NONE
+                if has('unix') " Windows上で背景を透過できない不具合?対策
+                    highlight Normal ctermbg=NONE
+                    highlight LineNr ctermbg=NONE
+                    highlight VertSplit ctermbg=NONE
+                    highlight Special ctermbg=NONE
+                    highlight Identifier ctermbg=NONE
+                    highlight EndOfBuffer ctermbg=NONE
+                    highlight Folded ctermbg=NONE
+                    highlight Conceal ctermbg=NONE
+                    highlight NonText ctermbg=NONE
+                endif
+            endif "&termguicolors
+        endif "nvim、vim条件分岐
+    endfunction
+    "call BgTransparent()
 
     " Errorの色を変更
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
