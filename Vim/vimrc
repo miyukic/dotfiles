@@ -324,8 +324,16 @@ autocmd FileType python setlocal tabstop=4
 
 " python3とRuby
 if has('win32') && ('nvim')
-    let g:python3_host_prog = '~\Anaconda3\python.EXE'
-    let g:python_host_prog = '~\Anaconda3\envs\py27\python.EXE'
+    if exists('~\Anaconda3\python.EXE')
+        "Anaconda
+        let g:python3_host_prog = '~\Anaconda3\python.EXE'
+        let g:python_host_prog = '~\Anaconda3\envs\py27\python.EXE'
+    else
+        "CPython
+        let g:python3_host_prog = '~\AppData\Local\Programs\Python\Python310\python.exe'
+        "let g:python_host_prog = 
+    endif
+        let g:python3_host_prog = '~\AppData\Local\Programs\Python\Python310\python.exe'
     let g:ruby_host_prog = '~\scoop\apps\ruby\current\gems\bin\neovim-ruby-host.bat'
 elseif has('unix') && ('nvim')
 endif
