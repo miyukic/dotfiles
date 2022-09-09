@@ -92,7 +92,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     "colorscheme ayu_dark wombat PaperColor one
     set noshowmode "ノーマルのモード表示をオフにする
     let g:lightline = {
-                \ 'colorscheme': 'rigel',
+                \ 'colorscheme': 'powerline',
                 \ 'mode_map': {'c': 'NORMAL'},
                 \ 'active': {
                 \   'left': [   [ 'mode', 'paste' ],
@@ -324,8 +324,16 @@ autocmd FileType python setlocal tabstop=4
 
 " python3とRuby
 if has('win32') && ('nvim')
-    let g:python3_host_prog = '~\Anaconda3\python.EXE'
-    let g:python_host_prog = '~\Anaconda3\envs\py27\python.EXE'
+    if exists('~\Anaconda3\python.EXE')
+        "Anaconda
+        let g:python3_host_prog = '~\Anaconda3\python.EXE'
+        let g:python_host_prog = '~\Anaconda3\envs\py27\python.EXE'
+    else
+        "CPython
+        let g:python3_host_prog = '~\AppData\Local\Programs\Python\Python310\python.exe'
+        "let g:python_host_prog = 
+    endif
+        let g:python3_host_prog = '~\AppData\Local\Programs\Python\Python310\python.exe'
     let g:ruby_host_prog = '~\scoop\apps\ruby\current\gems\bin\neovim-ruby-host.bat'
 elseif has('unix') && ('nvim')
 endif
@@ -457,19 +465,24 @@ syntax on
 set cursorline
 
 augroup ColorSchemeSetting
-    "colorscheme rigel
-    " ayu color
-    colorscheme ayu
-    "ayucolor="light"  " for light version of theme
-    let ayucolor="mirage" " for mirage version of theme
-    let ayucolor="dark"   " for dark version of theme
-    
+    if has("unix")
+        " ayu color
+        colorscheme ayu
+        "ayucolor="light"  " for light version of theme
+        let ayucolor="mirage" " for mirage version of theme
+        let ayucolor="dark"   " for dark version of theme
+        " ダーク系のカラースキームを使う
+        set background=dark
+    else
+        " Ubuntuだと対かっこ上にカーソルがあると薄くなってカーソルを見失う問題（対かっこハイライトの表示と...）
+        "colorscheme rigel
+        colorscheme ayu
+        "ayucolor="light"  " for light version of theme
+        let ayucolor="mirage" " for mirage version of theme
+        "let ayucolor="dark"   " for dark version of theme
+    endif
     "colorscheme PaperColor " カラースキーマ
-
-    " カラースキーマ
     "colorscheme molokai
-    " ダーク系のカラースキームを使う
-    set background=dark
 
     " コメント色
     highlight Comment ctermfg=DarkGreen
@@ -479,47 +492,56 @@ augroup ColorSchemeSetting
         " 24bitColorのときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
         highlight CursorLine gui=underline guifg=NONE guibg=NONE ctermbg=NONE
-        " 背景色設定
-        highlight Normal guibg=NONE
-        highlight LineNr guibg=NONE
-        highlight VertSplit guibg=NONE
-        highlight Special guibg=NONE
-        highlight Identifier guibg=NONE
-        highlight NonText guibg=NONE
     else "vimの場合
         if &termguicolors
             " 24bitColorのときのカレント行の色設定
             autocmd ColorScheme * highlight CursorLine cterm=underline guifg=NONE guibg=NONE
-            " 24bitColorのときの背景色設定
-            "highlight Normal guibg=Gray3
-            "highlight LineNr guibg=Gray3
-            "highlight VertSplit guibg=Gray3
-            "highlight Special guibg=Gray3
-            "highlight Identifier guibg=Gray3
-            "highlight NonText guibg=Gray3
         else
             " 256Color のときのカレント行の色設定
             highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
             "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-            " 256Color のときの背景色の設定
-            "highlight Normal guibg=NONE
-            "highlight LineNr guibg=NONE
-            "highlight VertSplit guibg=NONE
-            "highlight Special guibg=NONE
-            "highlight Identifier guibg=NONE
-            if has('unix') " Windows上で背景を透過できない不具合?対策
-                highlight Normal ctermbg=NONE
-                highlight LineNr ctermbg=NONE
-                highlight VertSplit ctermbg=NONE
-                highlight Special ctermbg=NONE
-                highlight Identifier ctermbg=NONE
-                highlight EndOfBuffer ctermbg=NONE
-                highlight Folded ctermbg=NONE
-                highlight Conceal ctermbg=NONE
-                highlight NonText ctermbg=NONE
-            endif
         endif "&termguicolors
     endif "nvim、vim条件分岐
+    function! BgTransparent()
+        if has('nvim')
+            " 背景色設定
+            highlight Normal guibg=NONE
+            highlight LineNr guibg=NONE
+            highlight VertSplit guibg=NONE
+            highlight Special guibg=NONE
+            highlight Identifier guibg=NONE
+            highlight NonText guibg=NONE
+        else "vimの場合
+            if &termguicolors
+                " 24bitColorのときの背景色設定
+                "highlight Normal guibg=Gray3
+                "highlight LineNr guibg=Gray3
+                "highlight VertSplit guibg=Gray3
+                "highlight Special guibg=Gray3
+                "highlight Identifier guibg=Gray3
+                "highlight NonText guibg=Gray3
+            else
+                " 256Color のときの背景色の設定
+                "highlight Normal guibg=NONE
+                "highlight LineNr guibg=NONE
+                "highlight VertSplit guibg=NONE
+                "highlight Special guibg=NONE
+                "highlight Identifier guibg=NONE
+                if has('unix') " Windows上で背景を透過できない不具合?対策
+                    highlight Normal ctermbg=NONE
+                    highlight LineNr ctermbg=NONE
+                    highlight VertSplit ctermbg=NONE
+                    highlight Special ctermbg=NONE
+                    highlight Identifier ctermbg=NONE
+                    highlight EndOfBuffer ctermbg=NONE
+                    highlight Folded ctermbg=NONE
+                    highlight Conceal ctermbg=NONE
+                    highlight NonText ctermbg=NONE
+                endif
+            endif "&termguicolors
+        endif "nvim、vim条件分岐
+    endfunction
+    "call BgTransparent()
 
     " Errorの色を変更
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929

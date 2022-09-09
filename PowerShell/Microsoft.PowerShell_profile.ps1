@@ -95,10 +95,16 @@ Set-Alias tree Call-lsd-tree
 Set-Alias ss Start-StarShip
 
 #パイプ通過時、コンソール出力時の文字コード
-$OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
+#(PowerShell 7はデフォルトでUTF-8なのでコメントアウト)
+#$OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 
 #コンソールへの出力時のエンコード（文字出力が文字化けする場合）
 [Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
+#標準入力の文字エンコード
+[Console]::InputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
+
+# git logなどのマルチバイト文字を表示させるため
+#$env:LESSCHARSET = "utf-8"
 
 #zoxide
 Invoke-Expression (& {
