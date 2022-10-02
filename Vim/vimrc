@@ -485,7 +485,7 @@ augroup ColorSchemeSetting
     "colorscheme molokai
 
     " コメント色
-    highlight Comment ctermfg=DarkGreen
+    "highlight Comment ctermfg=DarkGreen
     if has('nvim')
         " 256Color のときのカレント行の色設定
         "autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE "ctermbg=NONE
@@ -547,6 +547,10 @@ augroup ColorSchemeSetting
     highlight Error ctermfg=15 ctermbg=9 guifg=#F6F1DF guibg=#882929
     " Todoの色設定
     highlight Todo ctermfg=0 guifg=#F78A81
+
+" コメントの色
+highlight Comment ctermfg=DarkGreen
+highlight Comment guifg=Green
 
 augroup END
 
