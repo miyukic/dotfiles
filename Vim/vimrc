@@ -600,7 +600,7 @@ set autoindent
 :command! Mfile echo expand("%:p")
 
 "ターミナルの指定
-if has('win32') "Windows
+if has('win32') && !has('nvim') "Windows
     if executable('pwsh')
         set shell=pwsh
     elseif executable('powershell')
