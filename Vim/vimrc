@@ -550,7 +550,7 @@ augroup ColorSchemeSetting
 
 " コメントの色
 highlight Comment ctermfg=DarkGreen
-highlight Comment guifg=Green
+highlight Comment guifg=DarkGreen
 
 augroup END
 
