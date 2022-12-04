@@ -12,6 +12,9 @@ Still incomplete
     - `auto`        None CLI interactive mode.
     - `full`        Full install.
     - `curl`        When installing using curl.
+ 
+ ### experiment
+ curl.exe -s https://raw.githubusercontent.com/miyukic/dotfiles/master/bootstrap.bat | cmd
 
 ### 🐧Linux
 Still incomplete
