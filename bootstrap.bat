@@ -2,13 +2,13 @@ rem https://raw.githubusercontent.com/miyukic/dotfiles/master/bootstrap.bat
 @echo off
 chcp 65001
 
-if "%1" == "curl" (
-    GOTO GIT_INSTALL
-) else (
-    GOTO START
-)
+rem if "%1" == "curl" (
+rem     GOTO GIT_INSTALL
+rem ) else (
+rem     GOTO START
+rem )
 
-:GIT_INSTALL
+rem :GIT_INSTALL
 WHERE /Q git
 IF "%ERRORELEVEL%" == "0" (
     GOTO DOTFILES_CLONE
