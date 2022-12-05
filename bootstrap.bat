@@ -2,6 +2,14 @@ rem https://raw.githubusercontent.com/miyukic/dotfiles/master/bootstrap.bat
 @echo off
 chcp 65001
 
+if "%1" == "auto" (
+    GOTO START
+) else (
+    GOTO GIT_INSTALL
+)
+
+rem :GIT_INSTALL
+
 WHERE /Q git
 IF "%ERRORELEVEL%" == "0" (
     GOTO DOTFILES_CLONE
