@@ -46,7 +46,7 @@ function Start-StarShip {
 }
 
 #標準で同行されてからImportが必要なくなった...?
-#Import-Module PSReadLine
+Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
 # zsh風Tabの補完

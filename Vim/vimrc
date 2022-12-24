@@ -292,7 +292,7 @@ noremap <silent> <Space>@ :call TermOpen()<CR>
 " 水平分割時に下に追加されるようになる
 set splitbelow
 
-if version >= 801
+if version >= 801 && !has('nvim')
     " ターミナルの高さx幅
     set termwinsize=9x0
 endif
@@ -550,7 +550,7 @@ augroup ColorSchemeSetting
 
 " コメントの色
 highlight Comment ctermfg=DarkGreen
-highlight Comment guifg=Green
+highlight Comment guifg=DarkGreen
 
 augroup END
 
