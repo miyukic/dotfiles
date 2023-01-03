@@ -606,6 +606,8 @@ if has('win32') && !has('nvim') "Windows
     elseif executable('powershell')
         set shell=powershell
     endif
+elseif has('win32') && has('nvim') "Windows + vim plug + nvimでの不具合対策
+    set shell=cmd
 endif
 
 " Neovide
