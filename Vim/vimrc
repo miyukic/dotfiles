@@ -181,6 +181,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     let g:lsp_diagnostics_float_cursor = 1 "LSPのメッセージをポップアップウィンドウで表示する
     let g:lsp_signs_enabled = 1 "エラーの表示をファイルに直接する
     let g:lsp_log_verbose = 1
+    let g:lsp_diagnostics_virtual_text_enabled = 0 " インライン（行の右側）の診断メッセージを非表示
     "let g:lsp_log_file = expand('~/vim-lsp.log')
     " asyncomplete.vim log
     "let g:asyncomplete_log_file = expand('~/asyncomplete.log')
@@ -634,4 +635,6 @@ if exists("g:neovide")
     endfunctio
     nnoremap <silent><F11> :call ToggleFullscreen()<CR>
 endif
+
+
 
