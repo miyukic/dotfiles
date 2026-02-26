@@ -11,7 +11,7 @@ if "%1" == "auto" (
 rem :GIT_INSTALL
 
 WHERE /Q git
-IF "%ERRORELEVEL%" == "0" (
+IF "%ERRORLEVEL%" == "0" (
     GOTO DOTFILES_CLONE
 ) ELSE (
     GOTO GIT_INSTALL
@@ -20,7 +20,7 @@ IF "%ERRORELEVEL%" == "0" (
 :GIT_INSTALL
 rem winget install Git.Git
 WHERE /Q scoop
-IF "%ERRORELEVEL%" == "0" (
+IF "%ERRORLEVEL%" == "0" (
     echo "scoopは既にインストールされています"
     GOTO SKIP_SCOOP_INSTALL
 ) ELSE (
@@ -69,7 +69,7 @@ echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 rem Vimのインストール
 scoop install vim-nightly
 %~dp0\Vim\vim\vimrc-setup.bat
-echo ✅ bimのインストールが終わりました。
+echo ✅ Vimのインストールが終わりました。
 
 if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
