@@ -592,7 +592,7 @@ set wrapscan
 set hlsearch
 
 " 折り返さない
-set wrap
+set nowrap
 
 " オートインデント
 set autoindent
