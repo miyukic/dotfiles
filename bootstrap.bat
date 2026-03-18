@@ -65,12 +65,6 @@ powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
 call %~dp0\PowerShell\profile_placement.bat
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
-
-rem Vimのインストール
-scoop install vim-nightly
-call %~dp0\Vim\vim\vimrc-setup.bat
-echo ✅ Vimのインストールが終わりました。
-
 if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
     @pause
