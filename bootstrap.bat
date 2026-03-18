@@ -50,25 +50,25 @@ echo %~dp0
 echo.
 rem starship
 if NOT "%1" == "auto" (
-    .\starship\starship_install.bat
+    call .\starship\starship_install.bat
 ) ELSE (
-    .\starship\starship_install.bat auto
+    call .\starship\starship_install.bat auto
 )
 echo ✅ starshipのインストールが終わりました。
 
 rem git config
-.\Git\gitinit.bat
+call .\Git\gitinit.bat
 echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール
 powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
-%~dp0\PowerShell\profile_placement.bat
+call %~dp0\PowerShell\profile_placement.bat
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
 
 rem Vimのインストール
 scoop install vim-nightly
-%~dp0\Vim\vim\vimrc-setup.bat
+call %~dp0\Vim\vim\vimrc-setup.bat
 echo ✅ Vimのインストールが終わりました。
 
 if NOT "%1" == "auto" (
