@@ -33,7 +33,7 @@ function IsExistCommand([string] $command) {
 if ($result) { #存在する場合
     Write-Output "pwsh is already installed."
 } else { #存在しない場合
-    winget install PowerShell.Windows --accept-source-agreements
+    winget install PowerShell.Windows --accept-source-agreements --accept-package-agreements
     $result = IsExistCommand("pwsh")
     if ($result) { 
         Write-Output "Flailed to install pwsh."

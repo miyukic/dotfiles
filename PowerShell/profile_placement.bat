@@ -44,5 +44,3 @@ rem         )
 rem         pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
 rem     )
 rem )
-
-@pause
