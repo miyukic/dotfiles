@@ -8,7 +8,7 @@ if "%1" == "auto" (
     GOTO GIT_INSTALL
 )
 
-rem :GIT_INSTALL
+GIT_INSTALL:
 
 WHERE /Q git
 IF "%ERRORLEVEL%" == "0" (
@@ -61,8 +61,8 @@ if NOT "%1" == "auto" (
 echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール
-%~dp0\PowerShell\vimrc-setup.bat
-pwsh -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
+%~dp0\PowerShell\profile_placement.bat
+powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
 

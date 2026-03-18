@@ -42,7 +42,8 @@ $result = IsExistCommand("scoop")
 if ($result) { 
     Write-Output "scoopはインストール済みです"
 } else { 
-    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force iwr -useb get.scoop.sh | iex
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    iwr -useb get.scoop.sh | iex
     $result = IsExistCommand("scoop")
     if ($result) {
         Write-Output "scoopのインストールに失敗しました"
