@@ -17,7 +17,7 @@ Install-ModuleEx -Name PowerShellGet
 Install-ModuleEx -Name PSReadLine
 #DockerCompletion
 if (-Not (Get-Module -ListAvailable -Name DockerCompletion)) {
-    Install-Module DockerCompletion -Scope CurrentUser
+    Install-Module DockerCompletion -Scope CurrentUser -Force
 }
 
 
