@@ -63,6 +63,6 @@ IF "%ERRORELEVEL%" == "1" (
     echo "PowerShellをインストールします"
     winget install --id Microsoft.PowerShell --source winget
 )
-pwsh -ExecutionPolicy RemoteSigned .\starship_install.ps1
+PowerShell -ExecutionPolicy RemoteSigned .\starship_install.ps1
 echo インストールが終わりました。
 :FIN_STARSHIP_CONFIG
