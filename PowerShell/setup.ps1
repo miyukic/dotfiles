@@ -27,12 +27,12 @@ function IsExistCommand([string] $command) {
 
 [Boolean] $result = IsExistCommand("pwsh")
 if ($result) { #存在する場合
-    Write-Output "PowerShell(pwsh)はインストール済みです"
+    Write-Output "pwsh is already installed."
 } else { #存在しない場合
     winget install PowerShell.Windows
     $result = IsExistCommand("pwsh")
     if ($result) { 
-        Write-Output "powershell(pwsh)のインストールに失敗しました"
+        Write-Output "Flailed to install pwsh."
         exit
     }
 }
@@ -40,19 +40,19 @@ if ($result) { #存在する場合
 
 $result = IsExistCommand("scoop")
 if ($result) { 
-    Write-Output "scoopはインストール済みです"
+    Write-Output "scoop is already installed."
 } else { 
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     iwr -useb get.scoop.sh | iex
     $result = IsExistCommand("scoop")
     if ($result) {
-        Write-Output "scoopのインストールに失敗しました"
+        Write-Output "Faled to install scoop."
         exit
     }
 }
 
 
-echo "scoopのバケットを追加処理します"
+echo "Adding scoop buckets..."
 [string[]]$installExtraBuckets = @("extras","versions","github-gh")
 [string[]]$notexists = @()
 $installExtraBuckets | Where-Object {
@@ -60,7 +60,7 @@ $installExtraBuckets | Where-Object {
         $notexists += $_
     }
 }
-$notexists | ForEach-Object {Write-Output "scoopに $_ bucket を追加します"; scoop bucket add $_ }
+$notexists | ForEach-Object {Write-Output "Adding $_ bucket to scoop."; scoop bucket add $_ }
 
 $installCommandList=@(
     "7zip","git","curl","fzf","git", "gsudo","lsd","neovim","vim-nightly","starship","winfetch", "less"
@@ -81,6 +81,6 @@ $installCommandList | ForEach-Object {
 }
 
 $notexists | ForEach-Object {
-    Write-Output "$_をインストールします"
+    Write-Output "Installing $_."
     scoop install $_
 }
