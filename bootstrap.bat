@@ -2,6 +2,7 @@ rem https://raw.githubusercontent.com/miyukic/dotfiles/master/bootstrap.bat
 @echo off
 chcp 65001
 
+
 if "%1" == "auto" (
     GOTO START
 ) else (
@@ -48,6 +49,21 @@ exit
 echo 現在のディレクトリ
 echo %~dp0
 echo.
+
+rem 開発者モード有効化
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d 1
+if NOT ERRORLEVEL 1 (
+    echo ✅ 開発者モードを有効化しました。
+)
+
+rem sudo有効化（Windows 11 24H2以降のみ）
+rem レジストリキーがあるかどうかで判定
+reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Sudo" >nul 2>&1
+if NOT ERRORLEVEL 1 (
+    reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Sudo" /v Enabled /t REG_DWORD /d 3 /f
+    echo ✅ インラインsudoを有効化しました。（Windows 11 24H2以降のみ）
+)
+
 rem starship
 if NOT "%1" == "auto" (
     call .\starship\starship_install.bat

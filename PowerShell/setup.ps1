@@ -1,8 +1,12 @@
 #Set-StrictMode -Version Latest
 
-# NuGetプロバイダーのインストール（Install-Moduleの前提条件）
-$result = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
-if ($result) { Write-Output "NuGet Provider is Installed" }
+# NuGetプロバイダーのインストール（Install-Moduleの前提条件PowerShell 5.1のみ）
+if ($PSVersionTable.PSVersion.Major -lt 6) {
+    $result = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
+    if ($result) { Write-Output "NuGet Provider is Installed." }
+} else {
+    Write-Output "pwsh7+ detected, skipping NuGet provider install."
+}
 
 function Install-ModuleEx([string]$Name, $Args) {
     if (Get-Module -ListAvailable -Name $Name) {
@@ -67,7 +71,9 @@ $installExtraBuckets | Where-Object {
 $notexists | ForEach-Object {Write-Output "Adding $_ bucket to scoop."; scoop bucket add $_ }
 
 $installCommandList=@(
-    "7zip","git","curl","fzf","git", "gsudo","lsd","neovim","vim-nightly","starship","winfetch", "less"
+    "7zip","git","curl","fzf","git", "gsudo","lsd","neovim","vim-nightly","starship",
+    "winfetch", "less, "zoxide",
+    "CascadiaCode-NF-Mono"
 )
 
 #micro, ripgrep, lessmsi, gow
