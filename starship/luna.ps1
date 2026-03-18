@@ -11,12 +11,12 @@ function create() {
 }
 
 if ($flag -eq "true") {
-    if (Test-Path "~\.config\starship.toml") {
-        Remove-Item ~\.config\starship.toml
+    if (Test-Path "$env:USERPROFILE\.config\starship.toml") {
+        Remove-Item "$env:USERPROFILE\.config\starship.toml"
         create
     }
 } else {
-    if (Test-Path "~\.config\starship.toml") {
+    if (Test-Path "$env:USERPROFILE\.config\starship.toml") {
     } else {
         create
     }
