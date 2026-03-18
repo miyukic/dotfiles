@@ -57,7 +57,7 @@ if ($result) {
 
 
 echo "Adding scoop buckets..."
-[string[]]$installExtraBuckets = @("extras","versions","github-gh")
+[string[]]$installExtraBuckets = @("extras","versions","gh")
 [string[]]$notexists = @()
 $installExtraBuckets | Where-Object {
     if ((scoop bucket list | Select-Object Name | ForEach-Object Name) -notcontains $_) {

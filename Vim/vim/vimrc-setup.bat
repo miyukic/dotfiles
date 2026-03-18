@@ -17,4 +17,3 @@ if not exist %VIMPLUG% (
 echo vim-plugのインストールを行います。
     curl -fLo %VIMPLUG% --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 )
-@pause
