@@ -36,6 +36,10 @@ powershell -c "iwr -useb get.scoop.sh | iex" && echo scoopのインストール�
 scoop install git
 
 :DOTFILES_CLONE
+if exist %USERPROFILE%\dotfiles (
+    echo dotfilesは既に存在します
+    GOTO START
+)
 git clone https://github.com/miyukic/dotfiles.git %USERPROFILE%\dotfiles
 start %USERPROFILE%\dotfiles\bootstrap.bat auto
 exit
@@ -61,8 +65,8 @@ if NOT "%1" == "auto" (
 echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール
-%~dp0\PowerShell\profile_placement.bat
 powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
+%~dp0\PowerShell\profile_placement.bat
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
 
