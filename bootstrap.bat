@@ -43,7 +43,7 @@ exit
 :START
 echo 現在のディレクトリ
 echo %~dp0
-echo;
+echo .
 rem starship
 if NOT "%1" == "auto" (
     .\starship\starship_install.bat
@@ -75,7 +75,7 @@ if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
     @pause
 ) ELSE (
-    echo;
-    echo;
+    echo.
+    echo.
     echo ✅ すべてのセットアップが完了しました。
 )
