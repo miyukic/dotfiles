@@ -3,7 +3,7 @@
 function Install-ModuleEx([string]$Name, $Args) {
     if (Get-Module -ListAvailable -Name $Name) {
     } else {
-        Install-Module -Name $Name
+        Install-Module -Name $Name -Force
     }
 }
 
