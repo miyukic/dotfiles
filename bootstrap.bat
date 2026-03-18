@@ -52,16 +52,12 @@ rem starship
 if NOT "%1" == "auto" (
     .\starship\starship_install.bat
 ) ELSE (
-    echo Y | .\starship\starship_install.bat
+    .\starship\starship_install.bat auto
 )
 echo ✅ starhipのインストールが終わりました。
 
 rem git config
-if NOT "%1" == "auto" (
-    .\Git\gitinit.bat
-) ELSE (
-    echo Y | .\Git\gitinit.bat
-)
+.\Git\gitinit.bat
 echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール

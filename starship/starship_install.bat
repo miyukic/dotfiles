@@ -48,6 +48,7 @@ IF NOT EXIST %USERPROFILE%\.config\starship.toml (
 )
 :INSTALL_STARSHIP_CONFIG
 echo "starshipの設定ファイル[~\.config\starshop.toml]"
+if "%1" == "auto" GOTO STARSHIP_INSTALL
 echo "を作成しますか?[実際には設定ファイルへのシンボリックリンクが生成されます] Y/N"
 set /P UserResp="入力: "
 rem echo %UserResp%
