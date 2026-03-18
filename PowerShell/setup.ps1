@@ -1,7 +1,7 @@
 #Set-StrictMode -Version Latest
 
 # NuGetプロバイダーのインストール（Install-Moduleの前提条件）
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
 
 function Install-ModuleEx([string]$Name, $Args) {
     if (Get-Module -ListAvailable -Name $Name) {
