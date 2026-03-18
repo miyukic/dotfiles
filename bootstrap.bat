@@ -47,14 +47,14 @@ exit
 :START
 echo 現在のディレクトリ
 echo %~dp0
-echo .
+echo.
 rem starship
 if NOT "%1" == "auto" (
     .\starship\starship_install.bat
 ) ELSE (
     .\starship\starship_install.bat auto
 )
-echo ✅ starhipのインストールが終わりました。
+echo ✅ starshipのインストールが終わりました。
 
 rem git config
 .\Git\gitinit.bat
