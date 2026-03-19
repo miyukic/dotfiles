@@ -107,7 +107,9 @@ Set-Alias ss Start-StarShip
 #$env:LESSCHARSET = "utf-8"
 
 #zoxide
-Invoke-Expression (& {
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& {
         $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
         (zoxide init --hook $hook powershell | Out-String)
-        })
+    })
+}
