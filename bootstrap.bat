@@ -45,6 +45,7 @@ start %USERPROFILE%\dotfiles\bootstrap.bat auto
 exit
 
 :START
+set PATH=%PATH%;%USERPROFILE%\scoop\shims
 echo 現在のディレクトリ
 echo %~dp0
 echo.
