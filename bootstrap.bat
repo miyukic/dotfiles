@@ -79,6 +79,10 @@ powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
 call %~dp0\PowerShell\profile_placement.bat
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
+rem OpenSSH Server setup
+gsudo pwsh -ExecutionPolicy RemoteSigned -File %~dp0\PowerShell\OpenSSH-Setup.ps1
+echo ✅ OpenSSH Serverのセットアップが終わりました。
+
 if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
     @pause
