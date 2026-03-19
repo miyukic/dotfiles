@@ -14,11 +14,11 @@ rem リンクファイルが存在するかどうか
 IF EXIST %LINK_FILE_PATH%. (
     echo true
     del %LINK_FILE_PATH%
-    sudo mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
+    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 ) else (
     echo false
     mkdir %USERPROFILE%\Documents\PowerShell
-    sudo mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
+    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 )
 
 rem ) ELSE (

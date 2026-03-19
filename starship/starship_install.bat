@@ -3,8 +3,8 @@ chcp 65001
 
 @rem scoopコマンド存在確認
 
-echo;
-echo;
+echo.
+echo.
 
 WHERE /Q scoop
 IF "%ERRORELEVEL%" == "1" (
@@ -19,7 +19,7 @@ IF "%ERRORELEVEL%" == "1" (
     echo "scoopは既にインストールされています"
 )
 
-echo;
+echo.
 
 @rem starshipコマンド存在確認
 WHERE /Q starship
@@ -30,7 +30,7 @@ IF "%ERRORELEVEL%" == "1" (
     echo "starshipは既にインストールされています"
 )
 
-echo;
+echo.
 
 rem .configフォルダの作成
 IF NOT EXIST %USERPROFILE%\.config\ (
@@ -38,14 +38,11 @@ IF NOT EXIST %USERPROFILE%\.config\ (
     mkdir %USERPROFILE%\.config
 )
 
-echo;
+echo.
 
 rem starship設定ファイルの作成(シンボリックリンクの作成)
-IF NOT EXIST %USERPROFILE%\.config\starship.toml (
-    GOTO INSTALL_STARSHIP_CONFIG
-) ELSE (
-    GOTO FIN_STARSHIP_CONFIG
-)
+rem 既存ファイルがあっても強制的にシンボリックリンクに置き換える
+GOTO INSTALL_STARSHIP_CONFIG
 :INSTALL_STARSHIP_CONFIG
 echo "starshipの設定ファイル[~\.config\starshop.toml]"
 if "%1" == "auto" GOTO STARSHIP_INSTALL
@@ -63,6 +60,6 @@ IF "%ERRORELEVEL%" == "1" (
     echo "PowerShellをインストールします"
     winget install --id Microsoft.PowerShell --source winget
 )
-PowerShell -ExecutionPolicy RemoteSigned %~dp0luna.ps1
+pwsh -ExecutionPolicy RemoteSigned -File %~dp0luna.ps1
 echo インストールが終わりました。
 :FIN_STARSHIP_CONFIG
