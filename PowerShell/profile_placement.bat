@@ -14,12 +14,13 @@ rem リンクファイルが存在するかどうか
 IF EXIST %LINK_FILE_PATH%. (
     echo true
     del %LINK_FILE_PATH%
-    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 ) else (
     echo false
     mkdir %USERPROFILE%\Documents\PowerShell
-    mklink %LINK_FILE_PATH% %~dp0%PROFILE_NAME%
 )
+rem シンボリックリンクの代わりに実体ファイルを生成（SSH接続時のuntrusted mount point回避）
+echo . "%~dp0%PROFILE_NAME%" > %LINK_FILE_PATH%
+echo profile_placement: %LINK_FILE_PATH% created with dot-source.
 
 rem ) ELSE (
 rem     echo "すでにファイルが存在しています"

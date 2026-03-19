@@ -108,8 +108,8 @@ Set-Alias ss Start-StarShip
 
 #zoxide
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    Invoke-Expression (& {
-        $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
-        (zoxide init --hook $hook powershell | Out-String)
-    })
+    $zoxideOut = & zoxide init --hook pwd powershell 2>$null
+    if ($zoxideOut) {
+        Invoke-Expression $zoxideOut
+    }
 }
