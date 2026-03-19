@@ -75,6 +75,10 @@ rem git config
 call .\Git\gitinit.bat
 echo ✅ gitconfigの設定が終わりました。
 
+rem vim設定ファイルのシンボリックリンク作成
+call .\Vim\vim\vimrc-setup.bat
+echo ✅ vimの設定が終わりました。
+
 rem pwshのインストール
 powershell -ExecutionPolicy RemoteSigned -File .\PowerShell\setup.ps1
 call %~dp0\PowerShell\profile_placement.bat
