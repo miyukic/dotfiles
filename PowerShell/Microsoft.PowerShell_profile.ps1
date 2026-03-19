@@ -107,9 +107,6 @@ Set-Alias ss Start-StarShip
 #$env:LESSCHARSET = "utf-8"
 
 #zoxide
-if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    $zoxideOut = & zoxide init --hook pwd powershell 2>$null
-    if ($zoxideOut) {
-        Invoke-Expression $zoxideOut
-    }
+if (Get-Command zoxide -ErrorAction SilentlyContinue | Out-Null) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }

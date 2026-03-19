@@ -1,6 +1,6 @@
 #Set-StrictMode -Version Latest
 
-# NuGetプロバイダーのインストール（Install-Moduleの前提条件PowerShell 5.1のみ）
+# NuGetプロバイダーのインストール（PowerShell 5.1が前提。pwsh7+では不要だがスキップ）
 if ($PSVersionTable.PSVersion.Major -lt 6) {
     $result = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser
     if ($result) { Write-Output "NuGet Provider is Installed." }
