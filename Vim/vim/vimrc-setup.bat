@@ -15,4 +15,11 @@ set VIMPLUG=%USERPROFILE%/vimfiles/autoload/plug.vim
 if not exist %VIMPLUG% (
 echo vim-plugのインストールを行います。
     curl -fLo %VIMPLUG% --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    rem vim-plugのプラグインインストール
+    vim -c ":PlugInstall" -c ":q!" -c ":q!"
+    if %ERRORLEVEL% == 0 (
+        echo vim-plugのプラグインのインストールが完了しました。
+    ) else (
+        echo vim-plugのプラグインインストールに失敗しました。
+    )
 )
