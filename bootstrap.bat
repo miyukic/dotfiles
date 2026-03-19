@@ -76,7 +76,7 @@ call .\Git\gitinit.bat
 echo ✅ gitconfigの設定が終わりました。
 
 rem pwshのインストール
-powershell -ExecutionPolicy RemoteSigned -Command .\PowerShell\setup.ps1
+powershell -ExecutionPolicy RemoteSigned -File .\PowerShell\setup.ps1
 call %~dp0\PowerShell\profile_placement.bat
 echo "✅ PowerShell(pwsh)のインストールが終わりました。"
 
