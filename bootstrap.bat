@@ -6,11 +6,10 @@ chcp 65001
 if "%1" == "auto" (
     GOTO START
 ) else (
-    GOTO GIT_INSTALL
+    GOTO GIT_CHECK
 )
 
-GIT_INSTALL:
-
+:GIT_CHECK
 WHERE /Q git
 IF "%ERRORLEVEL%" == "0" (
     GOTO DOTFILES_CLONE
@@ -19,7 +18,7 @@ IF "%ERRORLEVEL%" == "0" (
 )
 
 :GIT_INSTALL
-rem winget install Git.Git
+rem Install Git via scoop if not found
 WHERE /Q scoop
 IF "%ERRORLEVEL%" == "0" (
     echo "scoopは既にインストールされています"
@@ -50,18 +49,17 @@ echo 現在のディレクトリ
 echo %~dp0
 echo.
 
-rem 開発者モード有効化
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d 1
-if NOT ERRORLEVEL 1 (
+rem --- Enable Developer Mode ---
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d 1 >nul 2>&1
+if %ERRORLEVEL% EQU 0 (
     echo ✅ 開発者モードを有効化しました。
 )
 
-rem sudo有効化（Windows 11 24H2以降のみ）
-rem レジストリキーがあるかどうかで判定
+rem --- Enable inline sudo for Windows 11 24H2 or later ---
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Sudo" >nul 2>&1
-if NOT ERRORLEVEL 1 (
-    reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Sudo" /v Enabled /t REG_DWORD /d 3 /f
-    echo ✅ インラインsudoを有効化しました。（Windows 11 24H2以降のみ）
+if %ERRORLEVEL% EQU 0 (
+    reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Sudo" /v Enabled /t REG_DWORD /d 3 /f >nul 2>&1
+    echo ✅ インラインsudoを有効化しました。
 )
 
 rem starship
