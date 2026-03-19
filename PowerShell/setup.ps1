@@ -72,7 +72,7 @@ $notexists | ForEach-Object {Write-Output "Adding $_ bucket to scoop."; scoop bu
 
 $installCommandList=@(
     "7zip","git","curl","fzf","git", "gsudo","lsd","neovim","vim-nightly","starship",
-    "winfetch", "less, "zoxide",
+    "winfetch", "less", "zoxide",
     "CascadiaCode-NF-Mono"
 )
 

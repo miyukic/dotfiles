@@ -2,12 +2,11 @@
 
 Param([string]$flag = "true")
 
-$CPATH=pwd
+$CPATH = $PSScriptRoot
 
 function create() {
-# Write-Outputの日本語コメントはpowershell 5.1でCP932誤認識されるため削除
-#    Write-Output ".\starship.toml -> ~\.config\starship.tomlにシンボリックリンクを作成します"
-    New-Item -Path ~\.config\ -Name starship.toml -Value $CPATH\starship.toml -ItemType SymbolicLink
+    # Write-Outputの日本語コメントはpowershell 5.1でCP932誤認識されるため削除
+    New-Item -Path ~\.config\ -Name starship.toml -Value "$CPATH\starship.toml" -ItemType SymbolicLink
 #sudo cmd -c mklink.exe ~\.config\starship.toml .\starship.toml ; exit
 }
 
