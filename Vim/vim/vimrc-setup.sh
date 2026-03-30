@@ -15,20 +15,20 @@ create_link() {
     echo "${TARGET_DIR}${vimrc}にシンボリックリンクを作成しました！"
 }
 
-echo "${TARGET_DIR}に名前 ${vimrc} でシンボリックリンクを作成します。"
+echo "${TARGET_DIR}に名前 ${vimrc} でシンボリックリンクを作成します"
 while true
 do
 
 	echo ""
     if [ -e $TARGET_DIR$vimrc ]; then
-        echo ".vimrcは存在しています。削除して置き換えますか？(Y/N)"
+        echo ".vimrcは存在しています 削除して置き換えますか？(Y/N)"
         read resp
         if [ $resp = "Y" ]; then
-            echo "Yが入力されました。"
-            echo "${TARGET_DIR}${vimrc}が削除されました。"
+            echo "Yが入力されました"
+            echo "${TARGET_DIR}${vimrc}が削除されました"
 	    create_link && break
         elif [ $resp = "N" ]; then
-            echo "Nが入力されました。" && break
+            echo "Nが入力されました" && break
         else
             echo "Y/Nを入力してください"
         fi
@@ -46,9 +46,9 @@ if [ ! -e $VIMPLUG ]; then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     # vim-plug PlugInstallの実行
     if vim -c :PlugInstall -c :q! -c :q!; then
-        echo "vim-plugのプラグインのインストールが完了しました。"
+        echo "vim-plugのプラグインのインストールが完了しました"
     else
-        echo "vim-plugのプラグインインストールに失敗しました。"
+        echo "vim-plugのプラグインインストールに失敗しました"
     fi
 fi
 
