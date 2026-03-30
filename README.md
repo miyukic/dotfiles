@@ -25,3 +25,6 @@ Still incomplete
 - options:
     - `auto`        None CLI interactive mode.
     - `full`        Full install.
+
+### 🧠 Locus System
+The Locus System files (AI context, memory, and rules) have been permanently migrated to the `~\locus` directory. Please use the `locus` directory for all Locus System updates.

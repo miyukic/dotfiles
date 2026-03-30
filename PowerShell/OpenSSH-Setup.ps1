@@ -53,14 +53,20 @@ Set-SshdOption "Port"                   "50041"
 Set-SshdOption "PasswordAuthentication" "no"
 Set-SshdOption "PubkeyAuthentication"   "yes"
 
-# Comment out Administrators_authorized_keys override
-# so ~/.ssh/authorized_keys works for admin users too
+# Restore Administrators_authorized_keys override (default Windows OpenSSH behavior)
+# This prevents SSH sessions from getting elevated tokens
 $content = Get-Content $configPath -Raw
-if ($content -match "(?m)^Match Group administrators") {
-    $content = $content -replace "(?m)^(Match Group administrators)", "#`$1"
-    $content = $content -replace "(?m)^(\s*AuthorizedKeysFile __PROGRAMDATA__)", "#`$1"
+if ($content -match "(?m)^#Match Group administrators") {
+    $content = $content -replace "(?m)^#(Match Group administrators)", "`$1"
+    $content = $content -replace "(?m)^#(\s*AuthorizedKeysFile __PROGRAMDATA__)", "`$1"
     Set-Content $configPath $content -Encoding UTF8
-    Write-Output "  Disabled Administrators_authorized_keys override."
+    Write-Output "  Restored Administrators_authorized_keys override."
+} elseif ($content -notmatch "(?m)^Match Group administrators") {
+    $content += "`nMatch Group administrators`n       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys"
+    Set-Content $configPath $content -Encoding UTF8
+    Write-Output "  Added Administrators_authorized_keys override."
+} else {
+    Write-Output "  Administrators_authorized_keys override already set."
 }
 
 Write-Output "  sshd_config updated."
