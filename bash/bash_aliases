@@ -7,3 +7,6 @@ alias python=python3
 alias mv="mv -i"
 alias explorer="nautilus"
 
+
+# Docker: 最後のコンテナのログ末尾20行を表示
+alias dlogs='docker logs $(docker ps -lq) 2>&1 | tail -20'
