@@ -180,11 +180,17 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     let g:lsp_diagnostics_echo_cursor = 1 "エラー行にカーソルをあわせたときにエラーの理由をする
     let g:lsp_diagnostics_float_cursor = 1 "LSPのメッセージをポップアップウィンドウで表示する
     let g:lsp_signs_enabled = 1 "エラーの表示をファイルに直接する
-    let g:lsp_log_verbose = 1
     let g:lsp_diagnostics_virtual_text_enabled = 0 " インライン（行の右側）の診断メッセージを非表示
-    "let g:lsp_log_file = expand('~/vim-lsp.log')
+    " lsp log表示
+    let g:lsp_log_verbose = 1
+    let g:lsp_log_file = expand('~/vim-lsp.log')
+
     " asyncomplete.vim log
     "let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+    
+    "omnisharpが動かない・・・
+    let $DOTNET_ROOT = 'C:\Program Files\dotnet'
+    let $MSBuildSDKsPath = 'C:\Program Files\dotnet\sdk\6.0.321\Sdks'"
 
     " pylsの設定。LinterのON/OFFなどが可能
     let s:pyls_config = {'pyls': {'plugins': {
@@ -636,5 +642,5 @@ if exists("g:neovide")
     nnoremap <silent><F11> :call ToggleFullscreen()<CR>
 endif
 
-
+let $MSBUILD_EXE_PATH = 'C:\Program Files\Microsoft VisualStudio\2022\Community\MSBuild\Current\Bin\MSBuild.exe'
 

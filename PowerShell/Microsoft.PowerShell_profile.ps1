@@ -106,6 +106,15 @@ Set-Alias ss Start-StarShip
 # git logなどのマルチバイト文字を表示させるため
 #$env:LESSCHARSET = "utf-8"
 
+# CoudeCodeのエディタ設定
+$env:EDITOR = "vim"
+
+if ($env:COMPUTERNAME -eq "WORK1") {
+    $env:CLAUDE_CODE_GIT_BASH_PATH = "C:\Users\tikyu_nc4xv8l\scoop\shims\git-bash.exe"
+} else {
+    $env:CLAUDE_CODE_GIT_BASH_PATH = "C:\Users\tikyu\scoop\shims\git-bash.exe"
+}
+
 #zoxide
 if (Get-Command zoxide -ErrorAction SilentlyContinue | Out-Null) {
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
