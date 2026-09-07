@@ -58,7 +58,9 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadLineOption -PredictionSource History
 
 #DockerCompletion(Dockerコマンド補完)
-Import-Module DockerCompletion
+if (Get-Module -ListAvailable -Name DockerCompletion) {
+    Import-Module DockerCompletion
+}
 
 
 # nvimエイリアス
