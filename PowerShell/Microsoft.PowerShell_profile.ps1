@@ -41,6 +41,19 @@ function Start-OhMyPosh {
     $Env:POSHGIT_CYGWIN_WARNING = 'off'
 }
 
+function Get-CdxResetLimit {
+    $a=Get-Content -Raw (Join-Path $HOME '.codex\auth.json') | ConvertFrom-Json;
+    $h=@{Authorization="Bearer $($a.tokens.access_token)";
+    'OpenAI-Beta'='codex-1';originator='Codex Desktop'};
+    if($a.tokens.account_id){$h['ChatGPT-Account-ID']=$a.tokens.account_id};
+    $r=Invoke-RestMethod -Uri 'https://chatgpt.com/backend-api/wham/rate-limit-reset-credits' -Headers $h -Method Get -TimeoutSec 30;
+    "利用可能なリセット権: $($r.available_count)個";
+    @($r.credits) | ForEach-Object{[pscustomobject]@{状態=$_.status;
+    付与日時=$(if($_.granted_at){([DateTimeOffset]::Parse($_.granted_at)).ToLocalTime().ToString('yyyy-MM-dd HH:mm:ss zzz')}else{'不明'});
+    有効期限=$(if($_.expires_at){([DateTimeOffset]::Parse($_.expires_at)).ToLocalTime().ToString('yyyy-MM-dd HH:mm:ss zzz')}else{'不明'})}} | Format-Table -AutoSize
+
+}
+
 function Start-StarShip {
     Invoke-Expression (&starship init powershell)
 }
