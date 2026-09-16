@@ -53,20 +53,18 @@ Set-SshdOption "Port"                   "50041"
 Set-SshdOption "PasswordAuthentication" "no"
 Set-SshdOption "PubkeyAuthentication"   "yes"
 
-# Restore Administrators_authorized_keys override (default Windows OpenSSH behavior)
-# This prevents SSH sessions from getting elevated tokens
+# Comment out the Match Group administrators block if present.
+# When active, Windows OpenSSH ignores ~/.ssh/authorized_keys for users in the
+# Administrators group and reads C:\ProgramData\ssh\administrators_authorized_keys instead.
+# We disable this so all users use the same ~/.ssh/authorized_keys path (simpler, less trap-prone).
 $content = Get-Content $configPath -Raw
-if ($content -match "(?m)^#Match Group administrators") {
-    $content = $content -replace "(?m)^#(Match Group administrators)", "`$1"
-    $content = $content -replace "(?m)^#(\s*AuthorizedKeysFile __PROGRAMDATA__)", "`$1"
+if ($content -match "(?m)^Match Group administrators") {
+    $content = $content -replace "(?m)^(Match Group administrators)", "#`$1"
+    $content = $content -replace "(?m)^(\s*AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys)", "#`$1"
     Set-Content $configPath $content -Encoding UTF8
-    Write-Output "  Restored Administrators_authorized_keys override."
-} elseif ($content -notmatch "(?m)^Match Group administrators") {
-    $content += "`nMatch Group administrators`n       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys"
-    Set-Content $configPath $content -Encoding UTF8
-    Write-Output "  Added Administrators_authorized_keys override."
+    Write-Output "  Commented out Match Group administrators block (using ~/.ssh/authorized_keys for all users)."
 } else {
-    Write-Output "  Administrators_authorized_keys override already set."
+    Write-Output "  Match Group administrators block not active (OK)."
 }
 
 Write-Output "  sshd_config updated."
@@ -102,6 +100,11 @@ Write-Output "      Copy your existing private/public key files."
 Write-Output ""
 Write-Output "  Then place the public key on THIS machine:"
 Write-Output "      Path: C:\Users\<USERNAME>\.ssh\authorized_keys"
+Write-Output ""
+Write-Output "  NOTE: The Match Group administrators block in sshd_config is DISABLED by this"
+Write-Output "        script, so ~/.ssh/authorized_keys works for all users including Admins."
+Write-Output "        (Default Windows OpenSSH behavior overrides to ProgramData for Admins,"
+Write-Output "        which is a common trap - this script opts out of it.)"
 Write-Output ""
 Write-Output "  Permissions fix (run on this machine if auth fails):"
 Write-Output "      icacls `$env:USERPROFILE\.ssh\authorized_keys /inheritance:r /grant `"$env:USERNAME`:F`""
