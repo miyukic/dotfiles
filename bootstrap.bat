@@ -88,6 +88,10 @@ rem OpenSSH Server setup
 gsudo pwsh -ExecutionPolicy RemoteSigned -File %~dp0\PowerShell\OpenSSH-Setup.ps1
 echo ✅ OpenSSH Serverのセットアップが終わりました。
 
+rem OpenCode plugin repository loader
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0OpenCode\setup.ps1"
+if errorlevel 1 exit /b 1
+
 if NOT "%1" == "auto" (
     echo ✅ すべてのセットアップが完了しました。
     @pause
