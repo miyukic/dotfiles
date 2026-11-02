@@ -5,9 +5,9 @@
 // 入れ替え本体は WMI (Win32_Process.Create) で起動する。SSH から直接起動すると SSH セッションの Job Object に入り、
 // 切断やツールの中断と一緒に殺されて Strata が止まったまま残るため。こちらは結果ファイルができるのを待つだけ。
 import { execFile } from 'node:child_process';
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, stat, writeFile } from 'node:fs/promises';
 import { homedir, tmpdir } from 'node:os';
-import { basename, join } from 'node:path';
+import { basename, extname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const HOST = 'tikyu@work2.local';
@@ -53,11 +53,16 @@ export default async function GpuSwapImage() {
           'Generate one image with the local Flux3 klein model on WORK2 and save it into the project. ' +
           'The local LLM (you) is stopped while the image is generated and restarted afterwards, so the call ' +
           'takes about 4 minutes and the next reply re-reads the whole conversation. Write the prompt in English, ' +
-          'as a detailed description of the picture. Returns the saved file path.',
+          'as a detailed description of the picture. Returns the saved file path. ' +
+          'To keep a character or style from existing pictures, pass up to 3 image files as reference_images and ' +
+          'refer to them in the prompt as <ref_image_0>, <ref_image_1>, <ref_image_2> (e.g. "the same character as ' +
+          'in <ref_image_0>, now ..."). With references the output follows the first reference\'s aspect ratio.',
         args: {
           prompt: z.string().min(1).max(8000).describe('English description of the image'),
           width: z.number().int().min(256).max(2048).optional().describe('pixels, default 1024'),
           height: z.number().int().min(256).max(2048).optional().describe('pixels, default 1024'),
+          reference_images: z.array(z.string().min(1)).max(3).optional()
+            .describe('paths of PNG/JPEG/WebP files on this machine (absolute or relative to the project)'),
         },
         async execute(args, context) {
           const id = `oc-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
@@ -65,9 +70,22 @@ export default async function GpuSwapImage() {
           const resRemote = `${SWAP_DIR}\\requests\\${id}.result.json`;
           const tmp = await mkdtemp(join(tmpdir(), 'gpu-swap-'));
           try {
+            // 参照画像は Strata を止める前に全部確かめてから WORK2 へ送る
+            const refs = [];
+            for (const [i, p] of (args.reference_images ?? []).entries()) {
+              const local = resolve(context.directory, p);
+              const ext = extname(local).toLowerCase();
+              if (!['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) throw new Error(`reference must be PNG/JPEG/WebP: ${p}`);
+              if (!(await stat(local).catch(() => null))?.isFile()) throw new Error(`reference image not found: ${local}`);
+              refs.push({ local, remote: `${SWAP_DIR}\\requests\\${id}-ref${i}${ext}` });
+            }
+
             const reqLocal = join(tmp, `${id}.json`);
-            await writeFile(reqLocal, JSON.stringify({ prompt: args.prompt, width: args.width, height: args.height }), 'utf8');
+            await writeFile(reqLocal, JSON.stringify({
+              prompt: args.prompt, width: args.width, height: args.height, references: refs.map((r) => r.remote),
+            }), 'utf8');
             await remotePs(`New-Item -ItemType Directory -Force -Path '${SWAP_DIR}\\requests' | Out-Null`);
+            for (const r of refs) await scp(r.local, remotePath(r.remote));
             await scp(reqLocal, remotePath(reqRemote));
 
             const cmd = `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden ` +

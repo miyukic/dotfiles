@@ -1,6 +1,7 @@
 ﻿# Strata を止めて GPU を空け、ComfyUI で画像を1枚作り、Strata を元に戻す。各工程の秒数を runs\ に JSON で残す。
 # 生成が失敗しても finally で ComfyUI を止め、Strata は止める前に動いていた時だけ必ず戻す。
-# 手動: -Prompt で渡す。OpenCode から: -RequestFile (JSON: prompt/width/height/steps) と -ResultFile で渡す。
+# 手動: -Prompt で渡す。OpenCode から: -RequestFile (JSON: prompt/width/height/steps/references) と -ResultFile で渡す。
+# references は WORK2 上の画像パス (最大3枚)。ComfyUI\input に写して参照画像ワークフローで生成する。
 param(
     [string]$Prompt,
     [string]$RequestFile,
@@ -25,6 +26,7 @@ if ($RequestFile) {
     if ($req.width) { $Width = [int]$req.width }
     if ($req.height) { $Height = [int]$req.height }
     if ($req.steps) { $Steps = [int]$req.steps }
+    $References = @($req.references | Where-Object { $_ } | Select-Object -First 3)
 }
 
 $result = [ordered]@{ started = (Get-Date).ToString('s'); profile = $Profile; prompt = $Prompt; seconds = [ordered]@{}; vram_used_mib = [ordered]@{} }
@@ -70,6 +72,15 @@ try {
     # 同時に2本走ると GPU とStrataの止め戻しが壊れるので、1本ずつに限る。ロックはプロセス終了で OS が外す。
     try { $lock = [IO.File]::Open((Join-Path $runs 'swap.lock'), 'OpenOrCreate', 'ReadWrite', 'None') }
     catch { throw 'another swap is already running' }
+    # 参照画像は Strata を止める前に確かめる。無ければ何も止めずに失敗を返す。
+    $refNames = @()
+    foreach ($refSrc in @($References | Where-Object { $_ })) {
+        if (-not (Test-Path -LiteralPath $refSrc)) { throw "reference image not found: $refSrc" }
+        $refName = 'gpu-swap-ref-' + [IO.Path]::GetFileName($refSrc)
+        Copy-Item -LiteralPath $refSrc -Destination (Join-Path $root "ComfyUI_windows_portable\ComfyUI\input\$refName") -Force
+        $refNames += $refName
+    }
+    $result.references = $refNames
     $status =(& $strata runtime status --profile $Profile --json 2>$null | Out-String)
     $state = try { ($status | ConvertFrom-Json).state } catch { 'unknown' }
     $result.strata_state_before = $state
@@ -97,7 +108,12 @@ try {
     }
 
     Measure-Step 'image_generate' {
-        $json = & $python (Join-Path $here 'generate_image.py') --prompt $Prompt --width $Width --height $Height --steps $Steps --prefix 'gpu-swap' | Out-String
+        # PowerShell 5.1 は外部コマンドの引数内の " を正しく渡せないので、プロンプトはファイルで渡す
+        $promptFile = Join-Path $runs ('prompt-' + [guid]::NewGuid().ToString('N') + '.txt')
+        [IO.File]::WriteAllText($promptFile, $Prompt, (New-Object Text.UTF8Encoding $false))
+        $genArgs = @((Join-Path $here 'generate_image.py'), '--prompt-file', $promptFile, '--width', $Width, '--height', $Height, '--steps', $Steps, '--prefix', 'gpu-swap')
+        foreach ($n in $refNames) { $genArgs += @('--ref', $n) }
+        try { $json = & $python @genArgs | Out-String } finally { Remove-Item -LiteralPath $promptFile -ErrorAction SilentlyContinue }
         $gen = $json | ConvertFrom-Json
         if (-not $gen.ok) { throw "generation failed: $json" }
         # start_comfyui.ps1 は保存先を指定しないので ComfyUI\output に出る。デスクトップ起動 (--output-directory) なら output。実在する方を返す。

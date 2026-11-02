@@ -13,6 +13,9 @@ OpenCode 1.17.14で確認済み。`setup.ps1` は `plugins/` の全ファイル�
 - Strataは `strata runtime start` で起動している必要がある（デスクトップの「Strata 4bit」がそれ）。止める時は「Strata 4bit STOP」。
 - 依頼と結果は `gpu_swap\requests\`、各工程の秒数は `gpu_swap\runs\` に残る。同時に2本は走らない（ロック）。
 - ツールを中断しても、WORK2側は最後まで走ってStrataを戻す。
+- `reference_images`（最大3枚、PNG/JPEG/WebPのパス）を渡すと参照画像付きで生成する。プロンプトでは `<ref_image_0>` などで指す。
+  出力はComfyUIの「画像生成ワークフロー（元画像あり）」と同じ `ReferenceMultiLatent` 経由で、縦横比は1枚目の参照画像に合わせる。
+  チャットに貼った画像はファイルのパスが無いので、そのままでは渡せない。プロジェクト内に保存してから渡す。
 - 本体はdotfilesにあり `node_modules` が無いので、SDK（zod）は `~/.config/opencode/node_modules` から実行時に読む。
 
 ## 配置

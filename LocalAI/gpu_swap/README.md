@@ -8,7 +8,7 @@ Strataを止めて画像を作り、Strataを戻す。OpenCodeからは `OpenCod
 | ファイル | 配置先 | 役割 |
 |---|---|---|
 | `swap_image.ps1` | `E:\local-image-generation\gpu_swap\` | 入れ替え本体。Strata停止 → ComfyUI起動 → 生成 → ComfyUI停止 → Strata再起動 |
-| `generate_image.py` | `E:\local-image-generation\gpu_swap\` | ComfyUI APIで Flux3 klein の画像を1枚作る |
+| `generate_image.py` | `E:\local-image-generation\gpu_swap\` | ComfyUI APIで Flux3 klein の画像を1枚作る。`--ref` で参照画像（`ComfyUI\input` のファイル名、最大3枚）を使う |
 | `test_run.ps1` | `E:\local-image-generation\gpu_swap\` | 試運転用。Strataを起動してから入れ替えを1回 |
 | `open_strata_4bit.cmd` | `E:\local-image-generation\` | デスクトップ「Strata 4bit」。`runtime start` でバックグラウンド起動 |
 | `stop_strata_4bit.cmd` | `E:\local-image-generation\` | デスクトップ「Strata 4bit STOP」 |
