@@ -1,7 +1,19 @@
 ﻿# OpenCode
 
-Strataで現在ロードされているモデル名とコンテキスト上限を、OpenCodeの起動時に取り込むプラグイン。
-OpenCode 1.17.14で確認済み。
+- `strata-server-info.js`: Strataで現在ロードされているモデル名とコンテキスト上限を、OpenCodeの起動時に取り込む。
+- `gpu-swap-image.js`: `generate_image` ツール。WORK2でStrataを止めてComfyUI（Flux3 klein）で画像を作り、Strataを戻す。
+  画像はプロジェクトの `generated/` に保存される。1回約4分（大半はStrataの再起動）。下の「画像生成ツール」参照。
+
+OpenCode 1.17.14で確認済み。`setup.ps1` は `plugins/` の全ファイルに配置ファイルを作る。
+
+## 画像生成ツール（gpu-swap-image.js）
+
+- WORK2の `E:\local-image-generation\gpu_swap\swap_image.ps1` をSSH経由で呼ぶ（WORK2側の本体と配置手順は `LocalAI/gpu_swap/`）。入れ替え本体はWMI（`Win32_Process.Create`）で起動する。
+  SSHから直接起動すると、SSHセッションのJob Objectに入って切断と同時に殺され、Strataが止まったまま残るため（2026-11-03実測）。
+- Strataは `strata runtime start` で起動している必要がある（デスクトップの「Strata 4bit」がそれ）。止める時は「Strata 4bit STOP」。
+- 依頼と結果は `gpu_swap\requests\`、各工程の秒数は `gpu_swap\runs\` に残る。同時に2本は走らない（ロック）。
+- ツールを中断しても、WORK2側は最後まで走ってStrataを戻す。
+- 本体はdotfilesにあり `node_modules` が無いので、SDK（zod）は `~/.config/opencode/node_modules` から実行時に読む。
 
 ## 配置
 
